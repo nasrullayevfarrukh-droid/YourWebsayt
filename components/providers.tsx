@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import { MobileTouchEffects } from "@/components/ui/mobile-touch-effects";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 
@@ -15,6 +16,7 @@ export function Providers({ children }: ProvidersProps) {
     <SmoothScroll>
       <ScrollProgress />
       <CustomCursor />
+      <MobileTouchEffects />
       {children}
     </SmoothScroll>
   );

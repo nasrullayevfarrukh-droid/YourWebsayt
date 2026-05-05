@@ -21,6 +21,8 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
   return (
     <article
       data-cursor="card"
+      data-touch-surface="card"
+      data-touch-strength="strong"
       className={cn(
         "editorial-card group rounded-[32px] p-4 transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-accent)]/35 hover:shadow-[0_28px_90px_rgba(0,0,0,0.28)]",
         featured ? "lg:p-5" : ""

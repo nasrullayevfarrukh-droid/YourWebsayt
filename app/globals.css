@@ -139,6 +139,54 @@ img {
   }
 }
 
+@media (hover: none), (pointer: coarse) {
+  html.has-mobile-touch-effects a,
+  html.has-mobile-touch-effects button,
+  html.has-mobile-touch-effects input,
+  html.has-mobile-touch-effects textarea,
+  html.has-mobile-touch-effects select,
+  html.has-mobile-touch-effects [data-touch-surface] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.has-mobile-touch-effects [data-touch-surface="button"],
+  html.has-mobile-touch-effects [data-touch-surface="card"],
+  html.has-mobile-touch-effects button,
+  html.has-mobile-touch-effects a[href] {
+    transition:
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 180ms ease,
+      filter 180ms ease,
+      background-color 180ms ease;
+  }
+
+  html.has-mobile-touch-effects [data-touch-active="true"][data-touch-surface="button"],
+  html.has-mobile-touch-effects button[data-touch-active="true"] {
+    transform: translateY(1.5px) scale(0.985);
+    box-shadow:
+      0 0 0 1px rgba(167, 243, 208, 0.14),
+      0 0 24px rgba(0, 230, 118, 0.16),
+      0 16px 28px rgba(0, 0, 0, 0.22);
+    filter: saturate(1.06);
+  }
+
+  html.has-mobile-touch-effects [data-touch-active="true"][data-touch-surface="card"] {
+    transform: translateY(2px) scale(0.992);
+    border-color: rgba(167, 243, 208, 0.24);
+    box-shadow:
+      0 0 0 1px rgba(20, 184, 166, 0.14),
+      0 0 26px rgba(0, 230, 118, 0.12),
+      0 18px 34px rgba(0, 0, 0, 0.24);
+  }
+
+  html.has-mobile-touch-effects a[data-touch-active="true"]:not([data-touch-surface]),
+  html.has-mobile-touch-effects button[data-touch-active="true"]:not([data-touch-surface]) {
+    color: var(--color-highlight);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
