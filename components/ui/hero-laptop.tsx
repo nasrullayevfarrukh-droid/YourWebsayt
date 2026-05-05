@@ -113,7 +113,7 @@ export function HeroLaptop() {
                     <div className="flex items-center gap-3">
                       <div className="relative h-8 w-8 shrink-0">
                         <Image
-                          src="/images/brand/yourwebsayt-neon-symbol-cutout-v2.png"
+                          src="/images/brand/yourwebsayt-neon-symbol-clean.png"
                           alt=""
                           fill
                           sizes="32px"
@@ -257,7 +257,7 @@ export function HeroLaptop() {
                     }`}
                   >
                     <Image
-                      src="/images/brand/yourwebsayt-neon-logo-cutout-v2.png"
+                      src="/images/brand/yourwebsayt-neon-logo-clean.png"
                       alt="YourWebsayt logo"
                       width={900}
                       height={640}

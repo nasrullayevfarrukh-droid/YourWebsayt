@@ -74,7 +74,7 @@ body::before {
   opacity: 0.16;
   background-image:
     radial-gradient(circle at center, rgba(4, 17, 13, 0.02), rgba(4, 17, 13, 0.82) 72%),
-    url("/images/brand/yourwebsayt-neon-logo-cutout-v2.png");
+    url("/images/brand/yourwebsayt-neon-logo-clean.png");
   background-repeat: no-repeat;
   background-position: center center, center 5.5rem;
   background-size: 100% 100%, clamp(320px, 58vw, 860px) auto;

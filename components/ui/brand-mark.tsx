@@ -13,11 +13,11 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
     <div className={cn("flex items-center gap-3", className)}>
       <div className={cn("relative shrink-0", compact ? "h-9 w-9" : "h-10 w-10")}>
         <Image
-          src="/images/brand/yourwebsayt-neon-symbol-cutout-v2.png"
+          src="/images/brand/yourwebsayt-neon-symbol-clean.png"
           alt=""
           fill
           sizes={compact ? "36px" : "40px"}
-          className="object-contain object-center mix-blend-screen brightness-[1.08] saturate-[1.16] drop-shadow-[0_0_18px_rgba(0,230,118,0.34)]"
+          className="object-contain object-center mix-blend-screen brightness-[1.06] saturate-[1.14] drop-shadow-[0_0_18px_rgba(0,230,118,0.34)]"
           priority
         />
       </div>
