@@ -1,0 +1,39 @@
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility grid-shell {
+  @apply mx-auto w-full max-w-[1320px] px-5 sm:px-6 lg:px-10;
+}
+
+@utility glass-panel {
+  background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+  backdrop-filter: blur(18px);
+  border: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+}
+
+@utility editorial-card {
+  @apply relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] shadow-[0_20px_80px_rgba(0,0,0,0.22)];
+}
+
+.link-line {
+  position: relative;
+}
+
+.link-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  height: 1px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: right;
+  background: var(--color-accent);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
