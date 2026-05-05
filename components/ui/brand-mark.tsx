@@ -11,21 +11,15 @@ type BrandMarkProps = {
 export function BrandMark({ className, compact = false }: BrandMarkProps) {
   const content = (
     <div className={cn("flex items-center gap-3", className)}>
-      <div
-        className={cn(
-          "relative overflow-hidden rounded-[16px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.78)] shadow-[0_16px_34px_rgba(0,0,0,0.22)]",
-          compact ? "h-11 w-11" : "h-12 w-12"
-        )}
-      >
+      <div className={cn("relative shrink-0", compact ? "h-9 w-9" : "h-10 w-10")}>
         <Image
-          src="/images/brand/yourwebsayt-neon-mark.png"
+          src="/images/brand/yourwebsayt-neon-symbol-cutout-v2.png"
           alt=""
           fill
-          sizes={compact ? "44px" : "48px"}
-          className="object-cover object-center"
+          sizes={compact ? "36px" : "40px"}
+          className="object-contain object-center mix-blend-screen brightness-[1.08] saturate-[1.16] drop-shadow-[0_0_18px_rgba(0,230,118,0.34)]"
           priority
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),transparent_42%,rgba(4,17,13,0.18)_100%)]" />
       </div>
 
       <div>

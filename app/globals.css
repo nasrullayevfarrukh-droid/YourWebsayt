@@ -74,10 +74,12 @@ body::before {
   opacity: 0.16;
   background-image:
     radial-gradient(circle at center, rgba(4, 17, 13, 0.02), rgba(4, 17, 13, 0.82) 72%),
-    url("/images/brand/yourwebsayt-neon-mark.png");
+    url("/images/brand/yourwebsayt-neon-logo-cutout-v2.png");
   background-repeat: no-repeat;
   background-position: center center, center 5.5rem;
   background-size: 100% 100%, clamp(320px, 58vw, 860px) auto;
+  background-blend-mode: normal, screen;
+  mix-blend-mode: screen;
   mask-image: radial-gradient(circle at 50% 16%, black 18%, rgba(0, 0, 0, 0.94) 36%, transparent 76%);
 }
 
