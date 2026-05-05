@@ -71,12 +71,14 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 1;
-  opacity: 0.07;
+  opacity: 0.16;
   background-image:
-    linear-gradient(rgba(167, 243, 208, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 184, 166, 0.04) 1px, transparent 1px);
-  background-size: 36px 36px;
-  mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
+    radial-gradient(circle at center, rgba(4, 17, 13, 0.02), rgba(4, 17, 13, 0.82) 72%),
+    url("/images/brand/yourwebsayt-neon-mark.png");
+  background-repeat: no-repeat;
+  background-position: center center, center 5.5rem;
+  background-size: 100% 100%, clamp(320px, 58vw, 860px) auto;
+  mask-image: radial-gradient(circle at 50% 16%, black 18%, rgba(0, 0, 0, 0.94) 36%, transparent 76%);
 }
 
 body::after {
@@ -85,11 +87,15 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: 2;
-  opacity: 0.04;
+  opacity: 0.065;
   background-image:
+    linear-gradient(rgba(167, 243, 208, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 184, 166, 0.04) 1px, transparent 1px),
     radial-gradient(circle at 20% 20%, rgba(167, 243, 208, 0.9) 0.6px, transparent 0.6px),
     radial-gradient(circle at 70% 40%, rgba(20, 184, 166, 0.9) 0.8px, transparent 0.8px);
-  background-size: 18px 18px, 24px 24px;
+  background-size: 36px 36px, 36px 36px, 18px 18px, 24px 24px;
+  background-position: center center, center center, center center, center center;
+  mask-image: radial-gradient(circle at center, black 48%, transparent 88%);
 }
 
 main,
