@@ -1,4 +1,5 @@
-import type { ElementType, ReactNode } from "react";
+import { createElement } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -6,14 +7,15 @@ type ContainerProps<T extends ElementType = "div"> = {
   as?: T;
   className?: string;
   children: ReactNode;
-};
+} & Omit<ComponentPropsWithoutRef<T>, "as" | "children" | "className">;
 
 export function Container<T extends ElementType = "div">({
   as,
   className,
-  children
+  children,
+  ...props
 }: ContainerProps<T>) {
   const Component = as ?? "div";
 
-  return <Component className={cn("grid-shell", className)}>{children}</Component>;
+  return createElement(Component, { className: cn("grid-shell", className), ...props }, children);
 }
