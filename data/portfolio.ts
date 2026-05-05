@@ -1,215 +1,256 @@
-import type { Project } from "@/lib/types";
+import type { Project, ProjectGalleryItem } from "@/lib/types";
+
+function createGallery(baseName: string, subject: string): ProjectGalleryItem[] {
+  return [
+    {
+      title: "Ana görünüş",
+      caption: `${subject} üçün premium giriş hissəsi və əsas təqdimat axını.`,
+      image: `/images/projects/${baseName}.svg`
+    },
+    {
+      title: "Daxili bloklar",
+      caption: `${subject} daxilində xidmət, məzmun və etibar bloklarının düzülüşü.`,
+      image: `/images/projects/${baseName}-detail.svg`
+    },
+    {
+      title: "Mobil görünüş",
+      caption: `${subject} üçün mobil-first oxunaqlılıq və rahat istifadə təcrübəsi.`,
+      image: `/images/projects/${baseName}-mobile.svg`
+    }
+  ];
+}
 
 export const portfolioProjects: Project[] = [
   {
     number: "01",
-    slug: "insaat-sirketi-sayti",
-    title: "İnşaat şirkəti saytı",
-    category: "İnşaat şirkəti saytı",
-    clientType: "Korporativ xidmət biznesi",
-    excerpt: "Layihələri, xidmətləri və etibarı bir araya gətirən ciddi korporativ təqdimat strukturu.",
-    result: "Böyük layihə təqdimatı və əlaqə toplama üçün premium foundation hissi yaradır.",
-    previewTone: "steel",
-    previewLabel: "Placeholder case study",
-    previewAccent: "Etibar + sorğu axını",
-    challenge: "İnşaat biznesi rəqəmsalda çox vaxt parçalı görünür və böyük işləri yetərincə ciddi təqdim etmir.",
-    approach: "Bu placeholder istiqamətdə iri layihə vizualları, xidmət blokları, referans sahələri və aydın müraciət axını əsas götürülüb.",
-    deliverables: [
-      "Geniş hero və layihə təqdimatı",
-      "Xidmət blokları və etibar modulları",
-      "Sorğu yönümlü əlaqə hissəsi",
-      "Mobil-first naviqasiya"
+    slug: "tubel-insaat",
+    title: "Tubel İnşaat",
+    category: "İnşaat / tikinti şirkəti saytı",
+    status: "Hazır və təhvil verilib",
+    liveUrl: "https://tubelinsaat.com/",
+    clientType: "Tikinti şirkəti",
+    excerpt: "Tikinti şirkəti üçün modern, ciddi və peşəkar korporativ veb sayt.",
+    result:
+      "Şirkətin xidmətlərini, layihə etibarını və əlaqə axınını daha peşəkar göstərən korporativ təqdimat.",
+    heroImage: "/images/projects/northpeak-group.svg",
+    problem:
+      "Tikinti sahəsində sayt həm ciddi görünməli, həm də xidmətləri və layihə yönünü aydın şəkildə təqdim etməlidir.",
+    solution:
+      "Korporativ ritm, güclü tipografiya, xidmət blokları və aydın əlaqə CTA-ları ilə etibar yönümlü struktur quruldu.",
+    siteStructure: ["Ana səhifə", "Haqqımızda", "Xidmətlər", "Layihələr", "Əlaqə"],
+    designDirection:
+      "Tünd premium fon, nizamlı blok kompozisiyası və ciddi biznes tonu ilə daha inandırıcı korporativ təqdimat xətti saxlanıldı.",
+    features: [
+      "Xidmət və fəaliyyət istiqaməti təqdimatı",
+      "Korporativ etibar hissi verən giriş hissəsi",
+      "Layihə və şirkət haqqında aydın informasiya axını",
+      "Əlaqə üçün rahat CTA strukturu"
     ],
-    futureReady: [
-      "Real layihə şəkilləri və obyekt qalereyası",
-      "Rəqəmlər, referanslar və təhvil verilən işlər",
-      "Canlı case study mətni və nəticə blokları"
-    ],
-    insights: [
-      "B2B auditoriya üçün daha güclü ilk təəssürat",
-      "Layihə portfeli və xidmətləri eyni ritmdə təqdim etmək",
-      "Yüksək büdcəli sorğular üçün ciddi görünüş"
-    ],
+    mobileNote:
+      "Mobil görünüşdə bölmələr qısa bloklara ayrılıb və müraciət düymələri rahat toxunuş ölçüləri ilə verilib.",
+    performanceNote:
+      "Yüngül struktur və təmiz frontend yanaşması saytın sürətli açılmasına və rahat keçid hissinə fokuslanır.",
+    seoNote:
+      "Xidmət yönümlü başlıqlar, strukturlaşdırılmış məzmun və aydın səhifə iyerarxiyası axtarış görünürlüğünü dəstəkləyir.",
     outcome: [
-      "Daha premium korporativ görünüş",
-      "Daha aydın xidmət mesajı",
-      "Sorğu toplamaq üçün daha güclü struktur"
-    ]
+      "Daha ciddi və peşəkar ilk təəssürat",
+      "Xidmətlərin daha aydın təqdimatı",
+      "Müraciət üçün daha rahat yol"
+    ],
+    gallery: createGallery("northpeak-group", "Tubel İnşaat saytı")
   },
   {
     number: "02",
-    slug: "rent-a-car-platformasi",
-    title: "Rent a car platforması",
+    slug: "rentacarss-az",
+    title: "Rentacarss.az",
     category: "Rent a car platforması",
-    clientType: "Rezervasiya yönümlü xidmət",
-    excerpt: "Avtomobil parkını premium göstərən və rezervasiya yolunu qısaldan sürətli platforma strukturu.",
-    result: "Etibar, avtomobil seçimi və WhatsApp rezervasiya axını üçün hazır showcase yaradır.",
-    previewTone: "azure",
-    previewLabel: "Placeholder case study",
-    previewAccent: "Rezervasiya + sürət",
-    challenge: "Rent a car saytlarında seçim, filtr və etibar siqnalları zəif olduqda istifadəçi qərarı gecikir.",
-    approach: "Burada avtomobil kartları, sürətli rezervasiya CTA-ları və mobil istifadədə rahat skroll məntiqi ön plana çıxarılıb.",
-    deliverables: [
-      "Avtomobil siyahısı üçün təmiz kart sistemi",
-      "Filtr və rezervasiya CTA-ları",
-      "WhatsApp və zəng aksiyaları",
-      "Mobil-first rezervasiya axını"
+    status: "Hazır və təhvil verilib",
+    liveUrl: "https://rentacarss.az/",
+    clientType: "Avtomobil icarəsi biznesi",
+    excerpt:
+      "Avtomobil icarəsi biznesi üçün elanlar, avtomobil təqdimatı və müştəri yönümlü strukturla hazırlanmış sayt.",
+    result:
+      "Avtomobil seçimini, əlaqə mərhələsini və müştəri qərarını sadələşdirən rent a car platforma təqdimatı.",
+    heroImage: "/images/projects/voyago-travel.svg",
+    problem:
+      "Rent a car sahəsində istifadəçi avtomobili tez görməli, rahat müqayisə etməli və sürətli şəkildə əlaqəyə keçməlidir.",
+    solution:
+      "Avtomobil kartları, aydın CTA-lar və rahat skan olunan strukturla seçim və müraciət axını yüngülləşdirildi.",
+    siteStructure: ["Ana səhifə", "Avtomobillər", "Elan detalları", "Şərtlər", "Əlaqə"],
+    designDirection:
+      "Dinamik, amma yenə də premium görünən kart sistemi və tünd fonda təmiz kontrastla müasir xidmət hissi saxlanıldı.",
+    features: [
+      "Avtomobil elan və təqdimat kartları",
+      "Müştəri yönümlü müraciət nöqtələri",
+      "Kateqoriya və seçim üçün rahat axın",
+      "Mobil uyğun rezervasiya yönümlü struktur"
     ],
-    futureReady: [
-      "Real avtomobil fotoşəkilləri",
-      "Qiymət və mövcudluq inteqrasiyası",
-      "Faktiki rezervasiya modulu"
-    ],
-    insights: [
-      "Sürətli qərar verən istifadəçi üçün qısa yol",
-      "Mobil ekranlarda bir əllə rahat istifadə",
-      "Premium avtomobil parkı hissi verən vizual dil"
-    ],
+    mobileNote:
+      "Mobil cihazda kart sıralaması, əsas məlumatlar və əlaqə düymələri sürətli qərar üçün önə çıxarılıb.",
+    performanceNote:
+      "Yüngül kart arxitekturası və optimallaşdırılmış görüntü axını səhifənin sürətli hiss olunmasına kömək edir.",
+    seoNote:
+      "Avtomobil icarəsi niyyətinə uyğun məzmun başlıqları və skan edilən struktur biznesin axtarış görünürlüğünü gücləndirir.",
     outcome: [
-      "Daha rahat rezervasiya təcrübəsi",
-      "Daha güclü park təqdimatı",
-      "Daha yüksək etibar hissi"
-    ]
+      "Avtomobil seçimi üçün daha rahat təcrübə",
+      "Müraciət qərarını sürətləndirən axın",
+      "Daha etibarlı platforma görünüşü"
+    ],
+    gallery: createGallery("voyago-travel", "Rentacarss.az platforması")
   },
   {
     number: "03",
-    slug: "xeber-portali",
-    title: "Xəbər portalı",
+    slug: "xeber-sayti",
+    title: "Xəbər saytı",
     category: "Xəbər portalı",
-    clientType: "Media platforması",
-    excerpt: "Məzmunu sürətli skan etdirməyə və gündəlik ziyarəti artırmağa yönəlmiş xəbər portalı foundation-u.",
-    result: "Başlıqlar, kateqoriyalar və reklam yerləşimi üçün balanslı media strukturu yaradır.",
-    previewTone: "amber",
-    previewLabel: "Placeholder case study",
-    previewAccent: "Məzmun + sürət",
-    challenge: "Xəbər portallarında informasiyanın çoxluğu oxucu axınını və diqqəti asanlıqla dağıdır.",
-    approach: "Bu placeholder strukturunda baş xəbərlər, kateqoriya ritmi, trend blokları və reklam üçün boşluq məntiqi nəzərə alınıb.",
-    deliverables: [
-      "Baş xəbər və kateqoriya arxitekturası",
-      "Oxunaqlı kart sistemi",
-      "Reklam və sponsor blokları üçün yerlər",
-      "Sürətli mobil xəbər axını"
+    status: "Portfolio nümunəsi",
+    liveUrl: "https://splendorous-cajeta-e8edc9.netlify.app/",
+    clientType: "Media və xəbər platforması",
+    excerpt: "Xəbər kontenti üçün sadə, oxunaqlı və strukturlaşdırılmış media sayt nümunəsi.",
+    result:
+      "Başlıqların, kateqoriyaların və gündəlik kontentin rahat skan olunduğu təmiz xəbər portalı nümunəsi.",
+    heroImage: "/images/projects/rauf-mirzayev.svg",
+    problem:
+      "Xəbər saytında çoxlu məzmun arasında oxucu diqqətini qorumaq və əsas xəbərləri aydın göstərmək vacibdir.",
+    solution:
+      "Sadə redaksiya ritmi, aydın kateqoriya blokları və oxunaqlılığı gücləndirən layout ilə media yönümlü struktur hazırlandı.",
+    siteStructure: ["Ana səhifə", "Kateqoriyalar", "Baş xəbər", "Məqalə səhifəsi", "Əlaqə"],
+    designDirection:
+      "Kontenti önə çıxaran təmiz vizual dil, geniş boşluqlar və yüksək oxunaqlılıq prinsipi ilə qurulub.",
+    features: [
+      "Baş xəbər və gündəm blokları",
+      "Məqalə kartları üçün rahat grid sistemi",
+      "Oxunaqlı mətn axını",
+      "Mobil istifadə üçün sadə naviqasiya"
     ],
-    futureReady: [
-      "Canlı məzmun inteqrasiyası",
-      "Redaksiya bölmələri və müəllif səhifələri",
-      "Real analitika və banner sahələri"
-    ],
-    insights: [
-      "Məzmun iyerarxiyası olmadan xəbər platforması yorucu görünür",
-      "Sürətli yüklənmə media saytlarında birbaşa dəyər yaradır",
-      "Oxucu axınını qoruyan sadə vizual ritm daha effektivdir"
-    ],
+    mobileNote:
+      "Mobil görünüşdə məqalə kartları və xəbər axını tək sütunda daha rahat oxunuş üçün optimallaşdırılıb.",
+    performanceNote:
+      "Media tipli məzmun üçün yüngül arxitektura və artıq elementlərdən uzaq quruluş saxlanılıb.",
+    seoNote:
+      "Məqalə və kateqoriya strukturuna uyğun başlıq iyerarxiyası kontentin indekslənməsini dəstəkləyir.",
     outcome: [
-      "Daha rahat oxu axını",
-      "Daha təmiz redaksiya görünüşü",
-      "Məzmunu önə çıxaran sürətli struktur"
-    ]
+      "Daha rahat xəbər oxu axını",
+      "Məzmunu önə çıxaran struktur",
+      "Təmiz və peşəkar media görünüşü"
+    ],
+    gallery: createGallery("rauf-mirzayev", "Xəbər portalı nümunəsi")
   },
   {
     number: "04",
     slug: "fitness-zali-sayti",
     title: "Fitness zalı saytı",
-    category: "Fitness zalı saytı",
-    clientType: "Abunəlik və xidmət biznesi",
-    excerpt: "Enerjili, mobil-first və üzvlüyə yönəldən premium fitness studio strukturu.",
-    result: "Paketlər, məşqçi blokları və qeydiyyat CTA-ları üçün satış yönümlü əsas yaradır.",
-    previewTone: "emerald",
-    previewLabel: "Placeholder case study",
-    previewAccent: "Üzvlük + motivasiya",
-    challenge: "Fitness brendləri çox vaxt ya həddən artıq şablon görünür, ya da qiymət və üstünlükləri aydın çatdıra bilmir.",
-    approach: "Burada paket seçimi, məşqçi təqdimatı və güclü CTA ritmi ilə daha peşəkar və enerjili bir sistem düşünülüb.",
-    deliverables: [
-      "Paket və abunə blokları",
-      "Məşqçi və studiya təqdimatı",
-      "Qeydiyyat CTA-ları",
-      "Mobil ekranda güclü konversiya axını"
+    category: "Fitness / idman zalı",
+    status: "Portfolio nümunəsi",
+    liveUrl: "https://courageous-sable-16c3be.netlify.app/",
+    clientType: "Fitness və xidmət biznesi",
+    excerpt:
+      "Fitness zalı üçün sadə, mobil uyğun və xidmət təqdimatına fokuslanan sayt nümunəsi.",
+    result:
+      "Zal xidmətlərini, paketləri və qeydiyyat CTA-larını daha aydın göstərən idman yönümlü demo sayt.",
+    heroImage: "/images/projects/nova-clinic.svg",
+    problem:
+      "Fitness biznesində xidmətlər, üzvlük dəyəri və əlaqə nöqtələri aydın olmadıqda istifadəçi tez çıxır.",
+    solution:
+      "Enerjili, amma səliqəli kart sistemi və qeydiyyat yönümlü CTA-larla xidmət təqdimatı sadələşdirildi.",
+    siteStructure: ["Ana səhifə", "Xidmətlər", "Paketlər", "Haqqımızda", "Əlaqə"],
+    designDirection:
+      "Tünd premium fon üzərində aktiv vurğular və xidmət yönümlü bloklarla daha canlı, amma peşəkar ritm qurulub.",
+    features: [
+      "Xidmət və paket təqdimatı",
+      "Qeydiyyat yönümlü CTA blokları",
+      "Sadə və sürətli mobil axın",
+      "Təmiz section iyerarxiyası"
     ],
-    futureReady: [
-      "Real zal görüntüləri və məşqçi fotoları",
-      "Abunəlik cədvəlləri və kampaniyalar",
-      "Canlı sinif rezervasiya inteqrasiyası"
-    ],
-    insights: [
-      "Hərəkətli və güclü vizual dil brend dəyərini artırır",
-      "Qeydiyyat axını sadə olmadıqda istifadəçi itirilir",
-      "Mobil-first təqdimat fitness auditoriyası üçün kritikdir"
-    ],
+    mobileNote:
+      "Mobil istifadəçidə paket və əlaqə hissələri qısa bloklarla göstərilib ki qərar daha tez verilsin.",
+    performanceNote:
+      "Lazımsız ağırlıqdan uzaq, sürətli və təmiz səhifə quruluşu saxlanılıb.",
+    seoNote:
+      "Fitness xidməti axtarışlarına uyğun section başlıqları və lokal xidmət copy-si üçün uyğun baza var.",
     outcome: [
-      "Daha güclü motivasiya hissi",
-      "Daha aydın paket təqdimatı",
-      "Qeydiyyat üçün daha qısa yol"
-    ]
+      "Xidmətlərin daha aydın təqdimatı",
+      "Qeydiyyat üçün daha rahat yol",
+      "Mobil uyğun peşəkar demo görünüş"
+    ],
+    gallery: createGallery("nova-clinic", "Fitness zalı saytı nümunəsi")
   },
   {
     number: "05",
-    slug: "emlak-sayti",
-    title: "Əmlak saytı",
-    category: "Əmlak saytı",
-    clientType: "Lead yönümlü əmlak platforması",
-    excerpt: "Obyektləri daha dəyərli göstərən və əlaqə toplamağı asanlaşdıran əmlak təqdimat foundation-u.",
-    result: "Kart sistemi, filtr axını və agent əlaqəsi üçün premium əsas yaradır.",
-    previewTone: "violet",
-    previewLabel: "Placeholder case study",
-    previewAccent: "Obyekt + lead",
-    challenge: "Əmlak saytlarında foto, filtr və agent axını zəif olduqda dəyər hissi və sorğu keyfiyyəti düşür.",
-    approach: "Bu istiqamətdə geniş vizual bloklar, seçilən obyektlər və agentlə sürətli əlaqə hissəsi əsas xətt kimi qurulub.",
-    deliverables: [
-      "Seçilmiş obyekt vitrinləri",
-      "Filtr və kateqoriya məntiqi",
-      "Agent əlaqə blokları",
-      "Mobil kart və detal axını"
+    slug: "rent-a-car-demo",
+    title: "Rent a car demo",
+    category: "Rent a car saytı",
+    status: "Portfolio nümunəsi",
+    liveUrl: "https://musical-hamster-f251be.netlify.app/",
+    clientType: "Demo rent a car layihəsi",
+    excerpt: "Avtomobil icarəsi xidməti üçün hazırlanmış modern demo sayt.",
+    result:
+      "Rent a car xidməti üçün sürətli seçim, təqdimat və əlaqə axını göstərən modern demo nümunəsi.",
+    heroImage: "/images/projects/lunera-store.svg",
+    problem:
+      "Demo tipli rent a car saytda belə istifadəçi əsas məlumatı tez görməli və xidmətə etibar etməlidir.",
+    solution:
+      "Avtomobil vitrinləri, qısa məzmun blokları və CTA ritmi ilə demo layihə ciddi biznes tonu ilə təqdim edildi.",
+    siteStructure: ["Ana səhifə", "Avtomobil parkı", "Qiymətlər", "FAQ", "Əlaqə"],
+    designDirection:
+      "Vizual olaraq səliqəli kartlar, geniş boşluq və premium tünd tonlar ilə demo olsa da ciddi görünən sistem qurulub.",
+    features: [
+      "Avtomobil vitrin kartları",
+      "Qiymət və xidmət fokuslu section-lar",
+      "Aydın CTA və əlaqə axını",
+      "Mobil uyğun xidmət təqdimatı"
     ],
-    futureReady: [
-      "Real obyekt fotoşəkilləri",
-      "Axtarış və filtr datası",
-      "Agent profilləri və xəritə inteqrasiyası"
-    ],
-    insights: [
-      "Əmlak saytında premium vizual ritm birbaşa etibar yaradır",
-      "Qərarı asanlaşdıran struktur lead keyfiyyətini artırır",
-      "Məkan və qiymət məlumatı skan üçün aydın olmalıdır"
-    ],
+    mobileNote:
+      "Mobil görünüşdə avtomobil kartları və CTA-lar baş barmaqla rahat istifadə ediləcək formada saxlanılıb.",
+    performanceNote:
+      "Demo quruluş sürətli açılış və yüngül UI davranışı üçün optimallaşdırılıb.",
+    seoNote:
+      "Xidmət yönümlü başlıq strukturu və lokal niyyətə uyğun copy yazmaq üçün baza hazırdır.",
     outcome: [
-      "Daha premium obyekt vitrini",
-      "Daha rahat filtr axını",
-      "Daha güclü agent əlaqəsi"
-    ]
+      "Modern demo görünüş",
+      "Xidmət axınını aydın göstərən struktur",
+      "Rent a car biznesi üçün güclü təqdimat bazası"
+    ],
+    gallery: createGallery("lunera-store", "Rent a car demo saytı")
   },
   {
     number: "06",
-    slug: "sexsi-veb-studio-sayti",
-    title: "Şəxsi veb studio saytı",
-    category: "Şəxsi veb studio saytı",
-    clientType: "Personal studio brendi",
-    excerpt: "Şəxsi studionu generic agentlikdən ayıran, premium hiss yaradan və ciddi müştəri sorğusu gətirən struktur.",
-    result: "Brend mövqelənməsi, xidmətlər və gələcək case study-lər üçün güclü showcase əsasını qurur.",
-    previewTone: "rose",
-    previewLabel: "Placeholder case study",
-    previewAccent: "Brend + premium mövqe",
-    challenge: "Şəxsi studio saytında həm peşəkarlıq, həm də fərdi yanaşma eyni anda görünməlidir.",
-    approach: "Bu foundation böyük tipografiya, seçilmiş xidmətlər, placeholder portfolio və təmiz əlaqə axını ilə qurulub.",
-    deliverables: [
-      "Böyük headline və dəyər təklifi",
-      "Xidmət kartları və proses blokları",
-      "Placeholder portfolio sistemi",
-      "Əlaqə və CTA infrastrukturu"
+    slug: "emlak-sayti",
+    title: "Əmlak saytı",
+    category: "Daşınmaz əmlak saytı",
+    status: "Portfolio nümunəsi",
+    liveUrl: "https://ornate-twilight-4002bf.netlify.app/",
+    clientType: "Əmlak və satış platforması",
+    excerpt:
+      "Əmlak elanları və satış təqdimatı üçün hazırlanmış modern veb sayt nümunəsi.",
+    result:
+      "Obyekt təqdimatını, elan axınını və əlaqə nöqtələrini daha premium göstərən əmlak demo saytı.",
+    heroImage: "/images/projects/estate-ridge.svg",
+    problem:
+      "Əmlak saytında vizual etibar, elan kartlarının rahat skanı və sürətli müraciət axını bir yerdə işləməlidir.",
+    solution:
+      "Premium kart sistemi, seçilmiş elan vitrinləri və əlaqə yönümlü bloklarla satış hissi gücləndirildi.",
+    siteStructure: ["Ana səhifə", "Elanlar", "Obyekt detalı", "Haqqımızda", "Əlaqə"],
+    designDirection:
+      "Daha bahalı hiss verən blok kompozisiyası, sakit vurğular və geniş vizual sahə ilə daşınmaz əmlak tonu qurulub.",
+    features: [
+      "Elan və obyekt kartları",
+      "Əlaqə toplama yönümlü CTA-lar",
+      "Vizual etibar verən giriş hissəsi",
+      "Mobil uyğun siyahı və detal axını"
     ],
-    futureReady: [
-      "Real case study-lər və nəticə ekranları",
-      "Əsl layihə linkləri və screenshot-lar",
-      "Sahə üzrə xüsusi xidmət səhifələri"
-    ],
-    insights: [
-      "Personal studio üçün fərdi ton və premium görünüş paralel işləməlidir",
-      "Həddən artıq agency dili əvəzinə fokuslu və qısa satış copy daha effektivdir",
-      "Portfolio foundation-un sonradan genişlənməsi əvvəldən düşünülməlidir"
-    ],
+    mobileNote:
+      "Mobil cihazlarda elan kartları və obyekt detalları skan olunan ölçü və ritmdə verilib.",
+    performanceNote:
+      "Ağır hiss yaratmadan premium görünən, axıcı və təmiz frontend yanaşması saxlanılıb.",
+    seoNote:
+      "Əmlak niyyətinə uyğun səhifə başlıqları və obyekt mərkəzli content strukturu gələcək SEO işi üçün hazırdır.",
     outcome: [
-      "Daha ciddi şəxsi studio imici",
-      "Daha aydın xidmət mövqelənməsi",
-      "Real portfolio üçün hazır struktur"
-    ]
+      "Daha premium obyekt təqdimatı",
+      "Daha aydın elan axını",
+      "Müraciət üçün daha rahat struktur"
+    ],
+    gallery: createGallery("estate-ridge", "Əmlak saytı nümunəsi")
   }
 ];
 

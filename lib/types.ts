@@ -41,38 +41,42 @@ export type Service = {
 };
 
 export type PortfolioCategory =
-  | "İnşaat şirkəti saytı"
+  | "İnşaat / tikinti şirkəti saytı"
   | "Rent a car platforması"
   | "Xəbər portalı"
-  | "Fitness zalı saytı"
-  | "Əmlak saytı"
-  | "Şəxsi veb studio saytı";
+  | "Fitness / idman zalı"
+  | "Rent a car saytı"
+  | "Daşınmaz əmlak saytı";
 
-export type ProjectPreviewTone =
-  | "steel"
-  | "azure"
-  | "amber"
-  | "emerald"
-  | "violet"
-  | "rose";
+export type ProjectStatus = "Hazır və təhvil verilib" | "Portfolio nümunəsi";
+
+export type ProjectGalleryItem = {
+  title: string;
+  caption: string;
+  image: string;
+};
 
 export type Project = {
   number: string;
   slug: string;
   title: string;
   category: PortfolioCategory;
+  status: ProjectStatus;
+  liveUrl: string;
   clientType: string;
   excerpt: string;
   result: string;
-  previewTone: ProjectPreviewTone;
-  previewLabel: string;
-  previewAccent: string;
-  challenge: string;
-  approach: string;
-  deliverables: string[];
-  futureReady: string[];
-  insights: string[];
+  heroImage: string;
+  problem: string;
+  solution: string;
+  siteStructure: string[];
+  designDirection: string;
+  features: string[];
+  mobileNote: string;
+  performanceNote: string;
+  seoNote: string;
   outcome: string[];
+  gallery: ProjectGalleryItem[];
 };
 
 export type PricingPlan = {

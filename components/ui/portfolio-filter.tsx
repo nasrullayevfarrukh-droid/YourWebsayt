@@ -4,28 +4,18 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { ProjectCard } from "@/components/ui/project-card";
-import type { PortfolioCategory, Project } from "@/lib/types";
-
-const filters: Array<PortfolioCategory | "Hamısı"> = [
-  "Hamısı",
-  "Korporativ",
-  "E-commerce",
-  "Landing page",
-  "Şəxsi Brend",
-  "Xidmət Biznesi"
-];
+import type { Project } from "@/lib/types";
 
 type PortfolioFilterProps = {
   projects: Project[];
 };
 
 export function PortfolioFilter({ projects }: PortfolioFilterProps) {
-  const [active, setActive] = useState<PortfolioCategory | "Hamısı">("Hamısı");
+  const filters = ["Hamısı", ...new Set(projects.map((project) => project.category))];
+  const [active, setActive] = useState<string>("Hamısı");
 
   const filteredProjects =
-    active === "Hamısı"
-      ? projects
-      : projects.filter((project) => project.category === active);
+    active === "Hamısı" ? projects : projects.filter((project) => project.category === active);
 
   return (
     <div>
