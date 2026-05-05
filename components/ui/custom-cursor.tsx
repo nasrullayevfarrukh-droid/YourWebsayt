@@ -140,8 +140,8 @@ export function CustomCursor() {
       const isCard = Boolean(element?.closest(CARD_SELECTOR));
 
       state.isInteractive = isInteractive;
-      state.activeScale = isInteractive ? 1.12 : isCard ? 1.06 : 1;
-      state.glow = isInteractive ? 1 : isCard ? 0.82 : 0.72;
+      state.activeScale = isInteractive ? 1.08 : isCard ? 1.03 : 1;
+      state.glow = isInteractive ? 0.92 : isCard ? 0.76 : 0.64;
     };
 
     const onPointerMove = (event: PointerEvent) => {
@@ -264,9 +264,9 @@ export function CustomCursor() {
 
       root.style.opacity = `${opacity}`;
       root.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
-      arrow.style.transform = `translate3d(-10px, -6px, 0) rotate(${BASE_ROTATION + tilt}deg) scale(${scale})`;
-      halo.style.opacity = state.isVisible ? `${0.42 + state.glow * 0.34}` : "0";
-      halo.style.transform = `translate3d(-20px, -18px, 0) scale(${haloScale})`;
+      arrow.style.transform = `translate3d(-6px, -3px, 0) rotate(${BASE_ROTATION + tilt}deg) scale(${scale})`;
+      halo.style.opacity = state.isVisible ? `${0.34 + state.glow * 0.24}` : "0";
+      halo.style.transform = `translate3d(-13px, -12px, 0) scale(${haloScale})`;
 
       renderParticles(delta);
       rafRef.current = window.requestAnimationFrame(animate);
@@ -319,14 +319,14 @@ export function CustomCursor() {
       >
         <div
           ref={haloRef}
-          className="absolute left-0 top-0 h-12 w-12 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.34)_0%,rgba(20,184,166,0.18)_42%,rgba(167,243,208,0)_74%)] blur-[12px] transition-[opacity,transform] duration-200"
+          className="absolute left-0 top-0 h-7 w-7 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.34)_0%,rgba(20,184,166,0.18)_42%,rgba(167,243,208,0)_74%)] blur-[6px] transition-[opacity,transform] duration-200"
         />
 
         <div
           ref={arrowRef}
           className="absolute left-0 top-0 origin-[14px_10px] transition-transform duration-150 will-change-transform"
         >
-          <svg width="34" height="48" viewBox="0 0 34 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="21" height="30" viewBox="0 0 34 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="cursor-fill" x1="3" y1="4" x2="29" y2="43" gradientUnits="userSpaceOnUse">
                 <stop stopColor="rgba(248,250,252,0.96)" />
