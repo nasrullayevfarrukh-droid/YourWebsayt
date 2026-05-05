@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section className="py-32 sm:py-40">
       <Container className="text-center">
-        <div className="mx-auto max-w-2xl rounded-[34px] border border-white/10 bg-white/[0.03] px-6 py-12 sm:px-10">
+        <div className="mx-auto max-w-2xl rounded-[34px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] px-6 py-12 sm:px-10">
           <div className="text-xs uppercase tracking-[0.32em] text-[var(--color-accent)]">404</div>
           <h1 className="mt-5 font-display text-5xl tracking-[-0.05em] text-[var(--color-text)] sm:text-7xl">
             Axtardığınız səhifə tapılmadı

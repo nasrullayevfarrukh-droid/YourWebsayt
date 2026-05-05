@@ -24,7 +24,7 @@ export function SectionHeading({
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <Reveal className="max-w-3xl">
           {eyebrow ? (
-            <div className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-[var(--color-muted)]">
+            <div className="mb-4 inline-flex rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-[var(--color-muted)]">
               {eyebrow}
             </div>
           ) : null}

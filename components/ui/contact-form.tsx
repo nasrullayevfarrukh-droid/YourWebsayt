@@ -120,15 +120,17 @@ export function ContactForm() {
           value={form.message}
           onChange={(event) => handleChange("message", event.target.value)}
           rows={6}
-          className="w-full rounded-[24px] border border-white/10 bg-black/20 px-4 py-4 text-sm text-[var(--color-text)] outline-none transition-colors duration-300 placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)]"
+          className="w-full rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.82)] px-4 py-4 text-sm text-[var(--color-text)] outline-none transition-colors duration-300 placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent-secondary)]"
           placeholder="Biznesiniz, məqsədiniz və gözləntiniz barədə qısa məlumat yazın."
         />
-        {errors.message ? <p className="mt-2 text-sm text-[#ff9a8a]">{errors.message}</p> : null}
+        {errors.message ? (
+          <p className="mt-2 text-sm text-[#ff9a8a]">{errors.message}</p>
+        ) : null}
       </div>
 
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-sm text-[var(--color-muted)]">
-          İdeyanı yazın, düzgün struktur və istiqaməti birlikdə quraq.
+          İdeyanı təqdim edin, strukturu və doğru həlli biz quraq.
         </div>
         <Button type="submit" size="lg" magnetic={false} disabled={status === "loading"}>
           {status === "loading" ? "Göndərilir..." : "Sorğunu göndər"}
@@ -139,7 +141,7 @@ export function ContactForm() {
         <div
           className={`mt-5 rounded-[18px] px-4 py-3 text-sm ${
             status === "success"
-              ? "border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 text-[var(--color-text)]"
+              ? "border border-[var(--color-accent-secondary)]/30 bg-[var(--color-accent-secondary)]/10 text-[var(--color-text)]"
               : "border border-[#ff9a8a]/30 bg-[#ff9a8a]/10 text-[#ffe0d8]"
           }`}
         >
@@ -166,7 +168,7 @@ function Field({ label, value, onChange, error, type = "text" }: FieldProps) {
         type={type}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-[52px] w-full rounded-[20px] border border-white/10 bg-black/20 px-4 text-sm text-[var(--color-text)] outline-none transition-colors duration-300 placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)]"
+        className="h-[52px] w-full rounded-[20px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.82)] px-4 text-sm text-[var(--color-text)] outline-none transition-colors duration-300 placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent-secondary)]"
       />
       {error ? <p className="mt-2 text-sm text-[#ff9a8a]">{error}</p> : null}
     </div>
@@ -184,7 +186,7 @@ function SelectField({ label, value, onChange, error, options }: SelectFieldProp
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-[52px] w-full rounded-[20px] border border-white/10 bg-black/20 px-4 text-sm text-[var(--color-text)] outline-none transition-colors duration-300 focus:border-[var(--color-accent)]"
+        className="h-[52px] w-full rounded-[20px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.82)] px-4 text-sm text-[var(--color-text)] outline-none transition-colors duration-300 focus:border-[var(--color-accent-secondary)]"
       >
         <option value="">Seçin</option>
         {options.map((option) => (

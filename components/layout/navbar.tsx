@@ -37,8 +37,8 @@ export function Navbar() {
             className={cn(
               "flex items-center justify-between rounded-full px-4 py-3 transition-all duration-500 sm:px-5",
               isScrolled
-                ? "glass-panel border border-white/10 shadow-[0_12px_44px_rgba(0,0,0,0.28)]"
-                : "border border-white/6 bg-[rgba(7,12,22,0.26)] backdrop-blur-md"
+                ? "glass-panel border border-[color:var(--color-border)] shadow-[0_12px_44px_rgba(0,0,0,0.32)]"
+                : "border border-[rgba(167,243,208,0.08)] bg-[rgba(4,17,13,0.48)] backdrop-blur-md"
             )}
           >
             <BrandMark compact className="origin-left scale-[0.92]" />
@@ -64,7 +64,7 @@ export function Navbar() {
             <button
               type="button"
               aria-label="Menyunu aç"
-              className="rounded-full border border-white/10 bg-white/[0.03] p-3 text-[var(--color-text)] lg:hidden"
+              className="rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] p-3 text-[var(--color-text)] lg:hidden"
               onClick={() => setMenuOpen(true)}
             >
               <Menu className="size-5" />

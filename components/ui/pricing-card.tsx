@@ -18,8 +18,8 @@ export function PricingCard({ plan, featured = false, compact = false }: Pricing
       className={cn(
         "flex h-full flex-col rounded-[32px] border p-7 sm:p-8",
         featured
-          ? "border-[var(--color-accent)]/40 bg-[linear-gradient(180deg,rgba(104,168,255,0.12),rgba(255,255,255,0.03))] shadow-[0_20px_90px_rgba(0,0,0,0.25)]"
-          : "border-white/10 bg-white/[0.03]"
+          ? "border-[var(--color-accent-secondary)]/40 bg-[linear-gradient(180deg,rgba(0,230,118,0.08),rgba(20,184,166,0.12),rgba(11,31,24,0.95))] shadow-[0_20px_90px_rgba(0,0,0,0.25)]"
+          : "border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)]"
       )}
     >
       <div className="flex items-start justify-between gap-4">
@@ -32,7 +32,7 @@ export function PricingCard({ plan, featured = false, compact = false }: Pricing
           </h3>
         </div>
         {plan.highlight ? (
-          <div className="rounded-full bg-[var(--color-accent)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#04111f]">
+          <div className="rounded-full bg-[var(--color-accent)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--color-accent-ink)]">
             {plan.highlight}
           </div>
         ) : null}
@@ -44,7 +44,7 @@ export function PricingCard({ plan, featured = false, compact = false }: Pricing
       <p className="mt-3 text-base leading-7 text-[var(--color-text)]">{plan.subtitle}</p>
       <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{plan.description}</p>
 
-      <div className="mt-6 rounded-[22px] border border-white/10 bg-black/20 p-4">
+      <div className="mt-6 rounded-[22px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.82)] p-4">
         <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
           Uyğundur
         </div>

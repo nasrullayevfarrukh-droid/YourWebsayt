@@ -9,8 +9,6 @@ import { cn } from "@/lib/utils";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string;
-  rel?: string;
-  target?: string;
   variant?: "primary" | "secondary" | "ghost";
   size?: "md" | "lg";
   magnetic?: boolean;
@@ -20,10 +18,10 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants = {
   primary:
-    "bg-[var(--color-accent)] text-[#04111f] shadow-[0_12px_34px_rgba(125,180,255,0.18)] hover:shadow-[0_0_0_1px_rgba(4,17,31,0.05),0_20px_46px_rgba(125,180,255,0.28)]",
+    "bg-[var(--color-accent)] text-[var(--color-accent-ink)] shadow-[0_16px_38px_rgba(0,230,118,0.18)] hover:shadow-[0_0_0_1px_rgba(4,17,13,0.06),0_22px_52px_rgba(0,230,118,0.28)]",
   secondary:
-    "border border-white/14 bg-white/[0.04] text-[var(--color-text)] hover:border-[var(--color-accent)]/50 hover:bg-white/[0.08]",
-  ghost: "text-[var(--color-text)] hover:bg-white/[0.06]"
+    "border border-[color:var(--color-border-strong)] bg-[rgba(11,31,24,0.72)] text-[var(--color-text)] hover:border-[var(--color-accent-secondary)] hover:bg-[rgba(20,184,166,0.1)]",
+  ghost: "text-[var(--color-text)] hover:bg-[rgba(167,243,208,0.08)]"
 } as const;
 
 const sizes = {
@@ -59,12 +57,10 @@ export function Button({
   variant = "primary",
   size = "md",
   magnetic = true,
-  rel,
-  target,
   ...props
 }: ButtonProps) {
   const content = href ? (
-    <Link href={href} target={target} rel={rel} className="inline-flex">
+    <Link href={href} className="inline-flex">
       <ButtonInner className={className} size={size} variant={variant}>
         {children}
       </ButtonInner>

@@ -14,7 +14,7 @@ export function Accordion({ items }: AccordionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="divide-y divide-white/10 border-y border-white/10">
+    <div className="divide-y divide-[color:rgba(167,243,208,0.1)] border-y border-[color:rgba(167,243,208,0.1)]">
       {items.map((item, index) => {
         const isOpen = activeIndex === index;
 
@@ -28,7 +28,7 @@ export function Accordion({ items }: AccordionProps) {
               <span className="max-w-3xl text-base font-medium text-[var(--color-text)] sm:text-lg">
                 {item.question}
               </span>
-              <span className="rounded-full border border-white/10 bg-white/[0.03] p-2 text-[var(--color-text)] transition-colors duration-300">
+              <span className="rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] p-2 text-[var(--color-text)] transition-colors duration-300">
                 {isOpen ? <Minus className="size-4" /> : <Plus className="size-4" />}
               </span>
             </button>

@@ -24,7 +24,7 @@ export default function PricingPage() {
         title="Paketlərimiz seçim etməyi asanlaşdırır, amma ciddi layihələr üçün təklif fərdiləşdirilir."
         description="Qiymət yanaşmamız ucuz görünmək üçün deyil. Məqsəd biznesin ehtiyacına, səviyyəsinə və böyümə planına uyğun həll seçməkdir."
         aside={
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
               Qeyd
             </div>
@@ -97,7 +97,7 @@ export default function PricingPage() {
                 </div>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   {pricingExtras.map((extra) => (
-                    <div key={extra} className="rounded-[22px] border border-white/10 bg-black/20 px-4 py-4 text-sm text-[var(--color-text)]">
+                    <div key={extra} className="rounded-[22px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.82)] px-4 py-4 text-sm text-[var(--color-text)]">
                       {extra}
                     </div>
                   ))}

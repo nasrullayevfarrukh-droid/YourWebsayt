@@ -1,77 +1,90 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, BadgeCheck, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { ProjectPreview } from "@/components/ui/project-preview";
-import { heroHighlights } from "@/data/home";
-import { portfolioProjects } from "@/data/portfolio";
 import { heroTrustIndicators } from "@/data/site";
-import { fadeUp, luxuryEase, staggerContainer } from "@/lib/motion";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
-const previewProject = portfolioProjects[5]!;
+const heroLines = [
+  "Biznesinizi daha ciddi göstərən",
+  "premium, tam fərdiləşdirilmiş",
+  "veb saytlar qururuq"
+];
 
-const heroFacts = [
-  {
-    title: "Brend görünüşü",
-    text: "Sayt ilk saniyədən daha peşəkar və daha bahalı hiss etdirməlidir."
-  },
-  {
-    title: "Satış axını",
-    text: "Başlıqdan CTA-ya qədər hər blok sorğu və əlaqə üçün işləməlidir."
-  },
-  {
-    title: "Texniki baza",
-    text: "Sürətli, mobil-first və rahat inkişaf edilən frontend qurulur."
-  }
+const strategyPoints = [
+  "Mesaj axını və qərar strukturu",
+  "Etibar blokları və CTA prioriteti",
+  "Mobil, sürət və SEO təməli"
 ];
 
 export function HomeHero() {
+  const shouldReduceMotion = useReducedMotion();
+  const getFloatingMotion = (offset: number, duration: number, delay = 0) =>
+    shouldReduceMotion
+      ? {
+          initial: { opacity: 1, y: 0 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.35 }
+        }
+      : {
+          initial: { opacity: 0, y: 28 },
+          animate: { opacity: 1, y: [0, offset, 0] },
+          transition: {
+            opacity: { duration: 0.8, delay },
+            y: {
+              duration,
+              delay,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "mirror" as const,
+              ease: "easeInOut"
+            }
+          }
+        };
+
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-40">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(125,180,255,0.18),transparent_30%),radial-gradient(circle_at_90%_18%,rgba(255,255,255,0.08),transparent_24%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,230,118,0.16),transparent_30%),radial-gradient(circle_at_82%_10%,rgba(20,184,166,0.12),transparent_24%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(167,243,208,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(20,184,166,0.02)_1px,transparent_1px)] bg-[size:56px_56px] opacity-20" />
 
       <Container className="relative">
-        <div className="grid gap-14 xl:grid-cols-[1fr_0.98fr] xl:items-center">
-          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] lg:items-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="max-w-3xl"
+          >
             <motion.div
               variants={fadeUp}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]"
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]"
             >
               <Sparkles className="size-3.5 text-[var(--color-accent)]" />
-              Personal web studio
+              Premium veb sayt studiyası
             </motion.div>
 
             <div className="space-y-2">
-              <motion.h1
-                variants={fadeUp}
-                className="text-balance font-display text-5xl leading-[0.9] tracking-[-0.07em] text-[var(--color-text)] sm:text-6xl xl:text-[5.7rem]"
-              >
-                Biznesinizi ciddi göstərən
-              </motion.h1>
-              <motion.h1
-                variants={fadeUp}
-                className="text-balance font-display text-5xl leading-[0.9] tracking-[-0.07em] text-[var(--color-text)] sm:text-6xl xl:text-[5.7rem]"
-              >
-                premium və sürətli
-              </motion.h1>
-              <motion.h1
-                variants={fadeUp}
-                className="text-balance font-display text-5xl leading-[0.9] tracking-[-0.07em] text-[var(--color-text)] sm:text-6xl xl:text-[5.7rem]"
-              >
-                veb saytlar qururam
-              </motion.h1>
+              {heroLines.map((line) => (
+                <motion.h1
+                  key={line}
+                  variants={fadeUp}
+                  className="text-balance font-display text-5xl leading-[0.92] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.6rem]"
+                >
+                  {line}
+                </motion.h1>
+              ))}
             </div>
 
             <motion.p
               variants={fadeUp}
               className="mt-7 max-w-2xl text-base leading-7 text-[var(--color-muted)] sm:text-lg"
             >
-              YourWebsayt biznesini daha peşəkar göstərmək və daha çox satış əldə etmək istəyənlər üçün
-              modern, sürətli və mobil-first saytlar hazırlayır.
+              YourWebsayt şirkətlər, klinikalar, restoranlar, xidmət biznesləri, daşınmaz əmlak
+              ofisləri və şəxsi brendlər üçün etibar yaradan, müraciət axınını gücləndirən və
+              markanı daha premium göstərən veb təcrübələr hazırlayır.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-4">
@@ -79,15 +92,18 @@ export function HomeHero() {
                 Layihəni müzakirə edək
               </Button>
               <Button href="/portfolio" size="lg" variant="secondary">
-                İşlərə bax
+                Portfolioya baxın
               </Button>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-3 text-sm text-[var(--color-muted)]">
+            <motion.div
+              variants={fadeUp}
+              className="mt-6 flex flex-wrap gap-3 text-sm text-[var(--color-muted)]"
+            >
               {heroTrustIndicators.map((indicator) => (
                 <div
                   key={indicator}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2"
+                  className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-4 py-2"
                 >
                   <BadgeCheck className="size-4 text-[var(--color-accent)]" />
                   {indicator}
@@ -95,73 +111,129 @@ export function HomeHero() {
               ))}
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-12 grid gap-4 sm:grid-cols-3">
-              {heroFacts.map((fact) => (
-                <div key={fact.title} className="rounded-[26px] border border-white/10 bg-white/[0.03] p-5">
-                  <div className="text-[11px] uppercase tracking-[0.3em] text-[var(--color-accent)]">
-                    {fact.title}
+            <motion.div variants={fadeUp} className="mt-12 border-t border-[color:rgba(167,243,208,0.08)] pt-6">
+              <div className="grid gap-5 sm:grid-cols-3">
+                <div>
+                  <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
+                    Etibar
                   </div>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{fact.text}</p>
+                  <p className="mt-3 text-sm leading-7 text-[var(--color-text)]">
+                    İlk baxışdan ciddi və yüksək səviyyəli görünən brend hissi.
+                  </p>
                 </div>
-              ))}
+                <div>
+                  <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
+                    Struktur
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-[var(--color-text)]">
+                    Mesaj, CTA və xidmət təqdimatı ilə daha aydın qərar axını.
+                  </p>
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
+                    Performans
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-[var(--color-text)]">
+                    Sürətli, mobil uyğun və SEO üçün sağlam texniki baza.
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: luxuryEase, delay: 0.18 }}
-            className="relative min-h-[34rem] sm:min-h-[40rem]"
-          >
-            <div className="absolute inset-0 rounded-[42px] bg-[radial-gradient(circle_at_center,rgba(125,180,255,0.18),transparent_62%)] blur-3xl" />
-            <div className="absolute inset-0 rounded-[42px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))]" />
-
-            <div className="absolute inset-x-4 top-4 sm:inset-x-6 sm:top-6">
-              <ProjectPreview
-                tone={previewProject.previewTone}
-                label="Studio preview"
-                accent={previewProject.previewAccent}
-                featured
-              />
-            </div>
+          <div className="relative min-h-[38rem] lg:min-h-[42rem]">
+            <div className="absolute inset-0 rounded-[42px] bg-[radial-gradient(circle_at_center,rgba(0,230,118,0.18),transparent_54%),radial-gradient(circle_at_top_right,rgba(20,184,166,0.16),transparent_64%)] blur-3xl" />
+            <div className="absolute inset-0 rounded-[42px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.8),rgba(11,31,24,0.48))]" />
 
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, ease: luxuryEase, delay: 0.45 }}
-              className="absolute left-0 top-16 w-[34%] rounded-[26px] border border-white/10 bg-[rgba(8,13,24,0.84)] p-4 backdrop-blur-xl"
+              {...getFloatingMotion(-14, 8.2)}
+              className="absolute left-0 top-10 w-[30%] rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.82)] p-5 backdrop-blur-xl"
             >
               <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
-                Fokus
+                Strategiya paneli
               </div>
-              <div className="mt-4 space-y-3">
-                {heroHighlights.map((item) => (
-                  <div key={item} className="rounded-[18px] border border-white/10 bg-white/[0.04] px-3 py-3 text-sm text-[var(--color-text)]">
-                    {item}
+              <div className="mt-6 space-y-4">
+                {strategyPoints.map((point) => (
+                  <div key={point} className="rounded-[20px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(167,243,208,0.04)] p-4">
+                    <div className="mb-3 h-1.5 w-12 rounded-full bg-[var(--color-accent-secondary)]/75" />
+                    <p className="text-sm leading-7 text-[var(--color-text)]">{point}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, ease: luxuryEase, delay: 0.6 }}
-              className="absolute bottom-0 right-[8%] w-[44%] rounded-[28px] border border-white/10 bg-[rgba(7,11,20,0.88)] p-5 backdrop-blur-xl"
+              {...getFloatingMotion(12, 9.4, 0.08)}
+              className="absolute right-0 top-0 w-[72%] rounded-[32px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.3)]"
             >
-              <div className="flex items-center justify-between">
-                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
-                  Premium nəticə
+              <div className="mb-4 flex items-center justify-between">
+                <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Əsas nümunə
+                </div>
+                <div className="rounded-full bg-[var(--color-accent)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-ink)]">
+                  Korporativ istiqamət
+                </div>
+              </div>
+              <Image
+                src="/images/projects/northpeak-group.svg"
+                alt="Premium korporativ veb sayt nümunəsi"
+                width={1200}
+                height={820}
+                className="w-full rounded-[24px] border border-[color:rgba(167,243,208,0.12)]"
+              />
+            </motion.div>
+
+            <motion.div
+              {...getFloatingMotion(-10, 8.8, 0.12)}
+              className="absolute bottom-8 right-[8%] w-[42%] rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.86)] p-4 backdrop-blur-xl"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Mobil baxış
                 </div>
                 <ArrowUpRight className="size-4 text-[var(--color-accent)]" />
               </div>
-              <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-text)]">
-                <div>Daha ciddi brend görünüşü</div>
-                <div>Daha rahat mobil istifadə</div>
-                <div>Daha güclü sorğu axını</div>
+              <Image
+                src="/images/projects/nova-clinic-mobile.svg"
+                alt="Mobil sayt görünüşü"
+                width={640}
+                height={900}
+                className="w-full rounded-[22px] border border-[color:rgba(167,243,208,0.12)]"
+              />
+            </motion.div>
+
+            <motion.div
+              {...getFloatingMotion(10, 9.1, 0.16)}
+              className="absolute bottom-0 left-[18%] right-[10%] rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.78)] px-5 py-4 backdrop-blur-xl"
+            >
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                    Fokus
+                  </div>
+                  <div className="mt-2 text-base font-medium text-[var(--color-text)]">
+                    Etibar və premium imic
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                    Konversiya
+                  </div>
+                  <div className="mt-2 text-base font-medium text-[var(--color-text)]">
+                    Daha aydın CTA axını
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                    Texniki baza
+                  </div>
+                  <div className="mt-2 text-base font-medium text-[var(--color-text)]">
+                    Mobil, sürətli, SEO hazır
+                  </div>
+                </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

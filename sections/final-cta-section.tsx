@@ -2,32 +2,48 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 
+const ctaPoints = [
+  "Strategiya, dizayn və inkişaf bir komandada",
+  "Biznesinizə uyğun fərdiləşdirilmiş həll",
+  "Premium görünüş və aydın proses"
+];
+
 export function FinalCtaSection() {
   return (
     <section className="pb-24 pt-10 sm:pb-32">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-[40px] border border-[var(--color-accent)]/20 bg-[linear-gradient(140deg,rgba(125,180,255,0.14),rgba(255,255,255,0.03)_44%,rgba(255,255,255,0.02))] px-6 py-10 sm:px-10 sm:py-14">
-            <div className="absolute right-0 top-0 h-56 w-56 bg-[radial-gradient(circle,rgba(125,180,255,0.22),transparent_72%)] blur-3xl" />
-
+          <div className="relative overflow-hidden rounded-[40px] border border-[var(--color-accent-secondary)]/28 bg-[linear-gradient(140deg,rgba(0,230,118,0.08),rgba(20,184,166,0.12)_44%,rgba(11,31,24,0.94))] px-6 py-10 sm:px-10 sm:py-14">
+            <div className="absolute right-0 top-0 h-56 w-56 bg-[radial-gradient(circle,rgba(0,230,118,0.18),transparent_72%)] blur-3xl" />
             <div className="relative max-w-3xl">
               <div className="text-xs uppercase tracking-[0.32em] text-[var(--color-accent)]">
-                Son CTA
+                Son addım
               </div>
               <h2 className="mt-5 text-balance font-display text-4xl leading-[0.96] tracking-[-0.05em] text-[var(--color-text)] sm:text-6xl">
-                Biznesiniz üçün ciddi görünən sayt quraq
+                Hazırkı saytınız səviyyənizi göstərmirsə, indi daha doğru rəqəmsal təqdimata keçin.
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--color-muted)]">
-                Saytınız həm görünüş, həm etibar, həm də sorğu toplama baxımından daha yüksək səviyyədə işləməlidir.
+                Layihənizi bizimlə planlaşdırın. Strategiya, dizayn və inkişaf bir yerdə, bir studiya standartında idarə olunsun.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button href="https://wa.me/994505552025" size="lg">
-                  WhatsApp-da yaz
+                <Button href="/contact" size="lg">
+                  Layihənizi bizimlə planlaşdırın
                 </Button>
-                <Button href="/contact" size="lg" variant="secondary">
-                  Layihəni müzakirə et
-                </Button>
+                <div className="text-sm text-[var(--color-muted)]">
+                  İlk ideyanı paylaşın, qalanını peşəkar şəkildə quraq.
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                {ctaPoints.map((point) => (
+                  <div
+                    key={point}
+                    className="rounded-[22px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.62)] px-4 py-4 text-sm leading-7 text-[var(--color-text)]"
+                  >
+                    {point}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

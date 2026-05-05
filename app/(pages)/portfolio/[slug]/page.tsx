@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ProjectCard } from "@/components/ui/project-card";
-import { ProjectPreview } from "@/components/ui/project-preview";
 import { Reveal } from "@/components/ui/reveal";
 import { getProjectBySlug, portfolioProjects } from "@/data/portfolio";
 import { createPageMetadata } from "@/lib/utils";
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   if (!project) {
     return createPageMetadata(
       "Layihə tapılmadı | YourWebsayt",
-      "Axtardığınız placeholder layihə tapılmadı.",
+      "Axtardığınız portfolio layihəsi tapılmadı.",
       `/portfolio/${slug}`
     );
   }
@@ -49,7 +49,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const relatedProjects = portfolioProjects.filter((item) => item.slug !== project.slug).slice(0, 2);
+  const projectIndex = portfolioProjects.findIndex((item) => item.slug === project.slug);
+  const previousProject =
+    portfolioProjects[(projectIndex - 1 + portfolioProjects.length) % portfolioProjects.length];
+  const nextProject = portfolioProjects[(projectIndex + 1) % portfolioProjects.length];
+  const relatedProjects = portfolioProjects
+    .filter((item) => item.slug !== project.slug)
+    .slice(0, 2);
 
   return (
     <>
@@ -58,13 +64,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         title={project.title}
         description={project.excerpt}
         aside={
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
-              Placeholder status
+              Müştəri tipi
             </div>
-            <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">
-              Bu detail page foundation məqsədi ilə qurulub. Sonradan real case study mətni və screenshot-lar burada dəyişəcək.
-            </p>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.clientType}</p>
+            <div className="mt-5 text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
+              Nəticə
+            </div>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-text)]">{project.result}</p>
           </div>
         }
       />
@@ -72,15 +80,57 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section className="py-12 sm:py-16">
         <Container>
           <Reveal>
-            <div className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-4 sm:p-5">
-              <ProjectPreview
-                tone={project.previewTone}
-                label={project.clientType}
-                accent={project.previewAccent}
-                featured
+            <div className="editorial-card overflow-hidden rounded-[34px] border border-[color:var(--color-border)] p-4 sm:p-5">
+              <Image
+                src={project.heroImage}
+                alt={project.title}
+                width={1600}
+                height={1000}
+                className="w-full rounded-[28px] border border-[color:rgba(167,243,208,0.12)]"
               />
             </div>
           </Reveal>
+        </Container>
+      </section>
+
+      <section className="py-6 sm:py-10">
+        <Container>
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <Reveal>
+              <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-5">
+                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Client type
+                </div>
+                <div className="mt-3 text-lg text-[var(--color-text)]">{project.clientType}</div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.04}>
+              <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-5">
+                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Category
+                </div>
+                <div className="mt-3 text-lg text-[var(--color-text)]">{project.category}</div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-5">
+                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Site scope
+                </div>
+                <div className="mt-3 text-lg text-[var(--color-text)]">
+                  {project.siteStructure.length} əsas bölmə
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-5">
+                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Core focus
+                </div>
+                <div className="mt-3 text-lg text-[var(--color-text)]">{project.outcome[0]}</div>
+              </div>
+            </Reveal>
+          </div>
         </Container>
       </section>
 
@@ -88,27 +138,27 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <Container>
           <div className="grid gap-6 xl:grid-cols-3">
             <Reveal>
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+              <div className="editorial-card rounded-[28px] p-6">
                 <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
-                  Çağırış
+                  Problem
                 </div>
-                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.challenge}</p>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.problem}</p>
               </div>
             </Reveal>
             <Reveal delay={0.06}>
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+              <div className="editorial-card rounded-[28px] p-6">
                 <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
-                  Yanaşma
+                  Həll
                 </div>
-                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.approach}</p>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.solution}</p>
               </div>
             </Reveal>
             <Reveal delay={0.12}>
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+              <div className="editorial-card rounded-[28px] p-6">
                 <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
-                  Gözlənən nəticə
+                  Outcome
                 </div>
-                <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-text)]">
+                <div className="mt-4 space-y-3 text-sm text-[var(--color-text)]">
                   {project.outcome.map((item) => (
                     <p key={item}>{item}</p>
                   ))}
@@ -121,34 +171,84 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section className="py-12 sm:py-20">
         <Container>
-          <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+          <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
             <Reveal>
-              <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-7">
-                <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
-                  Bu placeholder nələri göstərir
+              <div className="editorial-card rounded-[30px] p-7">
+                <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                  Sayt strukturu
                 </div>
                 <div className="mt-5 space-y-4">
-                  {project.deliverables.map((item) => (
-                    <div key={item} className="rounded-[20px] border border-white/10 bg-black/20 px-4 py-4 text-sm text-[var(--color-text)]">
-                      {item}
+                  {project.siteStructure.map((item, index) => (
+                    <div key={item} className="flex items-center gap-4 text-sm text-[var(--color-text)]">
+                      <span className="text-[var(--color-accent)]">{String(index + 1).padStart(2, "0")}</span>
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </Reveal>
 
-            <Reveal delay={0.08}>
-              <div className="rounded-[30px] border border-white/10 bg-white/[0.03] p-7">
-                <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
-                  Sonradan nə ilə əvəzlənəcək
+            <div className="grid gap-6">
+              <Reveal delay={0.08}>
+                <div className="editorial-card rounded-[30px] p-7">
+                  <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                    Dizayn istiqaməti
+                  </div>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">
+                    {project.designDirection}
+                  </p>
                 </div>
-                <div className="mt-5 space-y-4">
-                  {project.futureReady.map((item) => (
-                    <div key={item} className="border-b border-white/8 pb-4 text-sm leading-7 text-[var(--color-text)] last:border-b-0 last:pb-0">
-                      {item}
-                    </div>
-                  ))}
+              </Reveal>
+
+              <Reveal delay={0.12}>
+                <div className="editorial-card rounded-[30px] p-7">
+                  <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                    Xüsusiyyətlər
+                  </div>
+                  <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                    {project.features.map((feature) => (
+                      <div
+                        key={feature}
+                        className="rounded-[20px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.82)] px-4 py-4 text-sm text-[var(--color-text)]"
+                      >
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              </Reveal>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-12 sm:py-20">
+        <Container>
+          <div className="grid gap-6 xl:grid-cols-3">
+            <Reveal>
+              <div className="editorial-card rounded-[28px] p-6">
+                <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Mobil uyğunluq
+                </div>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.mobileNote}</p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <div className="editorial-card rounded-[28px] p-6">
+                <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  Performans
+                </div>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">
+                  {project.performanceNote}
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <div className="editorial-card rounded-[28px] p-6">
+                <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                  SEO qeydləri
+                </div>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{project.seoNote}</p>
               </div>
             </Reveal>
           </div>
@@ -159,21 +259,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <Container>
           <div className="mb-8">
             <div className="text-xs uppercase tracking-[0.32em] text-[var(--color-muted)]">
-              Studio qeydləri
+              Qalereya
             </div>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.05em] text-[var(--color-text)]">
-              Bu tip layihə üçün əsas prinsiplər
+              Layihənin vizual təqdimatı
             </h2>
           </div>
-
           <div className="grid gap-6 lg:grid-cols-3">
-            {project.insights.map((item, index) => (
-              <Reveal key={item} delay={index * 0.05}>
-                <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
-                  <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
-                    Insight {String(index + 1).padStart(2, "0")}
+            {project.gallery.map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.06}>
+                <div className="editorial-card rounded-[30px] p-4">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={1200}
+                    height={900}
+                    className="w-full rounded-[24px] border border-[color:rgba(167,243,208,0.12)]"
+                  />
+                  <div className="px-1 pb-1 pt-5">
+                    <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                      {item.title}
+                    </div>
+                    <p className="mt-3 text-sm leading-7 text-[var(--color-text)]">{item.caption}</p>
                   </div>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{item}</p>
                 </div>
               </Reveal>
             ))}
@@ -183,21 +291,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section className="py-16 sm:py-24">
         <Container>
-          <div className="rounded-[34px] border border-white/10 bg-[linear-gradient(140deg,rgba(125,180,255,0.12),rgba(255,255,255,0.03)_45%,rgba(255,255,255,0.02))] p-7 sm:p-9">
+          <div className="editorial-card rounded-[34px] p-7 sm:p-9">
             <div className="grid gap-8 xl:grid-cols-[1fr_auto] xl:items-center">
               <div>
                 <div className="text-xs uppercase tracking-[0.32em] text-[var(--color-accent)]">
-                  Növbəti addım
+                  Layihəyə başlayaq
                 </div>
                 <h2 className="mt-5 font-display text-4xl tracking-[-0.05em] text-[var(--color-text)] sm:text-5xl">
-                  Bu placeholder əvəzinə real case study-nizi yerləşdirək.
+                  Brendiniz üçün buna bənzər premium sayt istəyirsiniz?
                 </h2>
                 <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--color-muted)]">
-                  Hazır struktur sonradan real nəticə, screenshot və layihə hekayəsi ilə problemsiz dəyişdirilə bilər.
+                  Biznes məqsədinizi paylaşın, doğru struktur və vizual istiqaməti birlikdə quraq.
                 </p>
               </div>
               <Button href="/contact" size="lg">
-                Layihəni müzakirə et
+                Layihə sorğusu göndər
               </Button>
             </div>
           </div>
@@ -206,12 +314,51 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section className="pb-24 sm:pb-32">
         <Container>
+          <div className="mb-10 grid gap-6 lg:grid-cols-2">
+            <Reveal>
+              <div className="editorial-card rounded-[30px] p-6">
+                <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
+                  Previous project
+                </div>
+                <h2 className="mt-4 font-display text-3xl tracking-[-0.04em] text-[var(--color-text)]">
+                  {previousProject.title}
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
+                  {previousProject.excerpt}
+                </p>
+                <div className="mt-5">
+                  <Button href={`/portfolio/${previousProject.slug}`} variant="secondary">
+                    Öncəki case
+                  </Button>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <div className="editorial-card rounded-[30px] p-6">
+                <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">
+                  Next project
+                </div>
+                <h2 className="mt-4 font-display text-3xl tracking-[-0.04em] text-[var(--color-text)]">
+                  {nextProject.title}
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
+                  {nextProject.excerpt}
+                </p>
+                <div className="mt-5">
+                  <Button href={`/portfolio/${nextProject.slug}`} variant="secondary">
+                    Növbəti case
+                  </Button>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
           <div className="mb-8">
             <div className="text-xs uppercase tracking-[0.32em] text-[var(--color-muted)]">
-              Digər placeholder-lar
+              Oxşar layihələr
             </div>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.05em] text-[var(--color-text)]">
-              Eyni foundation məntiqində digər sahələr
+              Digər seçilmiş işlər
             </h2>
           </div>
           <div className="grid gap-6 lg:grid-cols-2">

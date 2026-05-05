@@ -1,21 +1,26 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { ProjectCard } from "@/components/ui/project-card";
-import type { Project } from "@/lib/types";
+import type { PortfolioCategory, Project } from "@/lib/types";
+
+const filters: Array<PortfolioCategory | "Hamısı"> = [
+  "Hamısı",
+  "Korporativ",
+  "E-commerce",
+  "Landing page",
+  "Şəxsi Brend",
+  "Xidmət Biznesi"
+];
 
 type PortfolioFilterProps = {
   projects: Project[];
 };
 
 export function PortfolioFilter({ projects }: PortfolioFilterProps) {
-  const filters = useMemo(
-    () => ["Hamısı", ...new Set(projects.map((project) => project.category))],
-    [projects]
-  );
-  const [active, setActive] = useState<(typeof filters)[number]>("Hamısı");
+  const [active, setActive] = useState<PortfolioCategory | "Hamısı">("Hamısı");
 
   const filteredProjects =
     active === "Hamısı"
@@ -32,8 +37,8 @@ export function PortfolioFilter({ projects }: PortfolioFilterProps) {
             onClick={() => setActive(filter)}
             className={`rounded-full border px-4 py-2 text-xs uppercase tracking-[0.22em] transition-all duration-300 ${
               active === filter
-                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-black"
-                : "border-white/10 bg-white/[0.03] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-text)]"
+                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-accent-ink)]"
+                : "border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] text-[var(--color-muted)] hover:border-[var(--color-accent-secondary)] hover:text-[var(--color-text)]"
             }`}
           >
             {filter}

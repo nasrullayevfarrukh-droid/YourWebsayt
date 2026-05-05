@@ -22,7 +22,7 @@ export default function ContactPage() {
         title="Layihənizi paylaşın, biznesinizə uyğun premium sayt istiqamətini birlikdə quraq."
         description="Formu doldurun və ya birbaşa əlaqə saxlayın. Məqsədimiz ilk danışıqdan etibarən düzgün struktur, real scope və doğru qiymət istiqaməti yaratmaqdır."
         aside={
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
               Konsultasiya
             </div>
@@ -67,17 +67,17 @@ export default function ContactPage() {
 
               <Reveal delay={0.16}>
                 <div className="editorial-card rounded-[30px] overflow-hidden">
-                  <div className="h-52 bg-[radial-gradient(circle_at_30%_30%,rgba(104,168,255,0.2),transparent_30%),linear-gradient(180deg,#0b0f16,#08101a)] p-6">
+                  <div className="h-52 bg-[radial-gradient(circle_at_30%_30%,rgba(0,230,118,0.16),transparent_32%),radial-gradient(circle_at_72%_28%,rgba(20,184,166,0.14),transparent_34%),linear-gradient(180deg,#0b1f18,#061812)] p-6">
                     <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
                       Lokasiya hissi
                     </div>
                     <div className="mt-5 grid h-[calc(100%-2rem)] grid-cols-3 gap-3">
-                      <div className="rounded-[18px] border border-white/10 bg-white/[0.05]" />
-                      <div className="rounded-[18px] border border-white/10 bg-white/[0.03]" />
-                      <div className="rounded-[18px] border border-white/10 bg-white/[0.06]" />
-                      <div className="rounded-[18px] border border-white/10 bg-white/[0.03]" />
+                      <div className="rounded-[18px] border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)]" />
+                      <div className="rounded-[18px] border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.03)]" />
+                      <div className="rounded-[18px] border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.06)]" />
+                      <div className="rounded-[18px] border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.03)]" />
                       <div className="rounded-[18px] border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/12" />
-                      <div className="rounded-[18px] border border-white/10 bg-white/[0.04]" />
+                      <div className="rounded-[18px] border border-[color:var(--color-border)] bg-[rgba(20,184,166,0.08)]" />
                     </div>
                   </div>
                   <div className="p-6">
@@ -109,13 +109,13 @@ export default function ContactPage() {
                 <div className="mt-7 flex flex-wrap gap-4">
                   <a
                     href={`mailto:${siteConfig.email}`}
-                    className="inline-flex h-12 items-center rounded-full border border-white/10 px-5 text-sm text-[var(--color-text)] transition-colors duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    className="inline-flex h-12 items-center rounded-full border border-[color:var(--color-border)] px-5 text-sm text-[var(--color-text)] transition-colors duration-300 hover:border-[var(--color-accent-secondary)] hover:text-[var(--color-highlight)]"
                   >
                     Email yaz
                   </a>
                   <a
                     href="https://wa.me/994505552025"
-                    className="inline-flex h-12 items-center rounded-full bg-[var(--color-accent)] px-5 text-sm font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
+                    className="inline-flex h-12 items-center rounded-full bg-[var(--color-accent)] px-5 text-sm font-medium text-[var(--color-accent-ink)] transition-transform duration-300 hover:-translate-y-0.5"
                   >
                     WhatsApp ilə yaz
                   </a>

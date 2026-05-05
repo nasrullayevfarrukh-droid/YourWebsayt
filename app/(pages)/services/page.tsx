@@ -24,7 +24,7 @@ export default function ServicesPage() {
         title="Hər xidmət bir biznes məqsədini həll etmək üçün hazırlanır."
         description="Korporativ təqdimatdan lead toplama, e-commerce satışından premium şəxsi brend mövqelənməsinə qədər fərqli ehtiyaclar üçün xüsusi sayt həlləri qururuq."
         aside={
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
               Nəticə fokus
             </div>
@@ -44,7 +44,7 @@ export default function ServicesPage() {
                   <div className="grid gap-8 xl:grid-cols-[0.92fr_1.08fr]">
                     <div>
                       <div className="flex items-start justify-between gap-4">
-                        <div className="rounded-[18px] border border-white/10 bg-white/[0.03] p-3 text-[var(--color-accent)]">
+                        <div className="rounded-[18px] border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] p-3 text-[var(--color-accent)]">
                           <ServiceIcon icon={service.icon} className="size-5" />
                         </div>
                         <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
@@ -59,14 +59,14 @@ export default function ServicesPage() {
                     </div>
 
                     <div className="grid gap-5 md:grid-cols-2">
-                      <div className="rounded-[24px] border border-white/10 bg-black/20 p-5">
+                      <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.82)] p-5">
                         <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
                           Kimlər üçündür
                         </div>
                         <p className="mt-3 text-sm leading-7 text-[var(--color-text)]">{service.audience}</p>
                       </div>
 
-                      <div className="rounded-[24px] border border-white/10 bg-black/20 p-5">
+                      <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.82)] p-5">
                         <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
                           Biznes faydası
                         </div>
@@ -75,7 +75,7 @@ export default function ServicesPage() {
                         </p>
                       </div>
 
-                      <div className="rounded-[24px] border border-white/10 bg-black/20 p-5 md:col-span-2">
+                      <div className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.82)] p-5 md:col-span-2">
                         <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
                           Daxildir
                         </div>

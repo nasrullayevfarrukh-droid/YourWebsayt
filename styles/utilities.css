@@ -7,13 +7,15 @@
 }
 
 @utility glass-panel {
-  background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+  background: color-mix(in srgb, var(--color-surface-elevated) 86%, transparent);
   backdrop-filter: blur(18px);
-  border: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 92%, transparent);
 }
 
 @utility editorial-card {
-  @apply relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] shadow-[0_20px_80px_rgba(0,0,0,0.22)];
+  @apply relative overflow-hidden rounded-[28px] shadow-[0_24px_80px_rgba(0,0,0,0.24)];
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 100%, transparent);
 }
 
 .link-line {
@@ -29,7 +31,7 @@
   width: 100%;
   transform: scaleX(0);
   transform-origin: right;
-  background: var(--color-accent);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary));
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

@@ -10,7 +10,7 @@ type BrandMarkProps = {
 export function BrandMark({ className, compact = false }: BrandMarkProps) {
   const content = (
     <div className={cn("flex items-center gap-3", className)}>
-      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent)]">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent)]">
         YW
       </div>
       <div>
@@ -19,7 +19,7 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
         </div>
         {!compact ? (
           <div className="mt-1 text-[10px] uppercase tracking-[0.34em] text-[var(--color-muted)]">
-            Premium personal studio
+            Premium veb studio
           </div>
         ) : null}
       </div>

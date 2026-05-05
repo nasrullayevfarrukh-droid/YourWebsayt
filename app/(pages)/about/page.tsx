@@ -26,7 +26,7 @@ export default function AboutPage() {
         title={aboutIntro.title}
         description={aboutIntro.description}
         aside={
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.88)] p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
               Missiya
             </div>
@@ -127,7 +127,7 @@ export default function AboutPage() {
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="editorial-card rounded-[30px] border-[var(--color-accent)]/30 bg-[linear-gradient(180deg,rgba(104,168,255,0.12),rgba(255,255,255,0.03))] p-7">
+              <div className="editorial-card rounded-[30px] border-[var(--color-accent-secondary)]/30 bg-[linear-gradient(180deg,rgba(0,230,118,0.08),rgba(20,184,166,0.12),rgba(11,31,24,0.92))] p-7">
                 <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)]">Fərdi həll</div>
                 <ul className="mt-6 space-y-4 text-sm leading-7 text-[var(--color-text)]">
                   <li>Brend üçün sıfırdan qurulan fərqli vizual dil</li>
