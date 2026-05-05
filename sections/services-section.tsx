@@ -56,7 +56,10 @@ export function ServicesSection() {
       <Container>
         <div className="grid gap-6 xl:grid-cols-[1.06fr_0.94fr]">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[38px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(0,230,118,0.08),rgba(20,184,166,0.08),rgba(11,31,24,0.94))] p-7 sm:p-9">
+            <div
+              data-cursor="card"
+              className="relative overflow-hidden rounded-[38px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(0,230,118,0.08),rgba(20,184,166,0.08),rgba(11,31,24,0.94))] p-7 sm:p-9"
+            >
               <div className="absolute right-0 top-0 h-48 w-48 bg-[radial-gradient(circle,rgba(0,230,118,0.16),transparent_70%)] blur-3xl" />
               <div className="relative">
                 <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
@@ -103,7 +106,10 @@ export function ServicesSection() {
           <div className="grid gap-6">
             {sideServices.map((service, index) => (
               <Reveal key={service.title} delay={index * 0.06}>
-                <div className="group rounded-[32px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.86)] p-6 sm:p-7">
+                <div
+                  data-cursor="card"
+                  className="group rounded-[32px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.86)] p-6 sm:p-7"
+                >
                   <div className="flex items-start justify-between gap-4">
                     <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
                       İstiqamət {service.number}

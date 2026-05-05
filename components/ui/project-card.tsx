@@ -20,6 +20,7 @@ const statusStyles = {
 export function ProjectCard({ project, featured = false }: ProjectCardProps) {
   return (
     <article
+      data-cursor="card"
       className={cn(
         "editorial-card group rounded-[32px] p-4 transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-accent)]/35 hover:shadow-[0_28px_90px_rgba(0,0,0,0.28)]",
         featured ? "lg:p-5" : ""
@@ -91,6 +92,8 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer"
+            data-cursor="interactive"
+            data-cursor-burst="strong"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-medium text-[var(--color-accent-ink)] shadow-[0_16px_38px_rgba(0,230,118,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgba(4,17,13,0.06),0_22px_52px_rgba(0,230,118,0.28)]"
           >
             <span>Sayta bax</span>

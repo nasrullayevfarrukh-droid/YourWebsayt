@@ -60,13 +60,13 @@ export function Button({
   ...props
 }: ButtonProps) {
   const content = href ? (
-    <Link href={href} className="inline-flex">
+    <Link href={href} className="inline-flex" data-cursor="interactive" data-cursor-burst="strong">
       <ButtonInner className={className} size={size} variant={variant}>
         {children}
       </ButtonInner>
     </Link>
   ) : (
-    <button className="inline-flex bg-transparent" {...props}>
+    <button className="inline-flex bg-transparent" data-cursor="interactive" data-cursor-burst="strong" {...props}>
       <ButtonInner className={className} size={size} variant={variant}>
         {children}
       </ButtonInner>
