@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { BadgeCheck, Sparkles } from "lucide-react";
 
@@ -11,78 +12,66 @@ import { heroTrustIndicators } from "@/data/site";
 
 const heroLines = ["Biznesinizi daha ciddi göstərən", "premium veb saytlar qururuq"];
 
-const networkNodes = [
+const techOrbitBadges = [
   {
-    x: 16,
-    y: 20,
-    size: 12,
-    delay: 0.2,
-    duration: 7.8,
-    color: "rgba(167,243,208,0.96)",
-    glow: "0 0 30px rgba(167,243,208,0.35)"
+    label: "AI",
+    detail: "agent",
+    glyph: "◌",
+    x: 0,
+    y: -156,
+    z: 148,
+    accent: "rgba(167,243,208,0.24)",
+    text: "rgba(248,250,252,0.96)"
   },
   {
-    x: 28,
-    y: 40,
-    size: 8,
-    delay: 0.6,
-    duration: 6.9,
-    color: "rgba(20,184,166,0.92)",
-    glow: "0 0 24px rgba(20,184,166,0.34)"
+    label: "PY",
+    detail: "python",
+    glyph: "Py",
+    x: -154,
+    y: -52,
+    z: 122,
+    accent: "rgba(20,184,166,0.24)",
+    text: "rgba(167,243,208,0.94)"
   },
   {
-    x: 24,
-    y: 74,
-    size: 10,
-    delay: 0.4,
-    duration: 8.2,
-    color: "rgba(96,165,250,0.85)",
-    glow: "0 0 28px rgba(96,165,250,0.26)"
+    label: "JS",
+    detail: "script",
+    glyph: "{ }",
+    x: 156,
+    y: -46,
+    z: 98,
+    accent: "rgba(96,165,250,0.24)",
+    text: "rgba(248,250,252,0.94)"
   },
   {
-    x: 48,
-    y: 16,
-    size: 7,
-    delay: 1,
-    duration: 6.5,
-    color: "rgba(167,243,208,0.72)",
-    glow: "0 0 22px rgba(167,243,208,0.24)"
+    label: "HTML",
+    detail: "css",
+    glyph: "</>",
+    x: 146,
+    y: 100,
+    z: 110,
+    accent: "rgba(129,140,248,0.22)",
+    text: "rgba(167,243,208,0.92)"
   },
   {
-    x: 74,
-    y: 18,
-    size: 10,
-    delay: 0.9,
-    duration: 7.5,
-    color: "rgba(129,140,248,0.82)",
-    glow: "0 0 24px rgba(129,140,248,0.26)"
+    label: "NODE",
+    detail: "runtime",
+    glyph: "[]",
+    x: -148,
+    y: 112,
+    z: 102,
+    accent: "rgba(0,230,118,0.22)",
+    text: "rgba(248,250,252,0.92)"
   },
   {
-    x: 82,
-    y: 42,
-    size: 12,
-    delay: 0.3,
-    duration: 8.4,
-    color: "rgba(20,184,166,0.88)",
-    glow: "0 0 28px rgba(20,184,166,0.34)"
-  },
-  {
-    x: 72,
-    y: 76,
-    size: 8,
-    delay: 1.2,
-    duration: 7.3,
-    color: "rgba(167,243,208,0.82)",
-    glow: "0 0 22px rgba(167,243,208,0.24)"
-  },
-  {
-    x: 48,
-    y: 86,
-    size: 9,
-    delay: 0.7,
-    duration: 7.9,
-    color: "rgba(96,165,250,0.72)",
-    glow: "0 0 26px rgba(96,165,250,0.24)"
+    label: "JAVA",
+    detail: "backend",
+    glyph: "//",
+    x: 0,
+    y: 160,
+    z: 138,
+    accent: "rgba(96,165,250,0.22)",
+    text: "rgba(167,243,208,0.92)"
   }
 ] as const;
 
@@ -154,6 +143,8 @@ const brandMarkNodes = [
   { x: 72, y: 54, size: 0.9, color: "rgba(20,184,166,0.78)", peak: 0.8, delay: 0.88, duration: 5.8 }
 ] as const;
 
+const initialRotation = { x: -16, y: 24 };
+
 function BrandConstellation() {
   return (
     <motion.div
@@ -209,6 +200,86 @@ function BrandConstellation() {
 }
 
 function HeroNetworkVisual() {
+  const [rotation, setRotation] = useState(initialRotation);
+  const [isDragging, setIsDragging] = useState(false);
+  const rotationRef = useRef(initialRotation);
+  const velocityRef = useRef({ x: 0, y: 0 });
+  const pointerRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    let frameId = 0;
+
+    const animate = () => {
+      if (!pointerRef.current) {
+        const nextX = rotationRef.current.x + velocityRef.current.x;
+        const nextY = rotationRef.current.y + velocityRef.current.y;
+
+        velocityRef.current.x *= 0.94;
+        velocityRef.current.y *= 0.94;
+
+        if (Math.abs(velocityRef.current.x) < 0.002) {
+          velocityRef.current.x = 0;
+        }
+
+        if (Math.abs(velocityRef.current.y) < 0.002) {
+          velocityRef.current.y = 0;
+        }
+
+        if (velocityRef.current.x !== 0 || velocityRef.current.y !== 0) {
+          rotationRef.current = { x: nextX, y: nextY };
+          setRotation(rotationRef.current);
+        }
+      }
+
+      frameId = window.requestAnimationFrame(animate);
+    };
+
+    frameId = window.requestAnimationFrame(animate);
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, []);
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerRef.current = { x: event.clientX, y: event.clientY };
+    velocityRef.current = { x: 0, y: 0 };
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!pointerRef.current) {
+      return;
+    }
+
+    const deltaX = event.clientX - pointerRef.current.x;
+    const deltaY = event.clientY - pointerRef.current.y;
+
+    const nextRotation = {
+      x: rotationRef.current.x - deltaY * 0.22,
+      y: rotationRef.current.y + deltaX * 0.28
+    };
+
+    rotationRef.current = nextRotation;
+    velocityRef.current = {
+      x: -deltaY * 0.018,
+      y: deltaX * 0.022
+    };
+    pointerRef.current = { x: event.clientX, y: event.clientY };
+    setRotation(nextRotation);
+  };
+
+  const handlePointerEnd = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerRef.current = null;
+    setIsDragging(false);
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const sceneTransform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
+  const badgeCounterTransform = `rotateX(${-rotation.x}deg) rotateY(${-rotation.y}deg)`;
+
   return (
     <motion.div
       animate={{ y: [0, -10, 0] }}
@@ -218,7 +289,7 @@ function HeroNetworkVisual() {
       <div className="absolute -left-10 top-14 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.18),transparent_72%)] blur-3xl lg:block" />
       <div className="absolute -right-4 bottom-10 hidden h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.14),transparent_72%)] blur-3xl lg:block" />
 
-      <div className="relative aspect-[0.98/1] overflow-hidden rounded-[34px] border border-[color:rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(11,31,24,0.95),rgba(5,14,13,0.98))] p-4 shadow-[0_38px_120px_rgba(0,0,0,0.4)] sm:rounded-[40px] sm:p-5">
+      <div className="relative overflow-hidden rounded-[34px] border border-[color:rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(11,31,24,0.95),rgba(5,14,13,0.98))] p-4 shadow-[0_38px_120px_rgba(0,0,0,0.4)] sm:rounded-[40px] sm:p-5">
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.18]"
@@ -232,128 +303,157 @@ function HeroNetworkVisual() {
         <div className="absolute inset-x-6 top-6 h-px bg-[linear-gradient(90deg,transparent,rgba(167,243,208,0.22),transparent)]" />
         <div className="absolute inset-x-8 bottom-8 h-px bg-[linear-gradient(90deg,transparent,rgba(96,165,250,0.16),transparent)]" />
 
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 100 100"
-          className="absolute inset-[8%] h-[84%] w-[84%] opacity-85"
-        >
-          <defs>
-            <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(167,243,208,0.55)" />
-              <stop offset="55%" stopColor="rgba(20,184,166,0.38)" />
-              <stop offset="100%" stopColor="rgba(96,165,250,0.25)" />
-            </linearGradient>
-          </defs>
-
-          {networkLinks.map((link) => (
-            <line
-              key={`${link.x1}-${link.y1}-${link.x2}-${link.y2}`}
-              x1={link.x1}
-              y1={link.y1}
-              x2={link.x2}
-              y2={link.y2}
-              stroke="url(#network-line)"
-              strokeWidth="0.45"
-              strokeLinecap="round"
-              opacity="0.9"
-            />
-          ))}
-
-          <circle
-            cx="50"
-            cy="50"
-            r="18.5"
-            fill="none"
-            stroke="rgba(167,243,208,0.16)"
-            strokeWidth="0.45"
-          />
-          <ellipse
-            cx="50"
-            cy="50"
-            rx="26"
-            ry="11"
-            fill="none"
-            stroke="rgba(96,165,250,0.18)"
-            strokeWidth="0.35"
-            transform="rotate(-18 50 50)"
-          />
-          <ellipse
-            cx="50"
-            cy="50"
-            rx="12"
-            ry="28"
-            fill="none"
-            stroke="rgba(20,184,166,0.18)"
-            strokeWidth="0.35"
-            transform="rotate(22 50 50)"
-          />
-        </svg>
-
-        {networkNodes.map((node) => (
-          <motion.span
-            key={`${node.x}-${node.y}`}
-            aria-hidden="true"
-            className="absolute rounded-full"
-            style={{
-              left: `${node.x}%`,
-              top: `${node.y}%`,
-              width: node.size,
-              height: node.size,
-              backgroundColor: node.color,
-              boxShadow: node.glow
-            }}
-            animate={{
-              y: [0, -6, 0],
-              opacity: [0.7, 1, 0.7],
-              scale: [1, 1.08, 1]
-            }}
-            transition={{
-              duration: node.duration,
-              delay: node.delay,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-
         <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 h-[58%] w-[34%] -translate-x-1/2 -translate-y-1/2"
+          className={`relative aspect-[0.98/1] select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+          style={{ perspective: "1400px" }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerEnd}
+          onPointerCancel={handlePointerEnd}
+          onPointerLeave={(event) => {
+            if (pointerRef.current) {
+              handlePointerEnd(event);
+            }
+          }}
         >
-          <motion.div
-            className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.14)] opacity-60"
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 h-[40%] w-[70%] -translate-x-1/2 -translate-y-1/2"
-        >
-          <motion.div
-            className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.14)] opacity-50"
-            animate={{ rotate: [0, -360] }}
-            transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
+          <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: sceneTransform }}>
+            {techOrbitBadges.map((badge) => (
+              <div
+                key={badge.label}
+                className="absolute left-1/2 top-1/2 z-20"
+                style={{
+                  transform: `translate3d(${badge.x}px, ${badge.y}px, ${badge.z}px)`,
+                  transformStyle: "preserve-3d"
+                }}
+              >
+                <div
+                  className="pointer-events-none min-w-[4.6rem] rounded-[18px] border border-[rgba(167,243,208,0.14)] bg-[rgba(6,17,16,0.82)] px-3 py-2 shadow-[0_18px_48px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                  style={{
+                    transform: badgeCounterTransform,
+                    boxShadow: `0 0 24px ${badge.accent}`
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-[0.24em]"
+                      style={{ color: badge.text }}
+                    >
+                      {badge.label}
+                    </span>
+                    <span className="font-mono text-[11px]" style={{ color: badge.text }}>
+                      {badge.glyph}
+                    </span>
+                  </div>
+                  <div className="mt-1 text-[9px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
+                    {badge.detail}
+                  </div>
+                </div>
+              </div>
+            ))}
 
-        <div className="absolute left-1/2 top-1/2 h-[48%] w-[48%] -translate-x-1/2 -translate-y-1/2">
-          <motion.div
-            animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
-            transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative h-full w-full"
-          >
-            <div className="absolute inset-[-18%] rounded-full border border-[color:rgba(167,243,208,0.1)]" />
-            <div className="absolute inset-[-32%] rounded-full border border-[color:rgba(96,165,250,0.08)]" />
-            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_34%_28%,rgba(248,250,252,0.18),rgba(20,184,166,0.2)_20%,rgba(6,17,16,0.94)_72%)] shadow-[0_0_40px_rgba(0,230,118,0.14),0_0_100px_rgba(96,165,250,0.12)]" />
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 100 100"
+              className="absolute inset-[8%] z-10 h-[84%] w-[84%] opacity-85"
+              style={{ transform: "translateZ(4px)" }}
+            >
+              <defs>
+                <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="rgba(167,243,208,0.55)" />
+                  <stop offset="55%" stopColor="rgba(20,184,166,0.38)" />
+                  <stop offset="100%" stopColor="rgba(96,165,250,0.25)" />
+                </linearGradient>
+              </defs>
 
-            <div className="absolute inset-[14%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.16)] bg-[radial-gradient(circle_at_50%_36%,rgba(167,243,208,0.08),rgba(4,17,13,0.84)_72%)] backdrop-blur-sm">
-              <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.12),rgba(0,230,118,0.04),rgba(96,165,250,0.08),rgba(20,184,166,0.12))] opacity-75 blur-[18px]" />
-              <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.08)]" />
-              <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.14),transparent_72%)] blur-xl" />
-              <BrandConstellation />
+              {networkLinks.map((link) => (
+                <line
+                  key={`${link.x1}-${link.y1}-${link.x2}-${link.y2}`}
+                  x1={link.x1}
+                  y1={link.y1}
+                  x2={link.x2}
+                  y2={link.y2}
+                  stroke="url(#network-line)"
+                  strokeWidth="0.45"
+                  strokeLinecap="round"
+                  opacity="0.9"
+                />
+              ))}
+
+              <circle
+                cx="50"
+                cy="50"
+                r="18.5"
+                fill="none"
+                stroke="rgba(167,243,208,0.16)"
+                strokeWidth="0.45"
+              />
+              <ellipse
+                cx="50"
+                cy="50"
+                rx="26"
+                ry="11"
+                fill="none"
+                stroke="rgba(96,165,250,0.18)"
+                strokeWidth="0.35"
+                transform="rotate(-18 50 50)"
+              />
+              <ellipse
+                cx="50"
+                cy="50"
+                rx="12"
+                ry="28"
+                fill="none"
+                stroke="rgba(20,184,166,0.18)"
+                strokeWidth="0.35"
+                transform="rotate(22 50 50)"
+              />
+            </svg>
+
+            <div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-[58%] w-[34%] -translate-x-1/2 -translate-y-1/2"
+              style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
+            >
+              <motion.div
+                className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.14)] opacity-60"
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
             </div>
-          </motion.div>
+            <div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-[40%] w-[70%] -translate-x-1/2 -translate-y-1/2"
+              style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
+            >
+              <motion.div
+                className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.14)] opacity-50"
+                animate={{ rotate: [0, -360] }}
+                transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+
+            <div
+              className="absolute left-1/2 top-1/2 h-[48%] w-[48%] -translate-x-1/2 -translate-y-1/2"
+              style={{ transformStyle: "preserve-3d", transform: "translateZ(44px)" }}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
+                transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
+                className="relative h-full w-full"
+              >
+                <div className="absolute inset-[-18%] rounded-full border border-[color:rgba(167,243,208,0.1)]" />
+                <div className="absolute inset-[-32%] rounded-full border border-[color:rgba(96,165,250,0.08)]" />
+                <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_34%_28%,rgba(248,250,252,0.18),rgba(20,184,166,0.2)_20%,rgba(6,17,16,0.94)_72%)] shadow-[0_0_40px_rgba(0,230,118,0.14),0_0_100px_rgba(96,165,250,0.12)]" />
+
+                <div className="absolute inset-[14%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.16)] bg-[radial-gradient(circle_at_50%_36%,rgba(167,243,208,0.08),rgba(4,17,13,0.84)_72%)] backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.12),rgba(0,230,118,0.04),rgba(96,165,250,0.08),rgba(20,184,166,0.12))] opacity-75 blur-[18px]" />
+                  <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.08)]" />
+                  <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.14),transparent_72%)] blur-xl" />
+                  <BrandConstellation />
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
