@@ -1,144 +1,260 @@
 "use client";
 
-import { BadgeCheck } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowUpRight, BadgeCheck, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { brand } from "@/data/brand";
+import { heroHighlights } from "@/data/home";
+import { portfolioProjects } from "@/data/portfolio";
 import { heroTrustIndicators } from "@/data/site";
+import { luxuryEase } from "@/lib/motion";
 
-const heroLines = [
-  "Biznesinizi daha ciddi gosteren",
-  "premium, tam ferdilesdirilmis",
-  "veb saytlar qururuq"
-];
+const heroLines = ["Biznesinizi daha ciddi göstərən", "premium veb saytlar qururuq"];
 
-const heroSignals = [
-  {
-    label: "Struktur",
-    value: "Service, portfolio, process ve contact axini sade qurulur."
-  },
-  {
-    label: "Performans",
-    value: "Mobil-first, yungul ve suretli frontend ile daha rahat istifade."
-  },
-  {
-    label: "Mesaj",
-    value: "Markanizi daha ciddi gosteren, CTA-lari aydin olan premium teqdimat."
-  }
-];
+const heroParticles = [
+  { left: "7%", top: "14%", size: 8, duration: 7.2, delay: 0.2 },
+  { left: "42%", top: "10%", size: 10, duration: 8.8, delay: 1 },
+  { left: "88%", top: "20%", size: 12, duration: 7.9, delay: 0.5 },
+  { left: "18%", top: "74%", size: 9, duration: 8.5, delay: 1.4 },
+  { left: "73%", top: "78%", size: 11, duration: 9.2, delay: 0.9 }
+] as const;
 
-const coreFlow = ["Hero mesaji", "Service showcase", "Portfolio proof", "Contact CTA"];
+const heroPreviewSignals = [
+  "Real portfolio preview",
+  "Mobil-first axın",
+  "Satış yönümlü CTA strukturu"
+] as const;
+
+const heroProject = portfolioProjects[0]!;
 
 export function HomeHero() {
   return (
-    <section className="relative overflow-hidden pb-14 pt-28 sm:pb-16 sm:pt-32 lg:pb-20 lg:pt-36">
+    <section className="relative overflow-hidden pb-24 pt-28 sm:pb-28 sm:pt-32 lg:pb-32 lg:pt-36">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(0,230,118,0.16),transparent_30%),radial-gradient(circle_at_82%_16%,rgba(20,184,166,0.18),transparent_22%),linear-gradient(180deg,rgba(4,17,13,0),rgba(4,17,13,0.28))]" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(167,243,208,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(167,243,208,0.08) 1px, transparent 1px)",
+          backgroundSize: "72px 72px"
+        }}
+      />
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-no-repeat opacity-[0.08]"
         style={{
           backgroundImage: `url(${brand.heroBackgroundPath})`,
-          backgroundPosition: "right -8rem top -4rem",
-          backgroundSize: "min(42rem, 54vw)"
+          backgroundPosition: "right -10rem top -3rem",
+          backgroundSize: "min(46rem, 56vw)"
         }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(0,230,118,0.14),transparent_28%),radial-gradient(circle_at_82%_10%,rgba(20,184,166,0.1),transparent_22%)]" />
+
+      {heroParticles.map((particle) => (
+        <motion.span
+          key={`${particle.left}-${particle.top}`}
+          aria-hidden="true"
+          className="absolute rounded-full bg-[rgba(167,243,208,0.9)] blur-[1px]"
+          style={{
+            left: particle.left,
+            top: particle.top,
+            width: particle.size,
+            height: particle.size,
+            boxShadow: "0 0 26px rgba(0,230,118,0.45)"
+          }}
+          animate={{
+            y: [0, -14, 0],
+            opacity: [0.2, 0.9, 0.2],
+            scale: [1, 1.15, 1]
+          }}
+          transition={{
+            duration: particle.duration,
+            delay: particle.delay,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
 
       <Container className="relative">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.04fr)_minmax(300px,0.88fr)] lg:items-start xl:gap-12">
+        <div className="grid gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
           <Reveal className="max-w-3xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)] px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-[var(--color-highlight)] shadow-[0_0_0_1px_rgba(167,243,208,0.04)]">
+              <Sparkles className="size-4 text-[var(--color-accent)]" />
               Premium web studio
             </div>
 
-            <div className="space-y-1.5">
+            <div className="mt-6 space-y-2">
               {heroLines.map((line) => (
                 <h1
                   key={line}
-                  className="text-balance font-display text-5xl leading-[0.92] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.6rem]"
+                  className="text-balance font-display text-5xl leading-[0.9] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.35rem]"
                 >
                   {line}
                 </h1>
               ))}
             </div>
 
-            <p className="mt-6 max-w-2xl text-base leading-7 text-[var(--color-muted)] sm:text-lg">
-              YourWebsayt sirketler, klinikalar, restoranlar, xidmet biznesleri, dasinmaz emlak
-              ofisleri ve sexsi brendler ucun etibar yaradan, muraciet axinini guclendiren ve
-              markani daha premium gosteren veb tecrubeler hazirlayir.
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--color-muted)] sm:text-lg">
+              YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri,
+              rent a car biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü
+              saytlar hazırlayır.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/contact" size="lg">
-                Layiheni muzakire edek
+                Layihəni müzakirə edək
               </Button>
               <Button href="/portfolio" size="lg" variant="secondary">
-                Portfolioya baxin
+                Portfoliaya baxın
               </Button>
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-3 text-sm text-[var(--color-muted)]">
-              {heroTrustIndicators.slice(0, 3).map((indicator) => (
+            <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {heroTrustIndicators.map((indicator) => (
                 <div
                   key={indicator}
-                  className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-4 py-2"
+                  className="inline-flex items-center gap-2 rounded-full border border-[color:rgba(167,243,208,0.08)] bg-[rgba(167,243,208,0.04)] px-4 py-3 text-sm text-[var(--color-muted)] backdrop-blur-xl"
                 >
-                  <BadgeCheck className="size-4 text-[var(--color-accent)]" />
-                  {indicator}
+                  <BadgeCheck className="size-4 shrink-0 text-[var(--color-accent)]" />
+                  <span>{indicator}</span>
                 </div>
               ))}
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="lg:ml-auto lg:max-w-[34rem] lg:pl-2 lg:pt-3">
-            <div className="rounded-[36px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.96),rgba(11,31,24,0.84))] p-4 shadow-[0_28px_80px_rgba(0,0,0,0.28)] sm:p-5">
-              <div className="rounded-[28px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(4,17,13,0.72)] p-4 sm:p-5">
-                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
-                  Premium web system
-                </div>
-                <h2 className="mt-3 font-display text-3xl tracking-[-0.05em] text-[var(--color-text)] sm:text-4xl">
-                  Daha temiz, daha suretli, daha ciddi teqdimat
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
-                  Sayt yalniz dekorativ gorunus yox, etibar, mesaj ve muraciet axini ucun
-                  qurulmalidir.
-                </p>
-              </div>
+          <Reveal delay={0.08} className="relative">
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative mx-auto w-full max-w-[40rem]"
+            >
+              <div className="absolute -left-8 top-14 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.22),transparent_72%)] blur-3xl lg:block" />
+              <div className="absolute -right-6 bottom-10 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.18),transparent_72%)] blur-3xl lg:block" />
 
-              <div className="mt-3 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-                {heroSignals.map((signal) => (
-                  <div
-                    key={signal.label}
-                    className="rounded-[24px] border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] p-4"
-                  >
-                    <div className="text-[10px] uppercase tracking-[0.24em] text-[var(--color-accent)]">
-                      {signal.label}
+              <div className="relative overflow-hidden rounded-[40px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.96),rgba(11,31,24,0.86))] p-4 shadow-[0_38px_120px_rgba(0,0,0,0.38)] sm:p-5">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-[0.16]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, rgba(167,243,208,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.12) 1px, transparent 1px)",
+                    backgroundSize: "42px 42px"
+                  }}
+                />
+
+                <div className="relative rounded-[30px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(4,17,13,0.76)] p-4 sm:p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[color:rgba(167,243,208,0.08)] pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1.5">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[rgba(248,250,252,0.28)]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[rgba(20,184,166,0.44)]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[rgba(0,230,118,0.7)]" />
+                      </div>
+                      <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+                        YourWebsayt preview
+                      </div>
                     </div>
-                    <p className="mt-3 text-sm leading-6 text-[var(--color-text)]">{signal.value}</p>
+
+                    <div className="rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)] px-3 py-1 text-[10px] uppercase tracking-[0.26em] text-[var(--color-accent)]">
+                      Real project flow
+                    </div>
                   </div>
-                ))}
-              </div>
 
-              <div className="mt-3 rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.72)] p-4 sm:p-5">
-                <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
-                  Core flow
-                </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {coreFlow.map((item, index) => (
-                    <div
-                      key={item}
-                      className="flex items-center justify-between rounded-[18px] border border-[rgba(167,243,208,0.08)] bg-[rgba(4,17,13,0.62)] px-4 py-3 text-sm text-[var(--color-text)]"
+                  <div className="relative mt-5 overflow-hidden rounded-[26px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(6,23,18,0.76)]">
+                    <div className="absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(4,17,13,0),rgba(4,17,13,0.48))]" />
+                    <Image
+                      src={heroProject.heroImage}
+                      alt={heroProject.title}
+                      width={1280}
+                      height={920}
+                      className="w-full object-cover"
+                      priority
+                    />
+
+                    <motion.div
+                      className="absolute left-4 top-4 z-10 rounded-full border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.78)] px-3 py-2 text-[10px] uppercase tracking-[0.24em] text-[var(--color-text)] backdrop-blur-xl"
+                      animate={{ y: [0, -6, 0] }}
+                      transition={{ duration: 5.5, delay: 0.4, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <span>{item}</span>
-                      <span className="text-[var(--color-highlight)]">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                  ))}
+                      {heroProject.clientType}
+                    </motion.div>
+
+                    <motion.div
+                      className="absolute bottom-4 left-4 z-10 max-w-[16rem] rounded-[24px] border border-[color:rgba(167,243,208,0.12)] bg-[rgba(6,23,18,0.78)] p-4 backdrop-blur-xl"
+                      animate={{ y: [0, 8, 0] }}
+                      transition={{ duration: 6.6, delay: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
+                        Satış yönümlü axın
+                      </div>
+                      <p className="mt-3 text-sm leading-6 text-[var(--color-text)]">
+                        Xidmət təqdimatı, etibar bloku və əlaqə CTA-sı eyni axında işləyir.
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    {heroPreviewSignals.map((signal, index) => (
+                      <motion.div
+                        key={signal}
+                        className="rounded-[22px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(11,31,24,0.74)] p-4"
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.8,
+                          delay: 0.18 + index * 0.08,
+                          ease: luxuryEase
+                        }}
+                      >
+                        <div className="text-[10px] uppercase tracking-[0.24em] text-[var(--color-muted)]">
+                          0{index + 1}
+                        </div>
+                        <div className="mt-3 text-sm leading-6 text-[var(--color-text)]">{signal}</div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
+
+                <motion.div
+                  className="absolute -right-2 top-18 hidden w-44 rounded-[24px] border border-[color:rgba(167,243,208,0.12)] bg-[rgba(6,23,18,0.84)] p-4 shadow-[0_20px_56px_rgba(0,0,0,0.26)] backdrop-blur-xl md:block"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 7.2, delay: 1.1, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="text-[10px] uppercase tracking-[0.26em] text-[var(--color-muted)]">
+                    Studio proof
+                  </div>
+                  <div className="mt-3 space-y-2">
+                    {heroHighlights.map((item) => (
+                      <div key={item} className="flex items-center gap-2 text-sm text-[var(--color-text)]">
+                        <span className="h-2 w-2 rounded-full bg-[var(--color-accent)] shadow-[0_0_16px_rgba(0,230,118,0.62)]" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="absolute -left-2 bottom-12 hidden w-48 rounded-[24px] border border-[color:rgba(167,243,208,0.12)] bg-[rgba(11,31,24,0.84)] p-4 shadow-[0_20px_56px_rgba(0,0,0,0.26)] backdrop-blur-xl md:block"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 6.8, delay: 0.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-[10px] uppercase tracking-[0.26em] text-[var(--color-muted)]">
+                      CTA yerləşimi
+                    </div>
+                    <ArrowUpRight className="size-4 text-[var(--color-accent)]" />
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-[var(--color-text)]">
+                    İlk baxışdan etibar yaradan və müraciətə aparan premium struktur.
+                  </p>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </Reveal>
         </div>
       </Container>

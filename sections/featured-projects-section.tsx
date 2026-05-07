@@ -5,72 +5,64 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { portfolioProjects } from "@/data/portfolio";
 
-const featuredProjects = portfolioProjects.slice(0, 3);
-const heroProject = featuredProjects[0]!;
-const secondaryProjects = featuredProjects.slice(1);
-const proofNotes = [
-  "Hazır təhvil verilmiş biznes layihələri",
-  "Fərqli sahələr üçün portfolio nümunələri",
-  "Canlı linklərlə baxıla bilən real işlər"
-];
+const selectedProjects = portfolioProjects.slice(0, 6);
 
 export function FeaturedProjectsSection() {
   return (
-    <section className="py-20 sm:py-24">
+    <section className="relative py-24 sm:py-28">
+      <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_78%_0%,rgba(20,184,166,0.12),transparent_58%)]" />
+
       <SectionHeading
-        eyebrow="Portfolio"
-        title="Hazırladığım və təqdim etdiyim layihələr"
-        description="Real bizneslər və fərqli sahələr üçün hazırlanmış sayt nümunələri."
+        eyebrow="Seçilmiş işlər"
+        title="Real layihələr və demo işlər eyni premium standartda təqdim olunur."
+        description="Tubel İnşaat, Rentacarss.az və digər real işlərdən tutmuş sahə yönümlü demo saytlarına qədər bütün portfoliomuz daha ciddi, daha texnoloji və daha inandırıcı təqdimat üzərində qurulub."
+        action={
+          <Button href="/portfolio" variant="secondary">
+            Bütün layihələr
+          </Button>
+        }
       />
 
       <Container>
-        <div className="grid gap-6 xl:grid-cols-[1.08fr_0.92fr] xl:items-start">
-          <Reveal>
-            <ProjectCard project={heroProject} featured />
-          </Reveal>
-
-          <div className="space-y-6">
-            <Reveal delay={0.05}>
-              <div className="rounded-[32px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.86)] p-6 sm:p-7">
-                <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-accent)]">
-                  Portfolio qeydi
+        <Reveal>
+          <div className="mb-8 rounded-[32px] border border-[var(--color-accent-secondary)]/24 bg-[linear-gradient(180deg,rgba(0,230,118,0.06),rgba(20,184,166,0.08),rgba(11,31,24,0.9))] px-6 py-6 sm:px-7">
+            <div className="grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
+                  Portfolio system
                 </div>
-                <div className="mt-5 space-y-4">
-                  {proofNotes.map((note) => (
-                    <div
-                      key={note}
-                      className="border-b border-[color:rgba(167,243,208,0.08)] pb-4 text-sm leading-7 text-[var(--color-text)] last:border-b-0 last:pb-0"
-                    >
-                      {note}
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-5 border-t border-[color:rgba(167,243,208,0.08)] pt-4">
-                  <div className="text-sm leading-7 text-[var(--color-muted)]">
-                    Yuxarıda canlı tamamlanmış işlər, aşağı hissədə isə fərqli sektorlar üçün
-                    hazırlanmış portfolio nümunələri göstərilir.
-                  </div>
-                </div>
+                <h3 className="mt-3 text-3xl font-display tracking-[-0.04em] text-[var(--color-text)] sm:text-[2.4rem]">
+                  Hər kart bir layihənin vizual tonunu, sahəsini və nəticə hissini göstərir.
+                </h3>
               </div>
-            </Reveal>
-
-            {secondaryProjects.map((project, index) => (
-              <Reveal key={project.slug} delay={0.08 + index * 0.06}>
-                <ProjectCard project={project} />
-              </Reveal>
-            ))}
+              <p className="text-sm leading-7 text-[var(--color-muted)]">
+                Homepage-də bütün əsas real layihələri saxlayırıq ki istifadəçi həm texniki keyfiyyəti,
+                həm də müxtəlif biznes modellərinə necə uyğunlaşdığımızı ilk scroll-larda görsün.
+              </p>
+            </div>
           </div>
+        </Reveal>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {selectedProjects.map((project, index) => (
+            <Reveal
+              key={project.slug}
+              delay={index * 0.04}
+              className={index === 0 ? "md:col-span-2 xl:col-span-2" : ""}
+            >
+              <ProjectCard project={project} featured={index === 0} />
+            </Reveal>
+          ))}
         </div>
 
-        <Reveal className="mt-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[color:rgba(167,243,208,0.08)] pt-6">
+        <Reveal className="mt-8">
+          <div className="flex flex-col gap-4 rounded-[28px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(11,31,24,0.76)] px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-2xl text-sm leading-7 text-[var(--color-muted)]">
-              Tamamlanmış işlər və portfolio nümunələri eyni sistemdə göstərilir ki həm real
-              təhvil verilmiş saytlar, həm də fərqli istiqamətlər üzrə hazırladığım yanaşma
-              aydın görünsün.
+              Bu işlərin hər biri fərqli sahəyə xidmət edir, amma hamısında eyni prinsip qalır:
+              premium görünüş, axıcı struktur və qərarı asanlaşdıran CTA yerləşimi.
             </p>
-            <Button href="/portfolio" variant="secondary">
-              Bütün layihələrə bax
+            <Button href="/contact" size="lg">
+              Mənim layihəmi də quraq
             </Button>
           </div>
         </Reveal>

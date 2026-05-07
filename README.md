@@ -1,6 +1,6 @@
 # YourWebsayt
 
-Premium, conversion-focused creative agency website built with Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion, GSAP, Lenis, and `next/image`.
+Premium, conversion-focused creative agency website built with Next.js App Router, TypeScript, Tailwind CSS, Framer Motion, and `next/image`.
 
 ## Scripts
 
@@ -19,11 +19,10 @@ npm run start
 ## Main editable content
 
 - Branding and contact info: `data/site.ts`
+- Homepage trust / service data: `data/home.ts`
 - Services: `data/services.ts`
 - Portfolio projects: `data/portfolio.ts`
 - Packages: `data/pricing.ts`
-- Testimonials: `data/testimonials.ts`
-- FAQ: `data/faq.ts`
 - Studio story and team: `data/team.ts`
 - Multi-page storytelling and qualification content: `data/experience.ts`
 - Design tokens and global visual system: `app/globals.css`, `styles/utilities.css`

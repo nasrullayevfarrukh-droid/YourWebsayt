@@ -16,9 +16,9 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants = {
   primary:
-    "bg-[var(--color-accent)] text-[var(--color-accent-ink)] shadow-[0_16px_38px_rgba(0,230,118,0.18)] hover:shadow-[0_0_0_1px_rgba(4,17,13,0.06),0_22px_52px_rgba(0,230,118,0.28)]",
+    "bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-secondary))] text-[var(--color-accent-ink)] shadow-[0_18px_42px_rgba(0,230,118,0.2)] hover:shadow-[0_0_0_1px_rgba(167,243,208,0.12),0_26px_60px_rgba(0,230,118,0.28)]",
   secondary:
-    "border border-[color:var(--color-border-strong)] bg-[rgba(11,31,24,0.72)] text-[var(--color-text)] hover:border-[var(--color-accent-secondary)] hover:bg-[rgba(20,184,166,0.1)]",
+    "border border-[color:var(--color-border-strong)] bg-[linear-gradient(180deg,rgba(11,31,24,0.8),rgba(11,31,24,0.64))] text-[var(--color-text)] hover:border-[var(--color-accent-secondary)] hover:bg-[rgba(20,184,166,0.12)]",
   ghost: "text-[var(--color-text)] hover:bg-[rgba(167,243,208,0.08)]"
 } as const;
 
@@ -36,7 +36,7 @@ function ButtonInner({
   return (
     <span
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[0.02em] transition-all duration-300 hover:-translate-y-0.5",
+        "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[0.02em] shadow-[inset_0_1px_0_rgba(248,250,252,0.08)] transition-all duration-300 hover:-translate-y-0.5",
         sizes[size],
         variants[variant],
         className
