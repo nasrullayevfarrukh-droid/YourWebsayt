@@ -33,7 +33,7 @@ const coreFlow = ["Hero mesaji", "Service showcase", "Portfolio proof", "Contact
 
 export function HomeHero() {
   return (
-    <section className="relative overflow-hidden pt-32 sm:pt-40">
+    <section className="relative overflow-hidden pb-14 pt-28 sm:pb-16 sm:pt-32 lg:pb-20 lg:pt-36">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-no-repeat opacity-[0.08]"
@@ -46,13 +46,13 @@ export function HomeHero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(0,230,118,0.14),transparent_28%),radial-gradient(circle_at_82%_10%,rgba(20,184,166,0.1),transparent_22%)]" />
 
       <Container className="relative">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.04fr)_minmax(300px,0.88fr)] lg:items-start xl:gap-12">
           <Reveal className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
               Premium web studio
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {heroLines.map((line) => (
                 <h1
                   key={line}
@@ -63,13 +63,13 @@ export function HomeHero() {
               ))}
             </div>
 
-            <p className="mt-7 max-w-2xl text-base leading-7 text-[var(--color-muted)] sm:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-7 text-[var(--color-muted)] sm:text-lg">
               YourWebsayt sirketler, klinikalar, restoranlar, xidmet biznesleri, dasinmaz emlak
               ofisleri ve sexsi brendler ucun etibar yaradan, muraciet axinini guclendiren ve
               markani daha premium gosteren veb tecrubeler hazirlayir.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/contact" size="lg">
                 Layiheni muzakire edek
               </Button>
@@ -78,7 +78,7 @@ export function HomeHero() {
               </Button>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3 text-sm text-[var(--color-muted)]">
+            <div className="mt-5 flex flex-wrap gap-3 text-sm text-[var(--color-muted)]">
               {heroTrustIndicators.slice(0, 3).map((indicator) => (
                 <div
                   key={indicator}
@@ -91,22 +91,22 @@ export function HomeHero() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="lg:pl-4">
-            <div className="rounded-[36px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.96),rgba(11,31,24,0.84))] p-5 shadow-[0_28px_80px_rgba(0,0,0,0.28)] sm:p-6">
-              <div className="rounded-[28px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(4,17,13,0.72)] p-5">
+          <Reveal delay={0.08} className="lg:ml-auto lg:max-w-[34rem] lg:pl-2 lg:pt-3">
+            <div className="rounded-[36px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.96),rgba(11,31,24,0.84))] p-4 shadow-[0_28px_80px_rgba(0,0,0,0.28)] sm:p-5">
+              <div className="rounded-[28px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(4,17,13,0.72)] p-4 sm:p-5">
                 <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
                   Premium web system
                 </div>
-                <h2 className="mt-4 font-display text-3xl tracking-[-0.05em] text-[var(--color-text)] sm:text-4xl">
+                <h2 className="mt-3 font-display text-3xl tracking-[-0.05em] text-[var(--color-text)] sm:text-4xl">
                   Daha temiz, daha suretli, daha ciddi teqdimat
                 </h2>
-                <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
                   Sayt yalniz dekorativ gorunus yox, etibar, mesaj ve muraciet axini ucun
                   qurulmalidir.
                 </p>
               </div>
 
-              <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              <div className="mt-3 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                 {heroSignals.map((signal) => (
                   <div
                     key={signal.label}
@@ -120,7 +120,7 @@ export function HomeHero() {
                 ))}
               </div>
 
-              <div className="mt-4 rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.72)] p-5">
+              <div className="mt-3 rounded-[28px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.72)] p-4 sm:p-5">
                 <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-muted)]">
                   Core flow
                 </div>

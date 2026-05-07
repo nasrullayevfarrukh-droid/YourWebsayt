@@ -20,11 +20,11 @@ export function SectionHeading({
   className
 }: SectionHeadingProps) {
   return (
-    <Container className={cn("mb-12 sm:mb-16", className)}>
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+    <Container className={cn("mb-10 sm:mb-12", className)}>
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
         <Reveal className="max-w-3xl">
           {eyebrow ? (
-            <div className="mb-4 inline-flex rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-[var(--color-muted)]">
+            <div className="mb-3 inline-flex rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-[var(--color-muted)]">
               {eyebrow}
             </div>
           ) : null}

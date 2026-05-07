@@ -5,9 +5,9 @@ import { processSteps } from "@/data/site";
 
 export function ProcessSection() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-20 sm:py-24">
       <Container>
-        <div className="grid gap-12 xl:grid-cols-[0.78fr_1.22fr] xl:items-start">
+        <div className="grid gap-10 xl:grid-cols-[0.78fr_1.22fr] xl:items-start">
           <Reveal>
             <div className="max-w-xl">
               <div className="mb-5 inline-flex rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-[var(--color-muted)]">
@@ -19,7 +19,7 @@ export function ProcessSection() {
               <p className="mt-5 text-base leading-7 text-[var(--color-muted)]">
                 Brief-dən təhvilə qədər hər addım görünən və idarə olunan olur. Bu həm işin keyfiyyətini, həm də sizin rahatlığınızı gücləndirir.
               </p>
-              <div className="mt-8">
+              <div className="mt-7">
                 <Button href="/contact" variant="secondary">
                   Prosesi müzakirə et
                 </Button>

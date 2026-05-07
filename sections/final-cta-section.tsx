@@ -10,10 +10,10 @@ const ctaPoints = [
 
 export function FinalCtaSection() {
   return (
-    <section className="pb-24 pt-10 sm:pb-32">
+    <section className="pb-20 pt-6 sm:pb-24 sm:pt-8">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-[40px] border border-[var(--color-accent-secondary)]/28 bg-[linear-gradient(140deg,rgba(0,230,118,0.08),rgba(20,184,166,0.12)_44%,rgba(11,31,24,0.94))] px-6 py-10 sm:px-10 sm:py-14">
+          <div className="relative overflow-hidden rounded-[40px] border border-[var(--color-accent-secondary)]/28 bg-[linear-gradient(140deg,rgba(0,230,118,0.08),rgba(20,184,166,0.12)_44%,rgba(11,31,24,0.94))] px-6 py-8 sm:px-9 sm:py-12">
             <div className="absolute right-0 top-0 h-56 w-56 bg-[radial-gradient(circle,rgba(0,230,118,0.18),transparent_72%)] blur-3xl" />
             <div className="relative max-w-3xl">
               <div className="text-xs uppercase tracking-[0.32em] text-[var(--color-accent)]">
@@ -26,7 +26,7 @@ export function FinalCtaSection() {
                 Layihənizi bizimlə planlaşdırın. Strategiya, dizayn və inkişaf bir yerdə, bir studiya standartında idarə olunsun.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="mt-7 flex flex-wrap items-center gap-4">
                 <Button href="/contact" size="lg">
                   Layihənizi bizimlə planlaşdırın
                 </Button>
@@ -35,7 +35,7 @@ export function FinalCtaSection() {
                 </div>
               </div>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
                 {ctaPoints.map((point) => (
                   <div
                     key={point}

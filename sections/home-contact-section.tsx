@@ -10,7 +10,7 @@ export function HomeContactSection() {
   const instagram = siteConfig.socialLinks.find((item) => item.label === "Instagram");
 
   return (
-    <section className="pb-24 pt-4 sm:pb-32">
+    <section className="pb-20 pt-2 sm:pb-24 sm:pt-4">
       <SectionHeading
         eyebrow="Əlaqə"
         title="Layihənizi qısa yazın, hansı biznes nəticəsini istədiyinizi birlikdə dəqiqləşdirək."
@@ -18,14 +18,14 @@ export function HomeContactSection() {
       />
 
       <Container>
-        <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr] xl:gap-7">
           <div className="space-y-6">
             <Reveal>
-              <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 sm:p-7">
+              <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5 sm:p-6">
                 <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
                   Birbaşa əlaqə
                 </div>
-                <div className="mt-6 space-y-4">
+                <div className="mt-5 space-y-4">
                   <Link
                     href="https://wa.me/994505552025"
                     className="block rounded-[22px] border border-white/10 bg-white/[0.03] px-5 py-4 text-sm text-[var(--color-text)] transition-all duration-300 hover:border-[var(--color-accent)]/45 hover:bg-white/[0.05]"
@@ -51,7 +51,7 @@ export function HomeContactSection() {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <div className="rounded-[30px] border border-white/10 bg-white/[0.03] p-6 sm:p-7">
+              <div className="rounded-[30px] border border-white/10 bg-white/[0.03] p-5 sm:p-6">
                 <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
                   Nə üçün yazmaq olar
                 </div>

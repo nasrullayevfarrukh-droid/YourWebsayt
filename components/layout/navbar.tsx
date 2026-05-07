@@ -31,11 +31,11 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-[60] pt-3 sm:pt-5">
+      <header className="fixed inset-x-0 top-0 z-[60] pt-2 sm:pt-4">
         <Container>
           <div
             className={cn(
-              "flex items-center justify-between rounded-full px-4 py-3 transition-all duration-500 sm:px-5",
+              "flex items-center justify-between rounded-full px-4 py-2.5 transition-all duration-500 sm:px-5 sm:py-3",
               isScrolled
                 ? "glass-panel border border-[color:var(--color-border)] shadow-[0_12px_44px_rgba(0,0,0,0.32)]"
                 : "border border-[rgba(167,243,208,0.08)] bg-[rgba(4,17,13,0.48)] backdrop-blur-md"

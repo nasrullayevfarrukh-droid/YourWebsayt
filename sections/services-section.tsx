@@ -41,7 +41,7 @@ export function ServicesSection() {
   const [leadService, ...sideServices] = primaryServices;
 
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-20 sm:py-24">
       <SectionHeading
         eyebrow="Xidmətlər"
         title="Əsas veb həlləri önə çıxarırıq, qalan xidmətləri isə strateji ağırlıqla təqdim edirik."
@@ -65,14 +65,14 @@ export function ServicesSection() {
                 <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">
                   Əsas istiqamət {leadService.number}
                 </div>
-                <h3 className="mt-8 max-w-xl text-balance font-display text-4xl tracking-[-0.05em] text-[var(--color-text)] sm:text-5xl">
+                <h3 className="mt-6 max-w-xl text-balance font-display text-4xl tracking-[-0.05em] text-[var(--color-text)] sm:text-5xl">
                   {leadService.title}
                 </h3>
-                <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--color-muted)]">
+                <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--color-muted)]">
                   {leadService.description}
                 </p>
 
-                <div className="mt-10 grid gap-5 border-t border-[color:rgba(167,243,208,0.08)] pt-7 md:grid-cols-[1fr_0.9fr]">
+                <div className="mt-8 grid gap-5 border-t border-[color:rgba(167,243,208,0.08)] pt-6 md:grid-cols-[1fr_0.9fr]">
                   <div>
                     <div className="text-[11px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
                       Biznesə təsiri
@@ -80,7 +80,7 @@ export function ServicesSection() {
                     <p className="mt-3 text-base leading-7 text-[var(--color-text)]">
                       {leadService.benefit}
                     </p>
-                    <div className="mt-7">
+                    <div className="mt-6">
                       <Button href="/contact" size="lg">
                         Layihəni müzakirə edək
                       </Button>
@@ -117,20 +117,20 @@ export function ServicesSection() {
                     <ArrowUpRight className="size-4 text-[var(--color-accent)] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </div>
 
-                  <h3 className="mt-8 text-3xl font-display tracking-[-0.04em] text-[var(--color-text)]">
+                  <h3 className="mt-6 text-3xl font-display tracking-[-0.04em] text-[var(--color-text)]">
                     {service.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+                  <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
                     {service.description}
                   </p>
-                  <p className="mt-5 text-sm leading-7 text-[var(--color-text)]">{service.benefit}</p>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-text)]">{service.benefit}</p>
                 </div>
               </Reveal>
             ))}
           </div>
         </div>
 
-        <div className="mt-12 grid gap-4 border-t border-[color:rgba(167,243,208,0.08)] pt-8 md:grid-cols-2 xl:grid-cols-5">
+        <div className="mt-10 grid gap-4 border-t border-[color:rgba(167,243,208,0.08)] pt-6 md:grid-cols-2 xl:grid-cols-5">
           {secondaryServices.map((service, index) => (
             <Reveal key={service} delay={index * 0.03}>
               <div className="border-b border-[color:rgba(167,243,208,0.08)] pb-4 text-sm leading-7 text-[var(--color-muted)]">

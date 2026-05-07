@@ -16,7 +16,7 @@ const proofNotes = [
 
 export function FeaturedProjectsSection() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-20 sm:py-24">
       <SectionHeading
         eyebrow="Portfolio"
         title="Hazırladığım və təqdim etdiyim layihələr"
@@ -35,7 +35,7 @@ export function FeaturedProjectsSection() {
                 <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-accent)]">
                   Portfolio qeydi
                 </div>
-                <div className="mt-6 space-y-4">
+                <div className="mt-5 space-y-4">
                   {proofNotes.map((note) => (
                     <div
                       key={note}
@@ -45,7 +45,7 @@ export function FeaturedProjectsSection() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 border-t border-[color:rgba(167,243,208,0.08)] pt-5">
+                <div className="mt-5 border-t border-[color:rgba(167,243,208,0.08)] pt-4">
                   <div className="text-sm leading-7 text-[var(--color-muted)]">
                     Yuxarıda canlı tamamlanmış işlər, aşağı hissədə isə fərqli sektorlar üçün
                     hazırlanmış portfolio nümunələri göstərilir.
@@ -62,7 +62,7 @@ export function FeaturedProjectsSection() {
           </div>
         </div>
 
-        <Reveal className="mt-8">
+        <Reveal className="mt-6">
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[color:rgba(167,243,208,0.08)] pt-6">
             <p className="max-w-2xl text-sm leading-7 text-[var(--color-muted)]">
               Tamamlanmış işlər və portfolio nümunələri eyni sistemdə göstərilir ki həm real
