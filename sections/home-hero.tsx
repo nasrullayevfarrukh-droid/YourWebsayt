@@ -17,40 +17,40 @@ const techOrbitBadges = [
   {
     label: "AI",
     x: 0,
-    y: -154,
-    z: 122,
+    y: -172,
+    z: 112,
     accent: "rgba(167,243,208,0.16)",
     text: "rgba(248,250,252,0.94)"
   },
   {
     label: "Python",
-    x: -138,
-    y: -26,
-    z: 88,
+    x: -152,
+    y: -34,
+    z: 78,
     accent: "rgba(20,184,166,0.14)",
     text: "rgba(167,243,208,0.92)"
   },
   {
     label: "JavaScript",
-    x: 144,
-    y: -18,
-    z: 86,
+    x: 156,
+    y: -24,
+    z: 76,
     accent: "rgba(96,165,250,0.14)",
     text: "rgba(248,250,252,0.92)"
   },
   {
     label: "Node",
-    x: -122,
-    y: 114,
-    z: 82,
+    x: -138,
+    y: 132,
+    z: 66,
     accent: "rgba(0,230,118,0.14)",
     text: "rgba(248,250,252,0.9)"
   },
   {
     label: "HTML/CSS",
-    x: 116,
-    y: 104,
-    z: 84,
+    x: 134,
+    y: 122,
+    z: 70,
     accent: "rgba(129,140,248,0.13)",
     text: "rgba(167,243,208,0.9)"
   }
@@ -341,11 +341,17 @@ function HeroNetworkVisual() {
                 </div>
               ))}
 
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.1),rgba(20,184,166,0.03)_56%,transparent_74%)] blur-3xl"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(-8px)" }}
+              />
+
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 100"
-                className="absolute inset-[9%] z-10 h-[82%] w-[82%] opacity-[0.54]"
-                style={{ transform: "translateZ(4px)" }}
+                className="absolute inset-[13%] z-10 h-[74%] w-[74%] opacity-[0.28]"
+                style={{ transform: "translateZ(-2px)" }}
               >
                 <defs>
                   <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -363,92 +369,86 @@ function HeroNetworkVisual() {
                     x2={link.x2}
                     y2={link.y2}
                     stroke="url(#network-line)"
-                    strokeWidth="0.45"
+                    strokeWidth="0.4"
                     strokeLinecap="round"
-                    opacity="0.52"
+                    opacity="0.46"
                   />
                 ))}
-
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="18.5"
-                  fill="none"
-                  stroke="rgba(167,243,208,0.12)"
-                  strokeWidth="0.45"
-                />
-                <ellipse
-                  cx="50"
-                  cy="50"
-                  rx="26"
-                  ry="11"
-                  fill="none"
-                  stroke="rgba(96,165,250,0.12)"
-                  strokeWidth="0.3"
-                  transform="rotate(-18 50 50)"
-                />
-                <ellipse
-                  cx="50"
-                  cy="50"
-                  rx="12"
-                  ry="28"
-                  fill="none"
-                  stroke="rgba(20,184,166,0.12)"
-                  strokeWidth="0.3"
-                  transform="rotate(22 50 50)"
-                />
               </svg>
 
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[62%] w-[38%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
               >
                 <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.12)] opacity-56"
+                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.12)] opacity-54"
+                  style={{ transform: "rotateX(74deg)" }}
                   animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
                 />
               </div>
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[44%] w-[74%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
               >
                 <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.12)] opacity-44"
+                  className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.11)] opacity-42"
+                  style={{ transform: "rotateY(72deg)" }}
                   animate={{ rotate: [0, -360] }}
-                  transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[84%] w-[84%] -translate-x-1/2 -translate-y-1/2"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(10px)" }}
+              >
+                <motion.div
+                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-32"
+                  style={{ transform: "rotateX(32deg) rotateY(52deg)" }}
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
                 />
               </div>
 
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-[60%] h-[18%] w-[36%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.42),transparent_72%)] blur-2xl"
+                className="absolute left-1/2 top-[64%] h-[18%] w-[32%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.46),transparent_72%)] blur-2xl"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
               />
 
               <div
-                className="absolute left-1/2 top-1/2 h-[64%] w-[64%] -translate-x-1/2 -translate-y-1/2"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
+                className="absolute left-1/2 top-1/2 h-[68%] w-[68%] -translate-x-1/2 -translate-y-1/2"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(54px)" }}
               >
                 <motion.div
                   animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
                   transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
                   className="relative h-full w-full"
                 >
-                  <div className="absolute inset-[-9%] rounded-full border border-[color:rgba(167,243,208,0.07)] opacity-68" />
-                  <div className="absolute inset-[-16%] rounded-full border border-[color:rgba(96,165,250,0.04)] opacity-54" />
-                  <div className="absolute inset-[-12%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.08),transparent_66%)] blur-2xl" />
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.32),rgba(167,243,208,0.12)_12%,rgba(18,56,49,0.44)_30%,rgba(4,14,14,0.98)_76%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.14),transparent_26%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.08),transparent_42%)] shadow-[inset_-20px_-34px_62px_rgba(0,0,0,0.66),inset_12px_16px_28px_rgba(255,255,255,0.05),0_28px_64px_rgba(0,0,0,0.34),0_0_72px_rgba(20,184,166,0.05)]" />
-                  <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-72" />
-                  <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_34%_24%,rgba(248,250,252,0.1),transparent_18%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
+                  <div className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.08),rgba(20,184,166,0.02)_54%,transparent_72%)] blur-2xl" />
+                  <div className="absolute inset-[-6%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-72" />
+                  <div className="absolute inset-[-10%] rounded-full border border-[color:rgba(96,165,250,0.05)] opacity-46" />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_22%,rgba(248,250,252,0.42),rgba(248,250,252,0.16)_10%,rgba(167,243,208,0.1)_18%,rgba(16,49,44,0.44)_34%,rgba(4,14,14,0.98)_76%),radial-gradient(circle_at_74%_72%,rgba(96,165,250,0.18),transparent_24%),radial-gradient(circle_at_56%_56%,rgba(20,184,166,0.1),transparent_40%),linear-gradient(145deg,rgba(11,31,24,0.32),rgba(2,8,8,0.9))] shadow-[inset_-32px_-44px_82px_rgba(0,0,0,0.78),inset_16px_18px_30px_rgba(255,255,255,0.06),0_30px_78px_rgba(0,0,0,0.4),0_0_78px_rgba(20,184,166,0.06)]" />
+                  <div className="absolute inset-[0.8%] rounded-full border border-[color:rgba(248,250,252,0.1)] opacity-78" />
+                  <div className="absolute inset-[3.4%] rounded-full bg-[radial-gradient(circle_at_34%_20%,rgba(248,250,252,0.14),transparent_18%),radial-gradient(circle_at_74%_78%,rgba(96,165,250,0.08),transparent_20%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
+                  <div className="absolute inset-[6%] rounded-full border border-[color:rgba(167,243,208,0.04)] opacity-72" />
 
-                  <div className="absolute inset-[12.5%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_34%,rgba(167,243,208,0.05),rgba(4,17,13,0.84)_72%)] backdrop-blur-sm shadow-[inset_0_0_32px_rgba(0,0,0,0.24)]">
+                  <div className="absolute inset-[11.5%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_30%,rgba(167,243,208,0.06),rgba(4,17,13,0.9)_74%)] backdrop-blur-sm shadow-[inset_0_0_42px_rgba(0,0,0,0.28)]">
                     <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.08),rgba(0,230,118,0.03),rgba(96,165,250,0.06),rgba(20,184,166,0.08))] opacity-70 blur-[18px]" />
-                    <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.06)]" />
-                    <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.16),transparent_72%)] blur-xl" />
+                    <svg aria-hidden="true" viewBox="0 0 100 100" className="absolute inset-[8%] h-[84%] w-[84%] opacity-[0.28]">
+                      <ellipse cx="50" cy="50" rx="32" ry="10.5" fill="none" stroke="rgba(167,243,208,0.22)" strokeWidth="0.7" />
+                      <ellipse cx="50" cy="50" rx="27" ry="18.5" fill="none" stroke="rgba(96,165,250,0.18)" strokeWidth="0.55" transform="rotate(-18 50 50)" />
+                      <ellipse cx="50" cy="50" rx="16" ry="31" fill="none" stroke="rgba(20,184,166,0.18)" strokeWidth="0.55" transform="rotate(20 50 50)" />
+                      <ellipse cx="50" cy="50" rx="9" ry="34" fill="none" stroke="rgba(167,243,208,0.12)" strokeWidth="0.45" transform="rotate(-8 50 50)" />
+                    </svg>
+                    <div className="absolute inset-[8%] rounded-full border border-[color:rgba(167,243,208,0.06)]" />
+                    <div className="absolute left-[22%] right-[22%] top-[11%] h-[16%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.18),transparent_72%)] blur-xl" />
+                    <div className="absolute bottom-[10%] left-[16%] right-[16%] h-[20%] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.26),transparent_68%)] blur-xl" />
                     <BrandConstellation />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_110%,rgba(0,0,0,0.38),transparent_50%),radial-gradient(circle_at_18%_18%,rgba(248,250,252,0.06),transparent_22%)]" />
                   </div>
                 </motion.div>
               </div>
