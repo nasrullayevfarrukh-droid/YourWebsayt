@@ -6,7 +6,6 @@ import { Menu } from "lucide-react";
 
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { BrandMark } from "@/components/ui/brand-mark";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { navigation, siteConfig } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -35,13 +34,13 @@ export function Navbar() {
         className={cn(
           "fixed inset-x-0 top-0 z-[60] border-b transition-all duration-500",
           isScrolled
-            ? "border-[rgba(167,243,208,0.12)] bg-[rgba(4,17,13,0.88)] shadow-[0_18px_48px_rgba(0,0,0,0.22)] backdrop-blur-2xl"
-            : "border-[rgba(167,243,208,0.08)] bg-[rgba(4,17,13,0.74)] backdrop-blur-xl"
+            ? "border-[rgba(167,243,208,0.12)] bg-[rgba(4,17,13,0.9)] shadow-[0_18px_48px_rgba(0,0,0,0.22)] backdrop-blur-2xl"
+            : "border-[rgba(167,243,208,0.08)] bg-[rgba(4,17,13,0.76)] backdrop-blur-xl"
         )}
       >
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,26,21,0.96),rgba(5,14,12,0.88))]"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,26,21,0.96),rgba(5,14,12,0.9))]"
         />
         <div
           aria-hidden="true"
@@ -53,15 +52,15 @@ export function Navbar() {
         />
 
         <Container className="relative">
-          <div className="grid h-[74px] grid-cols-[auto_1fr_auto] items-center gap-4 lg:h-[82px] lg:gap-8">
-            <BrandMark compact className="relative z-10" />
+          <div className="grid h-[74px] grid-cols-[auto_1fr_auto] items-center gap-4 lg:h-[82px] lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
+            <BrandMark compact className="relative z-10 justify-self-start" />
 
             <nav className="relative z-10 hidden items-center justify-self-center lg:flex lg:gap-8">
               {navigation.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="link-line text-[13px] font-medium tracking-[0.02em] text-[rgba(248,250,252,0.72)] transition-colors duration-300 hover:text-[var(--color-text)]"
+                  className="link-line text-[13px] font-medium tracking-[0.015em] text-[rgba(248,250,252,0.72)] transition-colors duration-300 hover:text-[var(--color-text)]"
                 >
                   {item.label}
                 </Link>
@@ -69,18 +68,19 @@ export function Navbar() {
             </nav>
 
             <div className="relative z-10 hidden justify-self-end lg:block">
-              <Button
+              <Link
                 href="/contact"
-                size="md"
-                className="rounded-[16px] px-5 shadow-[0_14px_34px_rgba(0,230,118,0.16)] hover:shadow-[0_0_0_1px_rgba(167,243,208,0.08),0_20px_44px_rgba(0,230,118,0.22)]"
+                data-cursor="interactive"
+                data-cursor-burst="strong"
+                className="inline-flex h-11 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-secondary))] px-5 text-sm font-medium tracking-[0.015em] text-[var(--color-accent-ink)] shadow-[0_14px_34px_rgba(0,230,118,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgba(167,243,208,0.08),0_20px_44px_rgba(0,230,118,0.22)]"
               >
                 {siteConfig.consultation}
-              </Button>
+              </Link>
             </div>
 
             <button
               type="button"
-              aria-label="Menyunu aç"
+              aria-label="Open menu"
               className="relative z-10 justify-self-end rounded-[14px] border border-[rgba(167,243,208,0.12)] bg-[rgba(167,243,208,0.04)] p-3 text-[var(--color-text)] shadow-[0_8px_20px_rgba(0,0,0,0.16)] lg:hidden"
               onClick={() => setMenuOpen(true)}
             >
