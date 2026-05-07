@@ -27,7 +27,7 @@ export function HomeContactSection() {
                 </div>
                 <div className="mt-5 space-y-4">
                   <Link
-                    href="https://wa.me/994505552025"
+                    href={siteConfig.whatsappUrl}
                     className="block rounded-[22px] border border-white/10 bg-white/[0.03] px-5 py-4 text-sm text-[var(--color-text)] transition-all duration-300 hover:border-[var(--color-accent)]/45 hover:bg-white/[0.05]"
                   >
                     WhatsApp-da yaz

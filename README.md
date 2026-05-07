@@ -29,6 +29,6 @@ npm run start
 
 ## Notes
 
-- Contact form posts to `app/api/contact/route.ts`.
+- Contact form validates fields on the client and opens a prefilled WhatsApp message.
 - All visible copy is in Azerbaijani and stored in typed files for future localization.
 - Project thumbnails are SVG assets inside `public/images/projects/`.

@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { contactOptions } from "@/data/site";
+import { contactOptions, siteConfig } from "@/data/site";
 import type { ContactPayload } from "@/lib/types";
 import { validateContactPayload } from "@/lib/validation";
 
@@ -17,6 +17,20 @@ const initialForm: ContactPayload = {
   message: ""
 };
 
+function buildWhatsAppMessage(form: ContactPayload) {
+  return [
+    "Salam, yeni sayt layihəsi üçün müraciət etmək istəyirəm.",
+    "",
+    `Ad: ${form.name.trim()}`,
+    `Şirkət / Brend: ${form.company.trim()}`,
+    `Email: ${form.email.trim()}`,
+    `Telefon: ${form.phone.trim()}`,
+    `Sayt növü: ${form.websiteType.trim()}`,
+    `Büdcə aralığı: ${form.budget.trim()}`,
+    `Mesaj: ${form.message.trim()}`
+  ].join("\n");
+}
+
 export function ContactForm() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState<Partial<Record<keyof ContactPayload, string>>>({});
@@ -28,7 +42,7 @@ export function ContactForm() {
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const result = validateContactPayload(form);
@@ -45,28 +59,20 @@ export function ContactForm() {
     setErrors({});
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-      });
+      const message = buildWhatsAppMessage(form);
+      const whatsappUrl = `${siteConfig.whatsappUrl}?text=${encodeURIComponent(message)}`;
+      const openedWindow = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
-      const data = (await response.json()) as { message?: string };
-
-      if (!response.ok) {
-        throw new Error(data.message ?? "Sorğu göndərilərkən xəta baş verdi.");
+      if (!openedWindow) {
+        window.location.href = whatsappUrl;
       }
 
       setStatus("success");
-      setFeedback(data.message ?? "Sorğunuz qəbul olundu.");
+      setFeedback("WhatsApp açıldı. Mesajı göndərmək üçün davam edin.");
       setForm(initialForm);
-    } catch (error) {
+    } catch {
       setStatus("error");
-      setFeedback(
-        error instanceof Error ? error.message : "Sorğu göndərilərkən xəta baş verdi."
-      );
+      setFeedback("WhatsApp açılarkən xəta baş verdi. Yenidən cəhd edin.");
     }
   };
 
@@ -99,7 +105,7 @@ export function ContactForm() {
           onChange={(value) => handleChange("phone", value)}
         />
         <SelectField
-          label="Hansı növ sayt istəyirsiniz?"
+          label="Sayt növü"
           value={form.websiteType}
           error={errors.websiteType}
           onChange={(value) => handleChange("websiteType", value)}
@@ -133,7 +139,7 @@ export function ContactForm() {
           İdeyanı təqdim edin, strukturu və doğru həlli biz quraq.
         </div>
         <Button type="submit" size="lg" disabled={status === "loading"}>
-          {status === "loading" ? "Göndərilir..." : "Sorğunu göndər"}
+          {status === "loading" ? "WhatsApp açılır..." : "Sorğunu göndər"}
         </Button>
       </div>
 
