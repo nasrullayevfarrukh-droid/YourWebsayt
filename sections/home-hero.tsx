@@ -9,55 +9,50 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { heroTrustIndicators } from "@/data/site";
 
-const heroHeadline = "Biznesinizi daha ciddi göstərən premium veb saytlar qururuq";
+const heroHeadline = ["Biznesinizi daha ciddi göstərən", "premium veb saytlar qururuq"];
 const heroDescription =
   "YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri, rent a car biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü saytlar hazırlayır.";
 
 const techOrbitBadges = [
   {
     label: "AI",
-    glyph: "◎",
     x: 0,
-    y: -146,
-    z: 128,
-    accent: "rgba(167,243,208,0.18)",
+    y: -154,
+    z: 122,
+    accent: "rgba(167,243,208,0.16)",
     text: "rgba(248,250,252,0.94)"
   },
   {
-    label: "PY",
-    glyph: "py",
-    x: -134,
-    y: -40,
-    z: 100,
-    accent: "rgba(20,184,166,0.16)",
+    label: "Python",
+    x: -138,
+    y: -26,
+    z: 88,
+    accent: "rgba(20,184,166,0.14)",
     text: "rgba(167,243,208,0.92)"
   },
   {
-    label: "JS",
-    glyph: "{}",
-    x: 140,
-    y: -36,
-    z: 92,
-    accent: "rgba(96,165,250,0.16)",
+    label: "JavaScript",
+    x: 144,
+    y: -18,
+    z: 86,
+    accent: "rgba(96,165,250,0.14)",
     text: "rgba(248,250,252,0.92)"
   },
   {
-    label: "WEB",
-    glyph: "</>",
-    x: 126,
-    y: 90,
-    z: 96,
-    accent: "rgba(129,140,248,0.15)",
-    text: "rgba(167,243,208,0.9)"
+    label: "Node",
+    x: -122,
+    y: 114,
+    z: 82,
+    accent: "rgba(0,230,118,0.14)",
+    text: "rgba(248,250,252,0.9)"
   },
   {
-    label: "NODE",
-    glyph: "<>",
-    x: -128,
-    y: 98,
-    z: 92,
-    accent: "rgba(0,230,118,0.16)",
-    text: "rgba(248,250,252,0.9)"
+    label: "HTML/CSS",
+    x: 116,
+    y: 104,
+    z: 84,
+    accent: "rgba(129,140,248,0.13)",
+    text: "rgba(167,243,208,0.9)"
   }
 ] as const;
 
@@ -270,38 +265,38 @@ function HeroNetworkVisual() {
     <motion.div
       animate={{ y: [0, -8, 0] }}
       transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
-      className="relative mx-auto w-full max-w-[39rem]"
+      className="relative mx-auto w-full max-w-[44rem] xl:max-w-[46rem]"
     >
-      <div className="absolute -left-10 top-14 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.14),transparent_72%)] blur-3xl lg:block" />
-      <div className="absolute -right-4 bottom-10 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.12),transparent_72%)] blur-3xl lg:block" />
+      <div className="absolute -left-8 top-16 hidden h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.08),transparent_72%)] blur-3xl lg:block" />
+      <div className="absolute right-0 top-10 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.08),transparent_72%)] blur-3xl lg:block" />
 
-      <div className="relative overflow-visible px-2 py-4 sm:px-4 sm:py-5">
+      <div className="relative overflow-visible px-1 py-4 sm:px-3 sm:py-5">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-x-[12%] inset-y-[10%] rounded-[46px] bg-[radial-gradient(circle_at_50%_50%,rgba(11,31,24,0.46),rgba(6,17,16,0.18)_60%,transparent_100%)] blur-2xl" />
+          <div className="absolute inset-x-[10%] inset-y-[8%] rounded-[46px] bg-[radial-gradient(circle_at_50%_50%,rgba(11,31,24,0.34),rgba(6,17,16,0.1)_62%,transparent_100%)] blur-3xl" />
         </div>
 
         <div
           className="relative overflow-hidden rounded-[44px]"
           style={{
             WebkitMaskImage:
-              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.94) 58%, rgba(0,0,0,0.66) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)",
+              "radial-gradient(ellipse 78% 74% at 50% 50%, rgba(0,0,0,1) 44%, rgba(0,0,0,0.94) 60%, rgba(0,0,0,0.6) 78%, rgba(0,0,0,0.14) 90%, transparent 100%)",
             maskImage:
-              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.94) 58%, rgba(0,0,0,0.66) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)"
+              "radial-gradient(ellipse 78% 74% at 50% 50%, rgba(0,0,0,1) 44%, rgba(0,0,0,0.94) 60%, rgba(0,0,0,0.6) 78%, rgba(0,0,0,0.14) 90%, transparent 100%)"
           }}
         >
           <div
             aria-hidden="true"
-            className="absolute inset-0 opacity-[0.12]"
+            className="absolute inset-0 opacity-[0.08]"
             style={{
               backgroundImage:
-                "linear-gradient(to right, rgba(167,243,208,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.05) 1px, transparent 1px)",
-              backgroundSize: "48px 48px"
+                "linear-gradient(to right, rgba(167,243,208,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.04) 1px, transparent 1px)",
+              backgroundSize: "56px 56px"
             }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.1),transparent_32%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.06),transparent_20%),radial-gradient(circle_at_50%_88%,rgba(4,17,13,0.3),transparent_28%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.06),transparent_34%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.05),transparent_18%),radial-gradient(circle_at_50%_88%,rgba(4,17,13,0.26),transparent_28%)]" />
 
           <div
-            className={`relative aspect-[0.98/1] select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+            className={`relative aspect-square select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
             style={{ perspective: "1400px" }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
@@ -324,21 +319,22 @@ function HeroNetworkVisual() {
                   }}
                 >
                   <div
-                    className="pointer-events-none rounded-full border border-[rgba(167,243,208,0.12)] bg-[rgba(7,19,16,0.44)] px-2.5 py-2 shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-xl"
+                    className="pointer-events-none rounded-full border border-[rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(8,20,17,0.42),rgba(8,20,17,0.22))] px-2.5 py-1.5 shadow-[0_12px_24px_rgba(0,0,0,0.14)] backdrop-blur-md"
                     style={{
                       transform: badgeCounterTransform,
-                      boxShadow: `0 0 18px ${badge.accent}`
+                      boxShadow: `0 0 14px ${badge.accent}`
                     }}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       <span
-                        className="font-mono text-[9px] uppercase tracking-[0.18em]"
-                        style={{ color: badge.text }}
-                      >
+                        className="inline-flex h-1.5 w-1.5 rounded-full"
+                        style={{
+                          backgroundColor: badge.text,
+                          boxShadow: `0 0 10px ${badge.accent}`
+                        }}
+                      />
+                      <span className="font-mono text-[8px] uppercase tracking-[0.16em]" style={{ color: badge.text }}>
                         {badge.label}
-                      </span>
-                      <span className="font-mono text-[9px] opacity-80" style={{ color: badge.text }}>
-                        {badge.glyph}
                       </span>
                     </div>
                   </div>
@@ -348,7 +344,7 @@ function HeroNetworkVisual() {
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 100"
-                className="absolute inset-[10%] z-10 h-[80%] w-[80%] opacity-[0.62]"
+                className="absolute inset-[9%] z-10 h-[82%] w-[82%] opacity-[0.54]"
                 style={{ transform: "translateZ(4px)" }}
               >
                 <defs>
@@ -369,7 +365,7 @@ function HeroNetworkVisual() {
                     stroke="url(#network-line)"
                     strokeWidth="0.45"
                     strokeLinecap="round"
-                    opacity="0.6"
+                    opacity="0.52"
                   />
                 ))}
 
@@ -405,7 +401,7 @@ function HeroNetworkVisual() {
 
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[56%] w-[34%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[62%] w-[38%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
               >
                 <motion.div
@@ -416,7 +412,7 @@ function HeroNetworkVisual() {
               </div>
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[40%] w-[68%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[44%] w-[74%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
               >
                 <motion.div
@@ -428,12 +424,12 @@ function HeroNetworkVisual() {
 
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-[58%] h-[20%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.48),transparent_72%)] blur-2xl"
+                className="absolute left-1/2 top-[60%] h-[18%] w-[36%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.42),transparent_72%)] blur-2xl"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
               />
 
               <div
-                className="absolute left-1/2 top-1/2 h-[56%] w-[56%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[64%] w-[64%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
               >
                 <motion.div
@@ -441,10 +437,10 @@ function HeroNetworkVisual() {
                   transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
                   className="relative h-full w-full"
                 >
-                  <div className="absolute inset-[-10%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-72" />
-                  <div className="absolute inset-[-18%] rounded-full border border-[color:rgba(96,165,250,0.05)] opacity-62" />
-                  <div className="absolute inset-[-14%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.12),transparent_64%)] blur-2xl" />
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.28),rgba(167,243,208,0.14)_12%,rgba(18,56,49,0.46)_30%,rgba(4,14,14,0.96)_74%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.16),transparent_28%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.1),transparent_44%)] shadow-[inset_-18px_-30px_56px_rgba(0,0,0,0.6),inset_10px_14px_26px_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.28),0_0_100px_rgba(20,184,166,0.08)]" />
+                  <div className="absolute inset-[-9%] rounded-full border border-[color:rgba(167,243,208,0.07)] opacity-68" />
+                  <div className="absolute inset-[-16%] rounded-full border border-[color:rgba(96,165,250,0.04)] opacity-54" />
+                  <div className="absolute inset-[-12%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.08),transparent_66%)] blur-2xl" />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.32),rgba(167,243,208,0.12)_12%,rgba(18,56,49,0.44)_30%,rgba(4,14,14,0.98)_76%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.14),transparent_26%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.08),transparent_42%)] shadow-[inset_-20px_-34px_62px_rgba(0,0,0,0.66),inset_12px_16px_28px_rgba(255,255,255,0.05),0_28px_64px_rgba(0,0,0,0.34),0_0_72px_rgba(20,184,166,0.05)]" />
                   <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-72" />
                   <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_34%_24%,rgba(248,250,252,0.1),transparent_18%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
 
@@ -466,35 +462,36 @@ function HeroNetworkVisual() {
 
 export function HomeHero() {
   return (
-    <section className="relative overflow-hidden pb-20 pt-24 sm:pb-24 sm:pt-28 lg:pb-32 lg:pt-36">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(0,230,118,0.16),transparent_30%),radial-gradient(circle_at_82%_16%,rgba(20,184,166,0.18),transparent_22%),linear-gradient(180deg,rgba(4,17,13,0),rgba(4,17,13,0.28))]" />
+    <section className="relative overflow-hidden pb-20 pt-24 sm:pb-24 sm:pt-28 lg:pb-28 lg:pt-32 xl:pt-[8.5rem]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(0,230,118,0.1),transparent_28%),radial-gradient(circle_at_82%_16%,rgba(20,184,166,0.1),transparent_20%),linear-gradient(180deg,rgba(4,17,13,0),rgba(4,17,13,0.22))]" />
       <div
         aria-hidden="true"
-        className="absolute inset-0 opacity-[0.06]"
+        className="absolute inset-0 opacity-[0.035]"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgba(167,243,208,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(167,243,208,0.08) 1px, transparent 1px)",
-          backgroundSize: "72px 72px"
+          backgroundSize: "78px 78px"
         }}
       />
 
       <Container className="relative">
-        <div className="grid gap-10 lg:gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
-          <Reveal className="max-w-3xl">
+        <div className="grid gap-12 lg:gap-14 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] xl:items-center">
+          <Reveal className="max-w-[39rem] xl:pr-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)] px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-[var(--color-highlight)] shadow-[0_0_0_1px_rgba(167,243,208,0.04)]">
               <Sparkles className="size-4 text-[var(--color-accent)]" />
               Premium web studio
             </div>
 
-            <h1 className="mt-6 max-w-3xl text-balance font-display text-[2.9rem] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.2rem]">
-              {heroHeadline}
+            <h1 className="mt-6 max-w-[11.5ch] font-display text-[2.85rem] leading-[0.94] tracking-[-0.055em] text-[var(--color-text)] sm:text-[4rem] lg:text-[4.35rem] xl:text-[4.7rem] 2xl:text-[4.95rem]">
+              <span className="block">{heroHeadline[0]}</span>
+              <span className="mt-1 block text-[rgba(167,243,208,0.96)]">{heroHeadline[1]}</span>
             </h1>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--color-muted)] sm:text-lg">
+            <p className="mt-5 max-w-[35rem] text-[15px] leading-7 text-[var(--color-muted)] sm:text-lg sm:leading-8">
               {heroDescription}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-7 flex flex-wrap gap-4">
               <Button href="/contact" size="lg">
                 Layihəni müzakirə edək
               </Button>
@@ -503,7 +500,7 @@ export function HomeHero() {
               </Button>
             </div>
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-6 grid max-w-[42rem] gap-3 sm:grid-cols-2 2xl:grid-cols-4">
               {heroTrustIndicators.map((indicator) => (
                 <div
                   key={indicator}
@@ -516,7 +513,7 @@ export function HomeHero() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="relative">
+          <Reveal delay={0.08} className="relative xl:-mr-3">
             <HeroNetworkVisual />
           </Reveal>
         </div>
