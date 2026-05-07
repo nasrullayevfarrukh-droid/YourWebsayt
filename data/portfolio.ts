@@ -1,21 +1,11 @@
 import type { Project, ProjectGalleryItem } from "@/lib/types";
 
-function createGallery(baseName: string, subject: string): ProjectGalleryItem[] {
+function createGallery(image: string, subject: string): ProjectGalleryItem[] {
   return [
     {
-      title: "Ana görünüş",
-      caption: `${subject} üçün premium giriş hissəsi və əsas təqdimat axını.`,
-      image: `/images/projects/${baseName}.svg`
-    },
-    {
-      title: "Daxili bloklar",
-      caption: `${subject} daxilində xidmət, məzmun və etibar bloklarının düzülüşü.`,
-      image: `/images/projects/${baseName}-detail.svg`
-    },
-    {
-      title: "Mobil görünüş",
-      caption: `${subject} üçün mobil-first oxunaqlılıq və rahat istifadə təcrübəsi.`,
-      image: `/images/projects/${baseName}-mobile.svg`
+      title: "Canlı görüntü",
+      caption: `${subject} üçün real screenshot görünüşü.`,
+      image
     }
   ];
 }
@@ -32,7 +22,7 @@ export const portfolioProjects: Project[] = [
     excerpt: "Tikinti şirkəti üçün modern, ciddi və peşəkar korporativ veb sayt.",
     result:
       "Şirkətin xidmətlərini, layihə etibarını və əlaqə axınını daha peşəkar göstərən korporativ təqdimat.",
-    heroImage: "/images/projects/northpeak-group.svg",
+    heroImage: "/images/projects/tubelinsaat.png",
     problem:
       "Tikinti sahəsində sayt həm ciddi görünməli, həm də xidmətləri və layihə yönünü aydın şəkildə təqdim etməlidir.",
     solution:
@@ -57,7 +47,7 @@ export const portfolioProjects: Project[] = [
       "Xidmətlərin daha aydın təqdimatı",
       "Müraciət üçün daha rahat yol"
     ],
-    gallery: createGallery("northpeak-group", "Tubel İnşaat saytı")
+    gallery: createGallery("/images/projects/tubelinsaat.png", "Tubel İnşaat saytı")
   },
   {
     number: "02",
@@ -71,7 +61,7 @@ export const portfolioProjects: Project[] = [
       "Avtomobil icarəsi biznesi üçün elanlar, avtomobil təqdimatı və müştəri yönümlü strukturla hazırlanmış sayt.",
     result:
       "Avtomobil seçimini, əlaqə mərhələsini və müştəri qərarını sadələşdirən rent a car platforma təqdimatı.",
-    heroImage: "/images/projects/voyago-travel.svg",
+    heroImage: "/images/projects/rentacarss.png",
     problem:
       "Rent a car sahəsində istifadəçi avtomobili tez görməli, rahat müqayisə etməli və sürətli şəkildə əlaqəyə keçməlidir.",
     solution:
@@ -96,7 +86,7 @@ export const portfolioProjects: Project[] = [
       "Müraciət qərarını sürətləndirən axın",
       "Daha etibarlı platforma görünüşü"
     ],
-    gallery: createGallery("voyago-travel", "Rentacarss.az platforması")
+    gallery: createGallery("/images/projects/rentacarss.png", "Rentacarss.az platforması")
   },
   {
     number: "03",
@@ -109,7 +99,7 @@ export const portfolioProjects: Project[] = [
     excerpt: "Xəbər kontenti üçün sadə, oxunaqlı və strukturlaşdırılmış media sayt nümunəsi.",
     result:
       "Başlıqların, kateqoriyaların və gündəlik kontentin rahat skan olunduğu təmiz xəbər portalı nümunəsi.",
-    heroImage: "/images/projects/rauf-mirzayev.svg",
+    heroImage: "/images/projects/xeber-sayti.png",
     problem:
       "Xəbər saytında çoxlu məzmun arasında oxucu diqqətini qorumaq və əsas xəbərləri aydın göstərmək vacibdir.",
     solution:
@@ -134,7 +124,7 @@ export const portfolioProjects: Project[] = [
       "Məzmunu önə çıxaran struktur",
       "Təmiz və peşəkar media görünüşü"
     ],
-    gallery: createGallery("rauf-mirzayev", "Xəbər portalı nümunəsi")
+    gallery: createGallery("/images/projects/xeber-sayti.png", "Xəbər portalı nümunəsi")
   },
   {
     number: "04",
@@ -148,7 +138,7 @@ export const portfolioProjects: Project[] = [
       "Fitness zalı üçün sadə, mobil uyğun və xidmət təqdimatına fokuslanan sayt nümunəsi.",
     result:
       "Zal xidmətlərini, paketləri və qeydiyyat CTA-larını daha aydın göstərən idman yönümlü demo sayt.",
-    heroImage: "/images/projects/nova-clinic.svg",
+    heroImage: "/images/projects/fitness-zali.png",
     problem:
       "Fitness biznesində xidmətlər, üzvlük dəyəri və əlaqə nöqtələri aydın olmadıqda istifadəçi tez çıxır.",
     solution:
@@ -173,7 +163,7 @@ export const portfolioProjects: Project[] = [
       "Qeydiyyat üçün daha rahat yol",
       "Mobil uyğun peşəkar demo görünüş"
     ],
-    gallery: createGallery("nova-clinic", "Fitness zalı saytı nümunəsi")
+    gallery: createGallery("/images/projects/fitness-zali.png", "Fitness zalı saytı nümunəsi")
   },
   {
     number: "05",
@@ -186,7 +176,7 @@ export const portfolioProjects: Project[] = [
     excerpt: "Avtomobil icarəsi xidməti üçün hazırlanmış modern demo sayt.",
     result:
       "Rent a car xidməti üçün sürətli seçim, təqdimat və əlaqə axını göstərən modern demo nümunəsi.",
-    heroImage: "/images/projects/lunera-store.svg",
+    heroImage: "/images/projects/rentacar-demo.png",
     problem:
       "Demo tipli rent a car saytda belə istifadəçi əsas məlumatı tez görməli və xidmətə etibar etməlidir.",
     solution:
@@ -211,7 +201,7 @@ export const portfolioProjects: Project[] = [
       "Xidmət axınını aydın göstərən struktur",
       "Rent a car biznesi üçün güclü təqdimat bazası"
     ],
-    gallery: createGallery("lunera-store", "Rent a car demo saytı")
+    gallery: createGallery("/images/projects/rentacar-demo.png", "Rent a car demo saytı")
   },
   {
     number: "06",
@@ -225,7 +215,7 @@ export const portfolioProjects: Project[] = [
       "Əmlak elanları və satış təqdimatı üçün hazırlanmış modern veb sayt nümunəsi.",
     result:
       "Obyekt təqdimatını, elan axınını və əlaqə nöqtələrini daha premium göstərən əmlak demo saytı.",
-    heroImage: "/images/projects/estate-ridge.svg",
+    heroImage: "/images/projects/emlak-sayti.png",
     problem:
       "Əmlak saytında vizual etibar, elan kartlarının rahat skanı və sürətli müraciət axını bir yerdə işləməlidir.",
     solution:
@@ -250,7 +240,7 @@ export const portfolioProjects: Project[] = [
       "Daha aydın elan axını",
       "Müraciət üçün daha rahat struktur"
     ],
-    gallery: createGallery("estate-ridge", "Əmlak saytı nümunəsi")
+    gallery: createGallery("/images/projects/emlak-sayti.png", "Əmlak saytı nümunəsi")
   }
 ];
 

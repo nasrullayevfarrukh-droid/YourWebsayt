@@ -105,7 +105,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 alt={project.title}
                 width={1600}
                 height={1000}
-                className="w-full rounded-[28px] border border-[color:rgba(167,243,208,0.12)]"
+                className="aspect-[1.45/1] w-full rounded-[28px] border border-[color:rgba(167,243,208,0.12)] object-cover"
               />
             </div>
           </Reveal>
@@ -289,13 +289,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="grid gap-6 lg:grid-cols-3">
             {project.gallery.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.06}>
-                <div className="editorial-card rounded-[30px] p-4">
+                <div
+                  className={`editorial-card rounded-[30px] p-4 ${
+                    project.gallery.length === 1 ? "lg:col-span-3" : ""
+                  }`}
+                >
                   <Image
                     src={item.image}
                     alt={item.title}
                     width={1200}
                     height={900}
-                    className="w-full rounded-[24px] border border-[color:rgba(167,243,208,0.12)]"
+                    className="aspect-[1.45/1] w-full rounded-[24px] border border-[color:rgba(167,243,208,0.12)] object-cover"
                   />
                   <div className="px-1 pb-1 pt-5">
                     <div className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">
