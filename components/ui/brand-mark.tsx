@@ -14,8 +14,8 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
     <div className={cn("flex items-center gap-3", className)}>
       <div
         className={cn(
-          "flex shrink-0 items-center justify-center rounded-2xl border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(0,230,118,0.16),rgba(11,31,24,0.96))] text-[var(--color-text)] shadow-[0_0_0_1px_rgba(167,243,208,0.04),0_18px_40px_rgba(0,230,118,0.12)]",
-          compact ? "h-9 w-9 text-[11px]" : "h-10 w-10 text-xs"
+          "flex shrink-0 items-center justify-center",
+          compact ? "h-9 w-9" : "h-10 w-10"
         )}
       >
         <Image
@@ -23,8 +23,8 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
           alt={brand.siteName}
           width={1371}
           height={1148}
-          className={cn("object-contain", compact ? "h-7 w-7" : "h-8 w-8")}
-          sizes={compact ? "28px" : "32px"}
+          className={cn("object-contain", compact ? "h-8 w-8" : "h-9 w-9")}
+          sizes={compact ? "32px" : "36px"}
         />
       </div>
 
