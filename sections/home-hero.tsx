@@ -5,6 +5,7 @@ import { BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { brand } from "@/data/brand";
 import { heroTrustIndicators } from "@/data/site";
 
 const heroLines = [
@@ -33,6 +34,15 @@ const coreFlow = ["Hero mesaji", "Service showcase", "Portfolio proof", "Contact
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-40">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-no-repeat opacity-[0.08]"
+        style={{
+          backgroundImage: `url(${brand.heroBackgroundPath})`,
+          backgroundPosition: "right -8rem top -4rem",
+          backgroundSize: "min(42rem, 54vw)"
+        }}
+      />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(0,230,118,0.14),transparent_28%),radial-gradient(circle_at_82%_10%,rgba(20,184,166,0.1),transparent_22%)]" />
 
       <Container className="relative">

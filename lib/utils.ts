@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { brand } from "@/data/brand";
 import { siteConfig } from "@/data/site";
 
 export function cn(...inputs: ClassValue[]) {
@@ -25,14 +26,21 @@ export function createPageMetadata(
       title,
       description,
       url,
-      siteName: siteConfig.name,
+      siteName: brand.siteName,
       locale: "az_AZ",
-      type: "website"
+      type: "website",
+      images: [
+        {
+          url: brand.ogImagePath,
+          alt: brand.siteName
+        }
+      ]
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description
+      description,
+      images: [brand.ogImagePath]
     }
   };
 }

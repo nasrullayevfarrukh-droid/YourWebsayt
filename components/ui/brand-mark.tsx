@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
+import { brand } from "@/data/brand";
 import { cn } from "@/lib/utils";
 
 type BrandMarkProps = {
@@ -16,14 +18,19 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
           compact ? "h-9 w-9 text-[11px]" : "h-10 w-10 text-xs"
         )}
       >
-        <span className="font-display tracking-[-0.08em]">
-          Y<span className="text-[var(--color-accent)]">W</span>
-        </span>
+        <Image
+          src={brand.logoPath}
+          alt={brand.siteName}
+          width={1371}
+          height={1148}
+          className={cn("object-contain", compact ? "h-7 w-7" : "h-8 w-8")}
+          sizes={compact ? "28px" : "32px"}
+        />
       </div>
 
       <div>
         <div className="font-display text-xl leading-none tracking-[-0.06em] text-[var(--color-text)]">
-          YourWeb<span className="text-[var(--color-accent)]">sayt</span>
+          {brand.siteName}
         </div>
         {!compact ? (
           <div className="mt-1 text-[10px] uppercase tracking-[0.34em] text-[var(--color-muted)]">
@@ -35,7 +42,7 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
   );
 
   return (
-    <Link href="/" aria-label="YourWebsayt ana sehife" className="inline-flex">
+    <Link href="/" aria-label={`${brand.siteName} ana sehife`} className="inline-flex">
       {content}
     </Link>
   );

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { SiteShell } from "@/components/layout/site-shell";
 import { Providers } from "@/components/providers";
+import { brand } from "@/data/brand";
 import { siteConfig } from "@/data/site";
 
 import "./globals.css";
@@ -23,7 +24,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: siteConfig.title,
   description: siteConfig.description,
-  applicationName: siteConfig.name,
+  applicationName: brand.siteName,
+  icons: {
+    icon: brand.faviconPath,
+    shortcut: brand.faviconPath,
+    apple: brand.faviconPath
+  },
   keywords: [
     "veb sayt hazırlanması",
     "premium web studio",
@@ -35,14 +41,21 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.name,
+    siteName: brand.siteName,
     locale: "az_AZ",
-    type: "website"
+    type: "website",
+    images: [
+      {
+        url: brand.ogImagePath,
+        alt: brand.siteName
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
-    description: siteConfig.description
+    description: siteConfig.description,
+    images: [brand.ogImagePath]
   }
 };
 

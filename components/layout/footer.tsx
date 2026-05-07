@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { BrandMark } from "@/components/ui/brand-mark";
 import { Container } from "@/components/ui/container";
+import { brand } from "@/data/brand";
 import { navigation, siteConfig } from "@/data/site";
 
 const footerServices = [
@@ -78,7 +79,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-[color:rgba(167,243,208,0.08)] pt-6 text-sm text-[var(--color-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <div>© 2026 YourWebsayt. Bütün hüquqlar qorunur.</div>
+          <div>© 2026 {brand.siteName}. Bütün hüquqlar qorunur.</div>
           <div>Strategiya, dizayn və inkişaf bir studiyada.</div>
         </div>
       </Container>
