@@ -31,6 +31,10 @@ const STRONG_BURST_SELECTOR = "[data-cursor-burst='strong'], button";
 const CARD_SELECTOR = "[data-cursor='card']";
 const PARTICLE_COLORS = ["#00E676", "#14B8A6", "#A7F3D0"];
 const BASE_ROTATION = 14;
+const FOLLOW_LERP = 0.44;
+const MAX_PARTICLES = 22;
+const TRAIL_INTERVAL_MS = 72;
+const TRAIL_SPEED_THRESHOLD = 2.2;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -96,36 +100,37 @@ export function CustomCursor() {
     const pushParticle = (particle: CursorParticle) => {
       particlesRef.current.push(particle);
 
-      if (particlesRef.current.length > 40) {
-        particlesRef.current.splice(0, particlesRef.current.length - 40);
+      if (particlesRef.current.length > MAX_PARTICLES) {
+        particlesRef.current.splice(0, particlesRef.current.length - MAX_PARTICLES);
       }
     };
 
     const spawnTrail = (x: number, y: number, vx: number, vy: number) => {
       pushParticle({
         color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)]!,
-        life: 8,
-        maxLife: 8,
-        size: 0.9 + Math.random() * 0.7,
-        vx: -vx * (0.03 + Math.random() * 0.02) + (Math.random() - 0.5) * 0.45,
-        vy: -vy * (0.03 + Math.random() * 0.02) + (Math.random() - 0.5) * 0.45,
+        life: 5.6,
+        maxLife: 5.6,
+        size: 0.8 + Math.random() * 0.45,
+        vx: -vx * (0.022 + Math.random() * 0.014) + (Math.random() - 0.5) * 0.24,
+        vy: -vy * (0.022 + Math.random() * 0.014) + (Math.random() - 0.5) * 0.24,
         x,
         y
       });
     };
 
     const spawnBurst = (x: number, y: number, isStrong: boolean) => {
-      const count = isStrong ? 10 : 6;
+      const count = isStrong ? 6 : 4;
 
       for (let index = 0; index < count; index += 1) {
         const angle = (Math.PI * 2 * index) / count + (Math.random() - 0.5) * 0.3;
-        const speed = (isStrong ? 2.1 : 1.5) + Math.random() * (isStrong ? 1.4 : 1);
+        const life = isStrong ? 10 + Math.random() * 4 : 7 + Math.random() * 3;
+        const speed = (isStrong ? 1.75 : 1.25) + Math.random() * (isStrong ? 0.9 : 0.65);
 
         pushParticle({
           color: PARTICLE_COLORS[index % PARTICLE_COLORS.length]!,
-          life: isStrong ? 14 + Math.random() * 6 : 10 + Math.random() * 5,
-          maxLife: isStrong ? 14 + Math.random() * 6 : 10 + Math.random() * 5,
-          size: isStrong ? 1.2 + Math.random() * 1 : 0.9 + Math.random() * 0.8,
+          life,
+          maxLife: life,
+          size: isStrong ? 1 + Math.random() * 0.7 : 0.8 + Math.random() * 0.5,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
           x,
@@ -147,6 +152,13 @@ export function CustomCursor() {
     const onPointerMove = (event: PointerEvent) => {
       if (event.pointerType && event.pointerType !== "mouse") {
         return;
+      }
+
+      if (!state.isVisible) {
+        currentRef.current.x = event.clientX;
+        currentRef.current.y = event.clientY;
+        previousRef.current.x = event.clientX;
+        previousRef.current.y = event.clientY;
       }
 
       targetRef.current.x = event.clientX;
@@ -237,18 +249,29 @@ export function CustomCursor() {
       lastFrameRef.current = timestamp;
 
       const current = currentRef.current;
+      const previous = previousRef.current;
       const target = targetRef.current;
+      const follow = 1 - Math.pow(1 - FOLLOW_LERP, delta);
 
-      current.x += (target.x - current.x) * 0.2 * delta;
-      current.y += (target.y - current.y) * 0.2 * delta;
+      current.x += (target.x - current.x) * follow;
+      current.y += (target.y - current.y) * follow;
 
-      const vx = current.x - previousRef.current.x;
-      const vy = current.y - previousRef.current.y;
+      if (Math.abs(target.x - current.x) < 0.02) {
+        current.x = target.x;
+      }
+
+      if (Math.abs(target.y - current.y) < 0.02) {
+        current.y = target.y;
+      }
+
+      const vx = current.x - previous.x;
+      const vy = current.y - previous.y;
       const speed = Math.hypot(vx, vy);
 
-      previousRef.current = { x: current.x, y: current.y };
+      previous.x = current.x;
+      previous.y = current.y;
 
-      if (speed > 1.4 && timestamp - lastTrailRef.current > 48) {
+      if (speed > TRAIL_SPEED_THRESHOLD && timestamp - lastTrailRef.current > TRAIL_INTERVAL_MS) {
         spawnTrail(current.x, current.y, vx, vy);
         lastTrailRef.current = timestamp;
       }
@@ -315,16 +338,18 @@ export function CustomCursor() {
         ref={rootRef}
         aria-hidden="true"
         data-cursor-root
-        className="pointer-events-none fixed left-0 top-0 z-[97] hidden opacity-0 transition-opacity duration-200 [@media(hover:hover)_and_(pointer:fine)]:block"
+        className="pointer-events-none fixed left-0 top-0 z-[97] hidden opacity-0 transition-opacity duration-150 will-change-transform [@media(hover:hover)_and_(pointer:fine)]:block"
+        style={{ willChange: "transform, opacity" }}
       >
         <div
           ref={haloRef}
-          className="absolute left-0 top-0 h-7 w-7 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.34)_0%,rgba(20,184,166,0.18)_42%,rgba(167,243,208,0)_74%)] blur-[6px] transition-[opacity,transform] duration-200"
+          className="absolute left-0 top-0 h-7 w-7 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.34)_0%,rgba(20,184,166,0.18)_42%,rgba(167,243,208,0)_74%)] blur-[6px] transition-opacity duration-150 will-change-transform"
+          style={{ willChange: "transform, opacity" }}
         />
 
         <div
           ref={arrowRef}
-          className="absolute left-0 top-0 origin-[14px_10px] transition-transform duration-150 will-change-transform"
+          className="absolute left-0 top-0 origin-[14px_10px] will-change-transform"
         >
           <svg width="21" height="30" viewBox="0 0 34 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
