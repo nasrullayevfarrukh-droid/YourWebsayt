@@ -31,10 +31,10 @@ const STRONG_BURST_SELECTOR = "[data-cursor-burst='strong'], button";
 const CARD_SELECTOR = "[data-cursor='card']";
 const PARTICLE_COLORS = ["#00E676", "#14B8A6", "#A7F3D0"];
 const BASE_ROTATION = 14;
-const FOLLOW_LERP = 0.44;
-const MAX_PARTICLES = 22;
-const TRAIL_INTERVAL_MS = 72;
-const TRAIL_SPEED_THRESHOLD = 2.2;
+const FOLLOW_LERP = 0.62;
+const MAX_PARTICLES = 16;
+const TRAIL_INTERVAL_MS = 88;
+const TRAIL_SPEED_THRESHOLD = 2.8;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -89,7 +89,7 @@ export function CustomCursor() {
     document.documentElement.classList.add("has-custom-cursor");
 
     const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
       canvas.style.width = `${window.innerWidth}px`;
@@ -108,29 +108,29 @@ export function CustomCursor() {
     const spawnTrail = (x: number, y: number, vx: number, vy: number) => {
       pushParticle({
         color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)]!,
-        life: 5.6,
-        maxLife: 5.6,
-        size: 0.8 + Math.random() * 0.45,
-        vx: -vx * (0.022 + Math.random() * 0.014) + (Math.random() - 0.5) * 0.24,
-        vy: -vy * (0.022 + Math.random() * 0.014) + (Math.random() - 0.5) * 0.24,
+        life: 4.6,
+        maxLife: 4.6,
+        size: 0.58 + Math.random() * 0.28,
+        vx: -vx * (0.018 + Math.random() * 0.012) + (Math.random() - 0.5) * 0.18,
+        vy: -vy * (0.018 + Math.random() * 0.012) + (Math.random() - 0.5) * 0.18,
         x,
         y
       });
     };
 
     const spawnBurst = (x: number, y: number, isStrong: boolean) => {
-      const count = isStrong ? 6 : 4;
+      const count = isStrong ? 5 : 3;
 
       for (let index = 0; index < count; index += 1) {
         const angle = (Math.PI * 2 * index) / count + (Math.random() - 0.5) * 0.3;
-        const life = isStrong ? 10 + Math.random() * 4 : 7 + Math.random() * 3;
-        const speed = (isStrong ? 1.75 : 1.25) + Math.random() * (isStrong ? 0.9 : 0.65);
+        const life = isStrong ? 8 + Math.random() * 3 : 5.8 + Math.random() * 2.2;
+        const speed = (isStrong ? 1.45 : 1.05) + Math.random() * (isStrong ? 0.72 : 0.5);
 
         pushParticle({
           color: PARTICLE_COLORS[index % PARTICLE_COLORS.length]!,
           life,
           maxLife: life,
-          size: isStrong ? 1 + Math.random() * 0.7 : 0.8 + Math.random() * 0.5,
+          size: isStrong ? 0.86 + Math.random() * 0.42 : 0.68 + Math.random() * 0.36,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
           x,
@@ -145,8 +145,8 @@ export function CustomCursor() {
       const isCard = Boolean(element?.closest(CARD_SELECTOR));
 
       state.isInteractive = isInteractive;
-      state.activeScale = isInteractive ? 1.08 : isCard ? 1.03 : 1;
-      state.glow = isInteractive ? 0.92 : isCard ? 0.76 : 0.64;
+      state.activeScale = isInteractive ? 1.05 : isCard ? 1.02 : 1;
+      state.glow = isInteractive ? 0.76 : isCard ? 0.62 : 0.52;
     };
 
     const onPointerMove = (event: PointerEvent) => {
@@ -213,23 +213,23 @@ export function CustomCursor() {
         particle.y += particle.vy * delta;
         particle.vx *= 0.985;
         particle.vy *= 0.982;
-        particle.vy += 0.008 * delta;
+        particle.vy += 0.006 * delta;
 
         const alpha = particle.life / particle.maxLife;
 
-        context.globalAlpha = alpha * 0.28;
+        context.globalAlpha = alpha * 0.2;
         context.strokeStyle = particle.color;
-        context.lineWidth = particle.size * 2.6;
+        context.lineWidth = particle.size * 2.1;
         context.beginPath();
         context.moveTo(particle.x, particle.y);
-        context.lineTo(particle.x - particle.vx * 1.8, particle.y - particle.vy * 1.8);
+        context.lineTo(particle.x - particle.vx * 1.45, particle.y - particle.vy * 1.45);
         context.stroke();
 
-        context.globalAlpha = alpha * 0.92;
+        context.globalAlpha = alpha * 0.74;
         context.lineWidth = particle.size;
         context.beginPath();
         context.moveTo(particle.x, particle.y);
-        context.lineTo(particle.x - particle.vx * 1.15, particle.y - particle.vy * 1.15);
+        context.lineTo(particle.x - particle.vx * 0.92, particle.y - particle.vy * 0.92);
         context.stroke();
 
         activeParticles.push(particle);
@@ -279,17 +279,17 @@ export function CustomCursor() {
       const tilt = clamp(vx * 0.85, -7, 7);
       const scale = state.isPressed
         ? state.isInteractive
-          ? 1.02
-          : 0.94
+          ? 1
+          : 0.96
         : state.activeScale;
-      const haloScale = state.isPressed ? state.glow + 0.22 : state.glow;
+      const haloScale = state.isPressed ? state.glow + 0.12 : state.glow;
       const opacity = state.isVisible ? 1 : 0;
 
       root.style.opacity = `${opacity}`;
       root.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
-      arrow.style.transform = `translate3d(-6px, -3px, 0) rotate(${BASE_ROTATION + tilt}deg) scale(${scale})`;
-      halo.style.opacity = state.isVisible ? `${0.34 + state.glow * 0.24}` : "0";
-      halo.style.transform = `translate3d(-13px, -12px, 0) scale(${haloScale})`;
+      arrow.style.transform = `translate3d(-5px, -2px, 0) rotate(${BASE_ROTATION + tilt}deg) scale(${scale})`;
+      halo.style.opacity = state.isVisible ? `${0.18 + state.glow * 0.18}` : "0";
+      halo.style.transform = `translate3d(-11px, -10px, 0) scale(${haloScale})`;
 
       renderParticles(delta);
       rafRef.current = window.requestAnimationFrame(animate);
@@ -343,15 +343,15 @@ export function CustomCursor() {
       >
         <div
           ref={haloRef}
-          className="absolute left-0 top-0 h-7 w-7 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.34)_0%,rgba(20,184,166,0.18)_42%,rgba(167,243,208,0)_74%)] blur-[6px] transition-opacity duration-150 will-change-transform"
+          className="absolute left-0 top-0 h-6 w-6 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.26)_0%,rgba(20,184,166,0.12)_42%,rgba(167,243,208,0)_74%)] blur-[5px] transition-opacity duration-150 will-change-transform"
           style={{ willChange: "transform, opacity" }}
         />
 
         <div
           ref={arrowRef}
-          className="absolute left-0 top-0 origin-[14px_10px] will-change-transform"
+          className="absolute left-0 top-0 origin-[12px_9px] will-change-transform"
         >
-          <svg width="21" height="30" viewBox="0 0 34 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="18" height="26" viewBox="0 0 34 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="cursor-fill" x1="3" y1="4" x2="29" y2="43" gradientUnits="userSpaceOnUse">
                 <stop stopColor="rgba(248,250,252,0.96)" />
@@ -365,9 +365,9 @@ export function CustomCursor() {
                 <stop offset="1" stopColor="var(--cursor-accent)" />
               </linearGradient>
               <filter id="cursor-glow" x="-20" y="-20" width="84" height="88" filterUnits="userSpaceOnUse">
-                <feDropShadow dx="0" dy="0" stdDeviation="2.8" floodColor="var(--cursor-primary)" floodOpacity="0.55" />
-                <feDropShadow dx="0" dy="0" stdDeviation="6.2" floodColor="var(--cursor-accent)" floodOpacity="0.22" />
-                <feDropShadow dx="0" dy="7" stdDeviation="6" floodColor="var(--cursor-shadow)" floodOpacity="0.48" />
+                <feDropShadow dx="0" dy="0" stdDeviation="2.2" floodColor="var(--cursor-primary)" floodOpacity="0.42" />
+                <feDropShadow dx="0" dy="0" stdDeviation="4.8" floodColor="var(--cursor-accent)" floodOpacity="0.16" />
+                <feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="var(--cursor-shadow)" floodOpacity="0.36" />
               </filter>
             </defs>
 
