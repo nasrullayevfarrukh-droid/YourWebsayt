@@ -86,12 +86,12 @@ body::after {
   width: min(42vw, 31rem);
   height: min(42vw, 31rem);
   transform: translate(-50%, -50%);
-  opacity: 0.012;
+  opacity: 0.019;
   background-image: var(--brand-watermark-url);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  filter: drop-shadow(0 0 28px rgba(20, 184, 166, 0.05));
+  filter: drop-shadow(0 0 34px rgba(20, 184, 166, 0.065));
 }
 
 main,
@@ -149,8 +149,8 @@ img {
   body::after {
     width: min(50vw, 15rem);
     height: min(50vw, 15rem);
-    opacity: 0.008;
-    filter: drop-shadow(0 0 18px rgba(20, 184, 166, 0.04));
+    opacity: 0.012;
+    filter: drop-shadow(0 0 22px rgba(20, 184, 166, 0.05));
   }
 }
 

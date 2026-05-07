@@ -575,17 +575,9 @@ function HeroNetworkVisual() {
       <div className="absolute -left-10 top-12 hidden h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.08),transparent_72%)] blur-3xl lg:block" />
       <div className="absolute right-2 top-8 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.08),transparent_72%)] blur-3xl lg:block" />
 
-      <div className="relative overflow-hidden rounded-[40px] border border-[rgba(167,243,208,0.08)] bg-[linear-gradient(180deg,rgba(8,20,17,0.62),rgba(4,12,11,0.28))] px-2 py-3 shadow-[0_20px_70px_rgba(0,0,0,0.16)] sm:px-4 sm:py-4">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.06) 1px, transparent 1px)",
-            backgroundSize: "56px 56px"
-          }}
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(20,184,166,0.07),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(4,17,13,0.28),transparent_42%)]" />
+      <div className="relative px-2 py-3 sm:px-4 sm:py-4">
+        <div className="pointer-events-none absolute inset-x-[12%] inset-y-[14%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.08),rgba(20,184,166,0.03)_52%,transparent_76%)] blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-[18%] inset-y-[20%] rounded-full bg-[radial-gradient(circle_at_50%_46%,rgba(167,243,208,0.08),transparent_48%)] blur-[72px]" />
 
         <div
           className={`relative aspect-square select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
@@ -611,15 +603,15 @@ function HeroNetworkVisual() {
                 }}
               >
                 <div
-                  className="rounded-full border border-[rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(8,20,17,0.42),rgba(8,20,17,0.18))] px-2.5 py-1.5 shadow-[0_12px_24px_rgba(0,0,0,0.12)] backdrop-blur-md"
-                  style={{ boxShadow: `0 0 14px ${badge.accent}` }}
+                  className="rounded-full border border-[rgba(167,243,208,0.08)] bg-[linear-gradient(180deg,rgba(8,20,17,0.24),rgba(8,20,17,0.08))] px-2.5 py-1.5 shadow-[0_10px_20px_rgba(0,0,0,0.08)] backdrop-blur-sm"
+                  style={{ boxShadow: `0 0 12px ${badge.accent}` }}
                 >
                   <div className="flex items-center gap-1.5">
                     <span
                       className="inline-flex h-1.5 w-1.5 rounded-full"
                       style={{
                         backgroundColor: badge.text,
-                        boxShadow: `0 0 10px ${badge.accent}`
+                        boxShadow: `0 0 8px ${badge.accent}`
                       }}
                     />
                     <span className="font-mono text-[8px] uppercase tracking-[0.16em]" style={{ color: badge.text }}>
