@@ -9,32 +9,52 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { heroTrustIndicators } from "@/data/site";
 
+type Rotation = {
+  x: number;
+  y: number;
+};
+
+type Vec3 = {
+  x: number;
+  y: number;
+  z: number;
+};
+
+type ProjectedPoint = {
+  scale: number;
+  x: number;
+  y: number;
+  z: number;
+};
+
 const heroHeadline = ["Biznesinizi daha ciddi göstərən", "premium veb saytlar qururuq"];
 const heroDescription =
   "YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri, rent a car biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü saytlar hazırlayır.";
+
+const TWO_PI = Math.PI * 2;
+const GLOBE_PERSPECTIVE = 3.4;
+const AUTO_ROTATE_SPEED = 0.0032;
+const initialRotation: Rotation = { x: -0.34, y: 0.64 };
 
 const techOrbitBadges = [
   {
     label: "AI",
     x: 0,
-    y: -172,
-    z: 112,
+    y: -170,
     accent: "rgba(167,243,208,0.16)",
     text: "rgba(248,250,252,0.94)"
   },
   {
     label: "Python",
-    x: -152,
+    x: -154,
     y: -34,
-    z: 78,
     accent: "rgba(20,184,166,0.14)",
     text: "rgba(167,243,208,0.92)"
   },
   {
     label: "JavaScript",
-    x: 156,
-    y: -24,
-    z: 76,
+    x: 158,
+    y: -28,
     accent: "rgba(96,165,250,0.14)",
     text: "rgba(248,250,252,0.92)"
   },
@@ -42,34 +62,16 @@ const techOrbitBadges = [
     label: "Node",
     x: -138,
     y: 132,
-    z: 66,
     accent: "rgba(0,230,118,0.14)",
     text: "rgba(248,250,252,0.9)"
   },
   {
     label: "HTML/CSS",
-    x: 134,
-    y: 122,
-    z: 70,
+    x: 136,
+    y: 124,
     accent: "rgba(129,140,248,0.13)",
     text: "rgba(167,243,208,0.9)"
   }
-] as const;
-
-const networkLinks = [
-  { x1: 16, y1: 20, x2: 31, y2: 34 },
-  { x1: 28, y1: 40, x2: 42, y2: 44 },
-  { x1: 24, y1: 74, x2: 39, y2: 61 },
-  { x1: 48, y1: 16, x2: 50, y2: 32 },
-  { x1: 74, y1: 18, x2: 63, y2: 34 },
-  { x1: 82, y1: 42, x2: 66, y2: 46 },
-  { x1: 72, y1: 76, x2: 62, y2: 61 },
-  { x1: 48, y1: 86, x2: 50, y2: 67 },
-  { x1: 31, y1: 34, x2: 50, y2: 50 },
-  { x1: 39, y1: 61, x2: 50, y2: 50 },
-  { x1: 63, y1: 34, x2: 50, y2: 50 },
-  { x1: 66, y1: 46, x2: 50, y2: 50 },
-  { x1: 62, y1: 61, x2: 50, y2: 50 }
 ] as const;
 
 const brandMarkLinks = [
@@ -124,100 +126,413 @@ const brandMarkNodes = [
   { x: 72, y: 54, size: 0.9, color: "rgba(20,184,166,0.78)", peak: 0.8, delay: 0.88, duration: 5.8 }
 ] as const;
 
-const initialRotation = { x: -16, y: 24 };
+const outerOrbitRings = [
+  createTiltedRing(1.22, { x: 1.16, y: 0.08 }),
+  createTiltedRing(1.18, { x: 0.28, y: 1.22 }),
+  createTiltedRing(1.14, { x: 0.72, y: 0.92 })
+];
 
-function BrandConstellation() {
-  return (
-    <motion.div
-      aria-hidden="true"
-      className="absolute inset-x-[12%] bottom-[16%] top-[8%]"
-      animate={{ y: [0, -4, 0], rotate: [0, 0.8, 0], opacity: [0.9, 1, 0.92] }}
-      transition={{ duration: 10.5, repeat: Infinity, ease: "easeInOut" }}
-    >
-      <div className="absolute inset-[6%] rounded-full bg-[radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.12),transparent_28%),radial-gradient(circle_at_40%_46%,rgba(20,184,166,0.16),transparent_36%),radial-gradient(circle_at_66%_54%,rgba(96,165,250,0.12),transparent_32%)] blur-xl" />
+const globeSignalPoints = Array.from({ length: 20 }, (_, index) => {
+  const count = 20;
+  const offset = 2 / count;
+  const y = 1 - index * offset - offset / 2;
+  const radius = Math.sqrt(1 - y * y);
+  const theta = index * 2.399963229728653;
 
-      <svg
-        viewBox="0 0 100 100"
-        className="relative h-full w-full overflow-visible [filter:drop-shadow(0_0_16px_rgba(20,184,166,0.24))_drop-shadow(0_0_28px_rgba(96,165,250,0.12))]"
-      >
-        {brandMarkLinks.map((link) => (
-          <line
-            key={`${link.x1}-${link.y1}-${link.x2}-${link.y2}`}
-            x1={link.x1}
-            y1={link.y1}
-            x2={link.x2}
-            y2={link.y2}
-            stroke={link.stroke}
-            strokeWidth={link.width}
-            strokeLinecap="round"
-            opacity="0.96"
-          />
-        ))}
+  return {
+    x: Math.cos(theta) * radius * 0.92,
+    y: y * 0.92,
+    z: Math.sin(theta) * radius * 0.92
+  };
+});
 
-        {brandMarkNodes.map((node) => (
-          <g key={`${node.x}-${node.y}`}>
-            <circle cx={node.x} cy={node.y} r={node.size * 2.6} fill={node.color} opacity="0.14" />
-            <motion.circle
-              cx={node.x}
-              cy={node.y}
-              fill={node.color}
-              initial={{ opacity: 0.5 }}
-              animate={{
-                opacity: [0.4, node.peak, 0.4],
-                r: [node.size * 0.82, node.size, node.size * 0.82]
-              }}
-              transition={{
-                duration: node.duration,
-                delay: node.delay,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </g>
-        ))}
-      </svg>
-    </motion.div>
-  );
+function createTiltedRing(radius: number, tilt: Rotation) {
+  const points: Vec3[] = [];
+
+  for (let index = 0; index <= 96; index += 1) {
+    const angle = (TWO_PI * index) / 96;
+    const basePoint = { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius, z: 0 };
+    points.push(rotatePoint(basePoint, tilt));
+  }
+
+  return points;
+}
+
+function createLatitudeRing(latitude: number) {
+  const points: Vec3[] = [];
+  const lat = (latitude * Math.PI) / 180;
+  const cosLat = Math.cos(lat);
+  const sinLat = Math.sin(lat);
+
+  for (let index = 0; index <= 88; index += 1) {
+    const angle = (TWO_PI * index) / 88;
+    points.push({
+      x: Math.cos(angle) * cosLat,
+      y: sinLat,
+      z: Math.sin(angle) * cosLat
+    });
+  }
+
+  return points;
+}
+
+function createLongitudeRing(longitude: number) {
+  const points: Vec3[] = [];
+  const lon = (longitude * Math.PI) / 180;
+  const cosLon = Math.cos(lon);
+  const sinLon = Math.sin(lon);
+
+  for (let index = 0; index <= 88; index += 1) {
+    const angle = (TWO_PI * index) / 88;
+    points.push({
+      x: Math.sin(angle) * cosLon,
+      y: Math.cos(angle),
+      z: Math.sin(angle) * sinLon
+    });
+  }
+
+  return points;
+}
+
+function brandCoordinateToPoint(x: number, y: number): Vec3 {
+  const normalizedX = ((x - 50) / 50) * 0.58;
+  const normalizedY = ((y - 50) / 50) * 0.58;
+  const radius = 0.74;
+  const radialSquare = normalizedX * normalizedX + normalizedY * normalizedY;
+  const depth = Math.sqrt(Math.max(0, radius * radius - radialSquare)) * 0.38 - 0.02;
+
+  return {
+    x: normalizedX,
+    y: normalizedY,
+    z: depth
+  };
+}
+
+function rotatePoint(point: Vec3, rotation: Rotation): Vec3 {
+  const cosX = Math.cos(rotation.x);
+  const sinX = Math.sin(rotation.x);
+  const cosY = Math.cos(rotation.y);
+  const sinY = Math.sin(rotation.y);
+
+  const y = point.y * cosX - point.z * sinX;
+  const z = point.y * sinX + point.z * cosX;
+  const x = point.x * cosY + z * sinY;
+  const rotatedZ = -point.x * sinY + z * cosY;
+
+  return { x, y, z: rotatedZ };
+}
+
+function projectPoint(point: Vec3, radius: number): ProjectedPoint {
+  const scale = GLOBE_PERSPECTIVE / (GLOBE_PERSPECTIVE - point.z);
+
+  return {
+    scale,
+    x: point.x * radius * scale,
+    y: point.y * radius * scale,
+    z: point.z
+  };
+}
+
+function drawPolyline3d(
+  context: CanvasRenderingContext2D,
+  points: Vec3[],
+  rotation: Rotation,
+  radius: number,
+  frontStyle: string,
+  backStyle: string,
+  width: number
+) {
+  for (let index = 1; index < points.length; index += 1) {
+    const from = projectPoint(rotatePoint(points[index - 1]!, rotation), radius);
+    const to = projectPoint(rotatePoint(points[index]!, rotation), radius);
+    const depth = (from.z + to.z) * 0.5;
+
+    context.beginPath();
+    context.moveTo(from.x, from.y);
+    context.lineTo(to.x, to.y);
+    context.lineWidth = depth > 0 ? width * 1.05 : width * 0.92;
+    context.globalAlpha = depth > 0 ? 0.18 + depth * 0.12 : 0.05;
+    context.strokeStyle = depth > 0 ? frontStyle : backStyle;
+    context.stroke();
+  }
+}
+
+function drawSignalPoints(
+  context: CanvasRenderingContext2D,
+  points: Vec3[],
+  rotation: Rotation,
+  radius: number
+) {
+  for (const point of points) {
+    const projected = projectPoint(rotatePoint(point, rotation), radius);
+    const visibility = Math.max(0, projected.z + 0.45);
+
+    if (visibility <= 0) {
+      continue;
+    }
+
+    context.beginPath();
+    context.fillStyle = "rgba(167,243,208,0.16)";
+    context.arc(projected.x, projected.y, 4.5 * projected.scale, 0, TWO_PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "rgba(248,250,252,0.85)";
+    context.arc(projected.x, projected.y, (1.15 + visibility * 0.55) * projected.scale, 0, TWO_PI);
+    context.fill();
+  }
+}
+
+function drawBrandConstellation(
+  context: CanvasRenderingContext2D,
+  rotation: Rotation,
+  radius: number,
+  timestamp: number
+) {
+  context.save();
+  context.globalCompositeOperation = "lighter";
+
+  for (const link of brandMarkLinks) {
+    const from = projectPoint(rotatePoint(brandCoordinateToPoint(link.x1, link.y1), rotation), radius * 0.86);
+    const to = projectPoint(rotatePoint(brandCoordinateToPoint(link.x2, link.y2), rotation), radius * 0.86);
+    const depth = (from.z + to.z) * 0.5;
+    const visibility = 0.18 + Math.max(0, depth + 0.32) * 0.42;
+
+    context.beginPath();
+    context.moveTo(from.x, from.y);
+    context.lineTo(to.x, to.y);
+    context.strokeStyle = link.stroke;
+    context.globalAlpha = visibility;
+    context.lineWidth = link.width * 0.85 * ((from.scale + to.scale) * 0.5);
+    context.stroke();
+  }
+
+  for (const node of brandMarkNodes) {
+    const projected = projectPoint(rotatePoint(brandCoordinateToPoint(node.x, node.y), rotation), radius * 0.86);
+    const pulse = 0.55 + Math.sin(timestamp / (node.duration * 260) + node.delay * 6) * 0.45;
+    const alpha = 0.2 + pulse * 0.42;
+
+    context.beginPath();
+    context.fillStyle = node.color;
+    context.globalAlpha = alpha * 0.28;
+    context.arc(projected.x, projected.y, node.size * 3.8 * projected.scale, 0, TWO_PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = node.color;
+    context.globalAlpha = alpha;
+    context.arc(projected.x, projected.y, node.size * 1.18 * projected.scale, 0, TWO_PI);
+    context.fill();
+  }
+
+  context.restore();
+}
+
+function drawGlobe(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  rotation: Rotation,
+  timestamp: number
+) {
+  const radius = Math.min(width, height) * 0.265;
+  const highlightX = -radius * 0.22 + Math.sin(rotation.y) * radius * 0.06;
+  const highlightY = -radius * 0.28 + Math.sin(rotation.x) * radius * 0.05;
+
+  context.clearRect(0, 0, width, height);
+  context.save();
+  context.translate(width * 0.5, height * 0.52);
+
+  const atmosphere = context.createRadialGradient(0, 0, radius * 0.86, 0, 0, radius * 1.55);
+  atmosphere.addColorStop(0, "rgba(20,184,166,0.14)");
+  atmosphere.addColorStop(0.45, "rgba(20,184,166,0.06)");
+  atmosphere.addColorStop(1, "rgba(20,184,166,0)");
+  context.fillStyle = atmosphere;
+  context.beginPath();
+  context.arc(0, 0, radius * 1.52, 0, TWO_PI);
+  context.fill();
+
+  context.save();
+  context.scale(1, 0.34);
+  const shadow = context.createRadialGradient(0, radius * 1.88, radius * 0.08, 0, radius * 1.88, radius * 0.72);
+  shadow.addColorStop(0, "rgba(0,0,0,0.34)");
+  shadow.addColorStop(1, "rgba(0,0,0,0)");
+  context.fillStyle = shadow;
+  context.beginPath();
+  context.arc(0, radius * 1.88, radius * 0.74, 0, TWO_PI);
+  context.fill();
+  context.restore();
+
+  for (const ring of outerOrbitRings) {
+    drawPolyline3d(
+      context,
+      ring,
+      rotation,
+      radius,
+      "rgba(167,243,208,0.72)",
+      "rgba(96,165,250,0.28)",
+      1.15
+    );
+  }
+
+  context.save();
+  context.beginPath();
+  context.arc(0, 0, radius, 0, TWO_PI);
+  context.clip();
+
+  const shellGradient = context.createRadialGradient(highlightX, highlightY, radius * 0.08, 0, 0, radius * 1.08);
+  shellGradient.addColorStop(0, "rgba(248,250,252,0.46)");
+  shellGradient.addColorStop(0.12, "rgba(248,250,252,0.22)");
+  shellGradient.addColorStop(0.24, "rgba(167,243,208,0.12)");
+  shellGradient.addColorStop(0.46, "rgba(15,50,44,0.52)");
+  shellGradient.addColorStop(0.76, "rgba(5,17,15,0.94)");
+  shellGradient.addColorStop(1, "rgba(3,10,10,1)");
+  context.fillStyle = shellGradient;
+  context.fillRect(-radius * 1.2, -radius * 1.2, radius * 2.4, radius * 2.4);
+
+  const terminator = context.createLinearGradient(-radius * 0.78, -radius * 0.82, radius * 0.88, radius * 0.96);
+  terminator.addColorStop(0, "rgba(255,255,255,0)");
+  terminator.addColorStop(0.32, "rgba(255,255,255,0.03)");
+  terminator.addColorStop(0.68, "rgba(0,0,0,0.16)");
+  terminator.addColorStop(1, "rgba(0,0,0,0.34)");
+  context.fillStyle = terminator;
+  context.fillRect(-radius * 1.2, -radius * 1.2, radius * 2.4, radius * 2.4);
+
+  const atmosphereBand = context.createRadialGradient(0, 0, radius * 0.8, 0, 0, radius);
+  atmosphereBand.addColorStop(0.82, "rgba(0,0,0,0)");
+  atmosphereBand.addColorStop(0.96, "rgba(167,243,208,0.08)");
+  atmosphereBand.addColorStop(1, "rgba(167,243,208,0.14)");
+  context.fillStyle = atmosphereBand;
+  context.fillRect(-radius * 1.1, -radius * 1.1, radius * 2.2, radius * 2.2);
+
+  const latitudeRings = [-58, -28, 0, 28, 58];
+  const longitudeRings = [0, 35, 70, 110, 145];
+
+  for (const latitude of latitudeRings) {
+    drawPolyline3d(
+      context,
+      createLatitudeRing(latitude),
+      rotation,
+      radius * 0.98,
+      "rgba(167,243,208,0.68)",
+      "rgba(96,165,250,0.22)",
+      0.9
+    );
+  }
+
+  for (const longitude of longitudeRings) {
+    drawPolyline3d(
+      context,
+      createLongitudeRing(longitude),
+      rotation,
+      radius * 0.98,
+      "rgba(20,184,166,0.62)",
+      "rgba(96,165,250,0.18)",
+      0.78
+    );
+  }
+
+  drawSignalPoints(context, globeSignalPoints, rotation, radius * 0.98);
+  drawBrandConstellation(context, rotation, radius, timestamp);
+
+  const lowerShadow = context.createRadialGradient(0, radius * 0.9, radius * 0.04, 0, radius * 0.82, radius * 0.66);
+  lowerShadow.addColorStop(0, "rgba(0,0,0,0.28)");
+  lowerShadow.addColorStop(1, "rgba(0,0,0,0)");
+  context.fillStyle = lowerShadow;
+  context.fillRect(-radius, -radius, radius * 2, radius * 2);
+
+  const topGloss = context.createRadialGradient(-radius * 0.18, -radius * 0.46, radius * 0.02, -radius * 0.14, -radius * 0.48, radius * 0.48);
+  topGloss.addColorStop(0, "rgba(248,250,252,0.22)");
+  topGloss.addColorStop(0.36, "rgba(248,250,252,0.08)");
+  topGloss.addColorStop(1, "rgba(248,250,252,0)");
+  context.fillStyle = topGloss;
+  context.fillRect(-radius, -radius, radius * 2, radius * 2);
+
+  context.restore();
+
+  context.beginPath();
+  context.arc(0, 0, radius, 0, TWO_PI);
+  context.strokeStyle = "rgba(248,250,252,0.08)";
+  context.lineWidth = Math.max(1.4, radius * 0.012);
+  context.stroke();
+
+  context.beginPath();
+  context.arc(0, 0, radius * 1.01, 0, TWO_PI);
+  context.strokeStyle = "rgba(167,243,208,0.12)";
+  context.lineWidth = Math.max(1, radius * 0.006);
+  context.stroke();
+
+  context.restore();
 }
 
 function HeroNetworkVisual() {
-  const [rotation, setRotation] = useState(initialRotation);
-  const [isDragging, setIsDragging] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const pointerRef = useRef<{ x: number; y: number } | null>(null);
   const rotationRef = useRef(initialRotation);
   const velocityRef = useRef({ x: 0, y: 0 });
-  const pointerRef = useRef<{ x: number; y: number } | null>(null);
+  const reducedMotionRef = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    let frameId = 0;
+    const canvas = canvasRef.current;
 
-    const animate = () => {
+    if (!canvas) {
+      return;
+    }
+
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+      return;
+    }
+
+    reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const resizeCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(rect.width * devicePixelRatio);
+      canvas.height = Math.floor(rect.height * devicePixelRatio);
+      context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    };
+
+    const animate = (timestamp: number) => {
       if (!pointerRef.current) {
-        const nextX = rotationRef.current.x + velocityRef.current.x;
-        const nextY = rotationRef.current.y + velocityRef.current.y;
-
+        rotationRef.current.x += velocityRef.current.x;
+        rotationRef.current.y += velocityRef.current.y;
         velocityRef.current.x *= 0.94;
         velocityRef.current.y *= 0.94;
 
-        if (Math.abs(velocityRef.current.x) < 0.002) {
+        if (!reducedMotionRef.current) {
+          rotationRef.current.y += AUTO_ROTATE_SPEED;
+          rotationRef.current.x += Math.sin(timestamp * 0.00045) * 0.00035;
+        }
+
+        if (Math.abs(velocityRef.current.x) < 0.00004) {
           velocityRef.current.x = 0;
         }
 
-        if (Math.abs(velocityRef.current.y) < 0.002) {
+        if (Math.abs(velocityRef.current.y) < 0.00004) {
           velocityRef.current.y = 0;
-        }
-
-        if (velocityRef.current.x !== 0 || velocityRef.current.y !== 0) {
-          rotationRef.current = { x: nextX, y: nextY };
-          setRotation(rotationRef.current);
         }
       }
 
-      frameId = window.requestAnimationFrame(animate);
+      drawGlobe(context, canvas.clientWidth, canvas.clientHeight, rotationRef.current, timestamp);
+      frameRef.current = window.requestAnimationFrame(animate);
     };
 
-    frameId = window.requestAnimationFrame(animate);
+    resizeCanvas();
+    frameRef.current = window.requestAnimationFrame(animate);
+    window.addEventListener("resize", resizeCanvas);
 
-    return () => window.cancelAnimationFrame(frameId);
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+    };
   }, []);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -235,18 +550,11 @@ function HeroNetworkVisual() {
     const deltaX = event.clientX - pointerRef.current.x;
     const deltaY = event.clientY - pointerRef.current.y;
 
-    const nextRotation = {
-      x: rotationRef.current.x - deltaY * 0.22,
-      y: rotationRef.current.y + deltaX * 0.28
-    };
-
-    rotationRef.current = nextRotation;
-    velocityRef.current = {
-      x: -deltaY * 0.018,
-      y: deltaX * 0.022
-    };
+    rotationRef.current.x -= deltaY * 0.008;
+    rotationRef.current.y += deltaX * 0.009;
+    velocityRef.current.x = -deltaY * 0.0008;
+    velocityRef.current.y = deltaX * 0.0009;
     pointerRef.current = { x: event.clientX, y: event.clientY };
-    setRotation(nextRotation);
   };
 
   const handlePointerEnd = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -258,201 +566,69 @@ function HeroNetworkVisual() {
     }
   };
 
-  const sceneTransform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
-  const badgeCounterTransform = `rotateX(${-rotation.x}deg) rotateY(${-rotation.y}deg)`;
-
   return (
     <motion.div
       animate={{ y: [0, -8, 0] }}
       transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
-      className="relative mx-auto w-full max-w-[44rem] xl:max-w-[46rem]"
+      className="relative mx-auto w-full max-w-[45rem] xl:max-w-[47rem]"
     >
-      <div className="absolute -left-8 top-16 hidden h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.08),transparent_72%)] blur-3xl lg:block" />
-      <div className="absolute right-0 top-10 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.08),transparent_72%)] blur-3xl lg:block" />
+      <div className="absolute -left-10 top-12 hidden h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.08),transparent_72%)] blur-3xl lg:block" />
+      <div className="absolute right-2 top-8 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.08),transparent_72%)] blur-3xl lg:block" />
 
-      <div className="relative overflow-visible px-1 py-4 sm:px-3 sm:py-5">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-x-[10%] inset-y-[8%] rounded-[46px] bg-[radial-gradient(circle_at_50%_50%,rgba(11,31,24,0.34),rgba(6,17,16,0.1)_62%,transparent_100%)] blur-3xl" />
-        </div>
+      <div className="relative overflow-hidden rounded-[40px] border border-[rgba(167,243,208,0.08)] bg-[linear-gradient(180deg,rgba(8,20,17,0.62),rgba(4,12,11,0.28))] px-2 py-3 shadow-[0_20px_70px_rgba(0,0,0,0.16)] sm:px-4 sm:py-4">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.06) 1px, transparent 1px)",
+            backgroundSize: "56px 56px"
+          }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(20,184,166,0.07),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(4,17,13,0.28),transparent_42%)]" />
 
         <div
-          className="relative overflow-hidden rounded-[44px]"
-          style={{
-            WebkitMaskImage:
-              "radial-gradient(ellipse 78% 74% at 50% 50%, rgba(0,0,0,1) 44%, rgba(0,0,0,0.94) 60%, rgba(0,0,0,0.6) 78%, rgba(0,0,0,0.14) 90%, transparent 100%)",
-            maskImage:
-              "radial-gradient(ellipse 78% 74% at 50% 50%, rgba(0,0,0,1) 44%, rgba(0,0,0,0.94) 60%, rgba(0,0,0,0.6) 78%, rgba(0,0,0,0.14) 90%, transparent 100%)"
+          className={`relative aspect-square select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerEnd}
+          onPointerCancel={handlePointerEnd}
+          onPointerLeave={(event) => {
+            if (pointerRef.current) {
+              handlePointerEnd(event);
+            }
           }}
         >
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-[0.08]"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, rgba(167,243,208,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.04) 1px, transparent 1px)",
-              backgroundSize: "56px 56px"
-            }}
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.06),transparent_34%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.05),transparent_18%),radial-gradient(circle_at_50%_88%,rgba(4,17,13,0.26),transparent_28%)]" />
+          <canvas ref={canvasRef} aria-hidden="true" className="h-full w-full" />
 
-          <div
-            className={`relative aspect-square select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-            style={{ perspective: "1400px" }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerEnd}
-            onPointerCancel={handlePointerEnd}
-            onPointerLeave={(event) => {
-              if (pointerRef.current) {
-                handlePointerEnd(event);
-              }
-            }}
-          >
-            <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: sceneTransform }}>
-              {techOrbitBadges.map((badge) => (
+          <div className="pointer-events-none absolute inset-0">
+            {techOrbitBadges.map((badge) => (
+              <div
+                key={badge.label}
+                className="absolute left-1/2 top-1/2"
+                style={{
+                  transform: `translate(calc(-50% + ${badge.x}px), calc(-50% + ${badge.y}px))`
+                }}
+              >
                 <div
-                  key={badge.label}
-                  className="absolute left-1/2 top-1/2 z-20"
-                  style={{
-                    transform: `translate3d(${badge.x}px, ${badge.y}px, ${badge.z}px)`,
-                    transformStyle: "preserve-3d"
-                  }}
+                  className="rounded-full border border-[rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(8,20,17,0.42),rgba(8,20,17,0.18))] px-2.5 py-1.5 shadow-[0_12px_24px_rgba(0,0,0,0.12)] backdrop-blur-md"
+                  style={{ boxShadow: `0 0 14px ${badge.accent}` }}
                 >
-                  <div
-                    className="pointer-events-none rounded-full border border-[rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(8,20,17,0.42),rgba(8,20,17,0.22))] px-2.5 py-1.5 shadow-[0_12px_24px_rgba(0,0,0,0.14)] backdrop-blur-md"
-                    style={{
-                      transform: badgeCounterTransform,
-                      boxShadow: `0 0 14px ${badge.accent}`
-                    }}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span
-                        className="inline-flex h-1.5 w-1.5 rounded-full"
-                        style={{
-                          backgroundColor: badge.text,
-                          boxShadow: `0 0 10px ${badge.accent}`
-                        }}
-                      />
-                      <span className="font-mono text-[8px] uppercase tracking-[0.16em]" style={{ color: badge.text }}>
-                        {badge.label}
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="inline-flex h-1.5 w-1.5 rounded-full"
+                      style={{
+                        backgroundColor: badge.text,
+                        boxShadow: `0 0 10px ${badge.accent}`
+                      }}
+                    />
+                    <span className="font-mono text-[8px] uppercase tracking-[0.16em]" style={{ color: badge.text }}>
+                      {badge.label}
+                    </span>
                   </div>
                 </div>
-              ))}
-
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.1),rgba(20,184,166,0.03)_56%,transparent_74%)] blur-3xl"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(-8px)" }}
-              />
-
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 100 100"
-                className="absolute inset-[13%] z-10 h-[74%] w-[74%] opacity-[0.28]"
-                style={{ transform: "translateZ(-2px)" }}
-              >
-                <defs>
-                  <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(167,243,208,0.48)" />
-                    <stop offset="55%" stopColor="rgba(20,184,166,0.32)" />
-                    <stop offset="100%" stopColor="rgba(96,165,250,0.22)" />
-                  </linearGradient>
-                </defs>
-
-                {networkLinks.map((link) => (
-                  <line
-                    key={`${link.x1}-${link.y1}-${link.x2}-${link.y2}`}
-                    x1={link.x1}
-                    y1={link.y1}
-                    x2={link.x2}
-                    y2={link.y2}
-                    stroke="url(#network-line)"
-                    strokeWidth="0.4"
-                    strokeLinecap="round"
-                    opacity="0.46"
-                  />
-                ))}
-              </svg>
-
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
-              >
-                <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.12)] opacity-54"
-                  style={{ transform: "rotateX(74deg)" }}
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-                />
               </div>
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
-              >
-                <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.11)] opacity-42"
-                  style={{ transform: "rotateY(72deg)" }}
-                  animate={{ rotate: [0, -360] }}
-                  transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-                />
-              </div>
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[84%] w-[84%] -translate-x-1/2 -translate-y-1/2"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(10px)" }}
-              >
-                <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-32"
-                  style={{ transform: "rotateX(32deg) rotateY(52deg)" }}
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
-                />
-              </div>
-
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-[64%] h-[18%] w-[32%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.46),transparent_72%)] blur-2xl"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
-              />
-
-              <div
-                className="absolute left-1/2 top-1/2 h-[68%] w-[68%] -translate-x-1/2 -translate-y-1/2"
-                style={{ transformStyle: "preserve-3d", transform: "translateZ(54px)" }}
-              >
-                <motion.div
-                  animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
-                  transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative h-full w-full"
-                >
-                  <div className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.08),rgba(20,184,166,0.02)_54%,transparent_72%)] blur-2xl" />
-                  <div className="absolute inset-[-6%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-72" />
-                  <div className="absolute inset-[-10%] rounded-full border border-[color:rgba(96,165,250,0.05)] opacity-46" />
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_22%,rgba(248,250,252,0.42),rgba(248,250,252,0.16)_10%,rgba(167,243,208,0.1)_18%,rgba(16,49,44,0.44)_34%,rgba(4,14,14,0.98)_76%),radial-gradient(circle_at_74%_72%,rgba(96,165,250,0.18),transparent_24%),radial-gradient(circle_at_56%_56%,rgba(20,184,166,0.1),transparent_40%),linear-gradient(145deg,rgba(11,31,24,0.32),rgba(2,8,8,0.9))] shadow-[inset_-32px_-44px_82px_rgba(0,0,0,0.78),inset_16px_18px_30px_rgba(255,255,255,0.06),0_30px_78px_rgba(0,0,0,0.4),0_0_78px_rgba(20,184,166,0.06)]" />
-                  <div className="absolute inset-[0.8%] rounded-full border border-[color:rgba(248,250,252,0.1)] opacity-78" />
-                  <div className="absolute inset-[3.4%] rounded-full bg-[radial-gradient(circle_at_34%_20%,rgba(248,250,252,0.14),transparent_18%),radial-gradient(circle_at_74%_78%,rgba(96,165,250,0.08),transparent_20%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
-                  <div className="absolute inset-[6%] rounded-full border border-[color:rgba(167,243,208,0.04)] opacity-72" />
-
-                  <div className="absolute inset-[11.5%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_30%,rgba(167,243,208,0.06),rgba(4,17,13,0.9)_74%)] backdrop-blur-sm shadow-[inset_0_0_42px_rgba(0,0,0,0.28)]">
-                    <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.08),rgba(0,230,118,0.03),rgba(96,165,250,0.06),rgba(20,184,166,0.08))] opacity-70 blur-[18px]" />
-                    <svg aria-hidden="true" viewBox="0 0 100 100" className="absolute inset-[8%] h-[84%] w-[84%] opacity-[0.28]">
-                      <ellipse cx="50" cy="50" rx="32" ry="10.5" fill="none" stroke="rgba(167,243,208,0.22)" strokeWidth="0.7" />
-                      <ellipse cx="50" cy="50" rx="27" ry="18.5" fill="none" stroke="rgba(96,165,250,0.18)" strokeWidth="0.55" transform="rotate(-18 50 50)" />
-                      <ellipse cx="50" cy="50" rx="16" ry="31" fill="none" stroke="rgba(20,184,166,0.18)" strokeWidth="0.55" transform="rotate(20 50 50)" />
-                      <ellipse cx="50" cy="50" rx="9" ry="34" fill="none" stroke="rgba(167,243,208,0.12)" strokeWidth="0.45" transform="rotate(-8 50 50)" />
-                    </svg>
-                    <div className="absolute inset-[8%] rounded-full border border-[color:rgba(167,243,208,0.06)]" />
-                    <div className="absolute left-[22%] right-[22%] top-[11%] h-[16%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.18),transparent_72%)] blur-xl" />
-                    <div className="absolute bottom-[10%] left-[16%] right-[16%] h-[20%] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.26),transparent_68%)] blur-xl" />
-                    <BrandConstellation />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_110%,rgba(0,0,0,0.38),transparent_50%),radial-gradient(circle_at_18%_18%,rgba(248,250,252,0.06),transparent_22%)]" />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
