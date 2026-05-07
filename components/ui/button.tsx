@@ -4,14 +4,12 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-import { Magnetic } from "@/components/ui/magnetic";
 import { cn } from "@/lib/utils";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string;
   variant?: "primary" | "secondary" | "ghost";
   size?: "md" | "lg";
-  magnetic?: boolean;
   children: ReactNode;
   className?: string;
 };
@@ -56,7 +54,6 @@ export function Button({
   className,
   variant = "primary",
   size = "md",
-  magnetic = true,
   ...props
 }: ButtonProps) {
   const content = href ? (
@@ -65,8 +62,6 @@ export function Button({
       className="inline-flex"
       data-cursor="interactive"
       data-cursor-burst="strong"
-      data-touch-surface="button"
-      data-touch-strength="strong"
     >
       <ButtonInner className={className} size={size} variant={variant}>
         {children}
@@ -77,8 +72,6 @@ export function Button({
       className="inline-flex bg-transparent"
       data-cursor="interactive"
       data-cursor-burst="strong"
-      data-touch-surface="button"
-      data-touch-strength="strong"
       {...props}
     >
       <ButtonInner className={className} size={size} variant={variant}>
@@ -87,9 +80,5 @@ export function Button({
     </button>
   );
 
-  if (!magnetic) {
-    return content;
-  }
-
-  return <Magnetic className="inline-flex">{content}</Magnetic>;
+  return content;
 }

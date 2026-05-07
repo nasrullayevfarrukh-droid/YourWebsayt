@@ -132,7 +132,7 @@ export function ContactForm() {
         <div className="text-sm text-[var(--color-muted)]">
           İdeyanı təqdim edin, strukturu və doğru həlli biz quraq.
         </div>
-        <Button type="submit" size="lg" magnetic={false} disabled={status === "loading"}>
+        <Button type="submit" size="lg" disabled={status === "loading"}>
           {status === "loading" ? "Göndərilir..." : "Sorğunu göndər"}
         </Button>
       </div>

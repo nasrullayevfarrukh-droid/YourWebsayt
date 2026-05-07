@@ -58,7 +58,6 @@ export function ServicesSection() {
           <Reveal>
             <div
               data-cursor="card"
-              data-touch-surface="card"
               className="relative overflow-hidden rounded-[38px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(0,230,118,0.08),rgba(20,184,166,0.08),rgba(11,31,24,0.94))] p-7 sm:p-9"
             >
               <div className="absolute right-0 top-0 h-48 w-48 bg-[radial-gradient(circle,rgba(0,230,118,0.16),transparent_70%)] blur-3xl" />
@@ -109,7 +108,6 @@ export function ServicesSection() {
               <Reveal key={service.title} delay={index * 0.06}>
                 <div
                   data-cursor="card"
-                  data-touch-surface="card"
                   className="group rounded-[32px] border border-[color:var(--color-border)] bg-[rgba(11,31,24,0.86)] p-6 sm:p-7"
                 >
                   <div className="flex items-start justify-between gap-4">

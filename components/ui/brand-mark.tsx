@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -11,15 +10,15 @@ type BrandMarkProps = {
 export function BrandMark({ className, compact = false }: BrandMarkProps) {
   const content = (
     <div className={cn("flex items-center gap-3", className)}>
-      <div className={cn("relative shrink-0", compact ? "h-9 w-9" : "h-10 w-10")}>
-        <Image
-          src="/images/brand/yourwebsayt-neon-symbol-clean.png"
-          alt=""
-          fill
-          sizes={compact ? "36px" : "40px"}
-          className="object-contain object-center mix-blend-screen brightness-[1.06] saturate-[1.14] drop-shadow-[0_0_18px_rgba(0,230,118,0.34)]"
-          priority
-        />
+      <div
+        className={cn(
+          "flex shrink-0 items-center justify-center rounded-2xl border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(0,230,118,0.16),rgba(11,31,24,0.96))] text-[var(--color-text)] shadow-[0_0_0_1px_rgba(167,243,208,0.04),0_18px_40px_rgba(0,230,118,0.12)]",
+          compact ? "h-9 w-9 text-[11px]" : "h-10 w-10 text-xs"
+        )}
+      >
+        <span className="font-display tracking-[-0.08em]">
+          Y<span className="text-[var(--color-accent)]">W</span>
+        </span>
       </div>
 
       <div>
@@ -36,7 +35,7 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
   );
 
   return (
-    <Link href="/" aria-label="YourWebsayt ana səhifə" className="inline-flex">
+    <Link href="/" aria-label="YourWebsayt ana sehife" className="inline-flex">
       {content}
     </Link>
   );

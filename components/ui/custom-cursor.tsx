@@ -96,36 +96,36 @@ export function CustomCursor() {
     const pushParticle = (particle: CursorParticle) => {
       particlesRef.current.push(particle);
 
-      if (particlesRef.current.length > 64) {
-        particlesRef.current.splice(0, particlesRef.current.length - 64);
+      if (particlesRef.current.length > 40) {
+        particlesRef.current.splice(0, particlesRef.current.length - 40);
       }
     };
 
     const spawnTrail = (x: number, y: number, vx: number, vy: number) => {
       pushParticle({
         color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)]!,
-        life: 10,
-        maxLife: 10,
-        size: 1.1 + Math.random() * 0.9,
-        vx: -vx * (0.04 + Math.random() * 0.03) + (Math.random() - 0.5) * 0.6,
-        vy: -vy * (0.04 + Math.random() * 0.03) + (Math.random() - 0.5) * 0.6,
+        life: 8,
+        maxLife: 8,
+        size: 0.9 + Math.random() * 0.7,
+        vx: -vx * (0.03 + Math.random() * 0.02) + (Math.random() - 0.5) * 0.45,
+        vy: -vy * (0.03 + Math.random() * 0.02) + (Math.random() - 0.5) * 0.45,
         x,
         y
       });
     };
 
     const spawnBurst = (x: number, y: number, isStrong: boolean) => {
-      const count = isStrong ? 14 : 9;
+      const count = isStrong ? 10 : 6;
 
       for (let index = 0; index < count; index += 1) {
         const angle = (Math.PI * 2 * index) / count + (Math.random() - 0.5) * 0.3;
-        const speed = (isStrong ? 2.6 : 1.9) + Math.random() * (isStrong ? 2.2 : 1.4);
+        const speed = (isStrong ? 2.1 : 1.5) + Math.random() * (isStrong ? 1.4 : 1);
 
         pushParticle({
           color: PARTICLE_COLORS[index % PARTICLE_COLORS.length]!,
-          life: isStrong ? 18 + Math.random() * 10 : 14 + Math.random() * 8,
-          maxLife: isStrong ? 18 + Math.random() * 10 : 14 + Math.random() * 8,
-          size: isStrong ? 1.5 + Math.random() * 1.4 : 1.1 + Math.random() * 1.1,
+          life: isStrong ? 14 + Math.random() * 6 : 10 + Math.random() * 5,
+          maxLife: isStrong ? 14 + Math.random() * 6 : 10 + Math.random() * 5,
+          size: isStrong ? 1.2 + Math.random() * 1 : 0.9 + Math.random() * 0.8,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
           x,
@@ -248,7 +248,7 @@ export function CustomCursor() {
 
       previousRef.current = { x: current.x, y: current.y };
 
-      if (speed > 1.2 && timestamp - lastTrailRef.current > 34) {
+      if (speed > 1.4 && timestamp - lastTrailRef.current > 48) {
         spawnTrail(current.x, current.y, vx, vy);
         lastTrailRef.current = timestamp;
       }

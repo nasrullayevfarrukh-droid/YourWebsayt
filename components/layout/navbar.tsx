@@ -56,7 +56,7 @@ export function Navbar() {
             </nav>
 
             <div className="hidden lg:block">
-              <Button href="/contact" size="md" magnetic={false}>
+              <Button href="/contact" size="md">
                 {siteConfig.consultation}
               </Button>
             </div>

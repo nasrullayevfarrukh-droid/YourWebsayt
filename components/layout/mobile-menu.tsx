@@ -72,7 +72,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <p>{siteConfig.address}</p>
                   </div>
                 </div>
-                <Button href="/contact" size="lg" className="w-full justify-between" magnetic={false}>
+                <Button href="/contact" size="lg" className="w-full justify-between">
                   {siteConfig.consultation}
                 </Button>
               </div>
