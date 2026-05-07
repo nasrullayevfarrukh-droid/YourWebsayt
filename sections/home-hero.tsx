@@ -15,14 +15,6 @@ import { luxuryEase } from "@/lib/motion";
 
 const heroLines = ["Biznesinizi daha ciddi göstərən", "premium veb saytlar qururuq"];
 
-const heroParticles = [
-  { left: "7%", top: "14%", size: 8, duration: 7.2, delay: 0.2 },
-  { left: "42%", top: "10%", size: 10, duration: 8.8, delay: 1 },
-  { left: "88%", top: "20%", size: 12, duration: 7.9, delay: 0.5 },
-  { left: "18%", top: "74%", size: 9, duration: 8.5, delay: 1.4 },
-  { left: "73%", top: "78%", size: 11, duration: 9.2, delay: 0.9 }
-] as const;
-
 const heroPreviewSignals = [
   "Real portfolio preview",
   "Mobil-first axın",
@@ -53,32 +45,6 @@ export function HomeHero() {
           backgroundSize: "min(46rem, 56vw)"
         }}
       />
-
-      {heroParticles.map((particle) => (
-        <motion.span
-          key={`${particle.left}-${particle.top}`}
-          aria-hidden="true"
-          className="absolute rounded-full bg-[rgba(167,243,208,0.9)] blur-[1px]"
-          style={{
-            left: particle.left,
-            top: particle.top,
-            width: particle.size,
-            height: particle.size,
-            boxShadow: "0 0 26px rgba(0,230,118,0.45)"
-          }}
-          animate={{
-            y: [0, -14, 0],
-            opacity: [0.2, 0.9, 0.2],
-            scale: [1, 1.15, 1]
-          }}
-          transition={{
-            duration: particle.duration,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
 
       <Container className="relative">
         <div className="grid gap-10 lg:gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
