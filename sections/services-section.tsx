@@ -79,8 +79,13 @@ export function ServicesSection() {
                       {service.description}
                     </p>
 
-                    <div className="mt-5 inline-flex rounded-full border border-[color:rgba(167,243,208,0.08)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[var(--color-highlight)]">
-                      {service.audience}
+                    <div className="mt-5 rounded-[20px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(167,243,208,0.04)] px-3.5 py-3">
+                      <div className="text-[10px] uppercase tracking-[0.24em] text-[var(--color-accent)]">
+                        Kimin üçün
+                      </div>
+                      <p className="mt-2 text-sm leading-6 text-[var(--color-highlight)]">
+                        {service.audience}
+                      </p>
                     </div>
 
                     <div className="mt-5 rounded-[24px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(6,23,18,0.72)] p-4">

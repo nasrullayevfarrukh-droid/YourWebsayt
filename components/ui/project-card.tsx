@@ -34,20 +34,22 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           <div className="absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.38))]" />
           <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_top,rgba(0,230,118,0.16),transparent_54%),radial-gradient(circle_at_top_right,rgba(20,184,166,0.14),transparent_64%)] opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
 
-          <div className="absolute left-4 top-4 z-10 inline-flex rounded-full border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.78)] px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[var(--color-text)] backdrop-blur-xl">
-            {project.category}
+          <div className="absolute inset-x-3 top-3 z-10 flex flex-wrap items-start justify-between gap-2 sm:inset-x-4 sm:top-4">
+            <div className="max-w-[12rem] rounded-full border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.78)] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text)] backdrop-blur-xl sm:max-w-[16rem]">
+              {project.category}
+            </div>
+
+            <div
+              className={cn(
+                "max-w-[10rem] rounded-full border px-3 py-1 text-right text-[10px] uppercase tracking-[0.2em] backdrop-blur-xl sm:max-w-[12rem] sm:tracking-[0.24em]",
+                statusStyles[project.status]
+              )}
+            >
+              {project.status}
+            </div>
           </div>
 
-          <div
-            className={cn(
-              "absolute right-4 top-4 z-10 inline-flex rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.24em] backdrop-blur-xl",
-              statusStyles[project.status]
-            )}
-          >
-            {project.status}
-          </div>
-
-          <div className="absolute bottom-4 left-4 z-10 rounded-full border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.78)] px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[var(--color-accent)] backdrop-blur-xl">
+          <div className="absolute bottom-3 left-3 z-10 max-w-[12rem] rounded-full border border-[color:var(--color-border)] bg-[rgba(6,23,18,0.78)] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--color-accent)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:max-w-[14rem] sm:tracking-[0.24em]">
             {project.clientType}
           </div>
 

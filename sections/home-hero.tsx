@@ -33,7 +33,7 @@ const heroProject = portfolioProjects[0]!;
 
 export function HomeHero() {
   return (
-    <section className="relative overflow-hidden pb-24 pt-28 sm:pb-28 sm:pt-32 lg:pb-32 lg:pt-36">
+    <section className="relative overflow-hidden pb-20 pt-24 sm:pb-24 sm:pt-28 lg:pb-32 lg:pt-36">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(0,230,118,0.16),transparent_30%),radial-gradient(circle_at_82%_16%,rgba(20,184,166,0.18),transparent_22%),linear-gradient(180deg,rgba(4,17,13,0),rgba(4,17,13,0.28))]" />
       <div
         aria-hidden="true"
@@ -46,7 +46,7 @@ export function HomeHero() {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-no-repeat opacity-[0.08]"
+        className="absolute inset-0 bg-no-repeat opacity-[0.05] sm:opacity-[0.08]"
         style={{
           backgroundImage: `url(${brand.heroBackgroundPath})`,
           backgroundPosition: "right -10rem top -3rem",
@@ -81,7 +81,7 @@ export function HomeHero() {
       ))}
 
       <Container className="relative">
-        <div className="grid gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
+        <div className="grid gap-10 lg:gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
           <Reveal className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)] px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-[var(--color-highlight)] shadow-[0_0_0_1px_rgba(167,243,208,0.04)]">
               <Sparkles className="size-4 text-[var(--color-accent)]" />
@@ -92,7 +92,7 @@ export function HomeHero() {
               {heroLines.map((line) => (
                 <h1
                   key={line}
-                  className="text-balance font-display text-5xl leading-[0.9] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.35rem]"
+                  className="text-balance font-display text-[2.9rem] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.35rem]"
                 >
                   {line}
                 </h1>
@@ -136,7 +136,7 @@ export function HomeHero() {
               <div className="absolute -left-8 top-14 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.22),transparent_72%)] blur-3xl lg:block" />
               <div className="absolute -right-6 bottom-10 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.18),transparent_72%)] blur-3xl lg:block" />
 
-              <div className="relative overflow-hidden rounded-[40px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.96),rgba(11,31,24,0.86))] p-4 shadow-[0_38px_120px_rgba(0,0,0,0.38)] sm:p-5">
+              <div className="relative overflow-hidden rounded-[34px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.96),rgba(11,31,24,0.86))] p-3 shadow-[0_38px_120px_rgba(0,0,0,0.38)] sm:rounded-[40px] sm:p-5">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 opacity-[0.16]"
@@ -147,7 +147,7 @@ export function HomeHero() {
                   }}
                 />
 
-                <div className="relative rounded-[30px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(4,17,13,0.76)] p-4 sm:p-5">
+                <div className="relative rounded-[24px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(4,17,13,0.76)] p-3.5 sm:rounded-[30px] sm:p-5">
                   <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[color:rgba(167,243,208,0.08)] pb-4">
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1.5">
@@ -165,7 +165,7 @@ export function HomeHero() {
                     </div>
                   </div>
 
-                  <div className="relative mt-5 overflow-hidden rounded-[26px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(6,23,18,0.76)]">
+                  <div className="relative mt-5 overflow-hidden rounded-[22px] border border-[color:rgba(167,243,208,0.1)] bg-[rgba(6,23,18,0.76)] sm:rounded-[26px]">
                     <div className="absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(4,17,13,0),rgba(4,17,13,0.48))]" />
                     <Image
                       src={heroProject.heroImage}
@@ -185,14 +185,14 @@ export function HomeHero() {
                     </motion.div>
 
                     <motion.div
-                      className="absolute bottom-4 left-4 z-10 max-w-[16rem] rounded-[24px] border border-[color:rgba(167,243,208,0.12)] bg-[rgba(6,23,18,0.78)] p-4 backdrop-blur-xl"
+                      className="absolute bottom-3 left-3 z-10 max-w-[13rem] rounded-[20px] border border-[color:rgba(167,243,208,0.12)] bg-[rgba(6,23,18,0.78)] p-3 backdrop-blur-xl sm:bottom-4 sm:left-4 sm:max-w-[16rem] sm:rounded-[24px] sm:p-4"
                       animate={{ y: [0, 8, 0] }}
                       transition={{ duration: 6.6, delay: 0.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--color-accent)]">
+                      <div className="text-[9px] uppercase tracking-[0.24em] text-[var(--color-accent)] sm:text-[10px] sm:tracking-[0.28em]">
                         Satış yönümlü axın
                       </div>
-                      <p className="mt-3 text-sm leading-6 text-[var(--color-text)]">
+                      <p className="mt-2 text-xs leading-5 text-[var(--color-text)] sm:mt-3 sm:text-sm sm:leading-6">
                         Xidmət təqdimatı, etibar bloku və əlaqə CTA-sı eyni axında işləyir.
                       </p>
                     </motion.div>
@@ -202,7 +202,7 @@ export function HomeHero() {
                     {heroPreviewSignals.map((signal, index) => (
                       <motion.div
                         key={signal}
-                        className="rounded-[22px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(11,31,24,0.74)] p-4"
+                        className="rounded-[20px] border border-[color:rgba(167,243,208,0.08)] bg-[rgba(11,31,24,0.74)] p-3.5 sm:rounded-[22px] sm:p-4"
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{

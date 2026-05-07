@@ -10,8 +10,11 @@ type BrandMarkProps = {
 };
 
 export function BrandMark({ className, compact = false }: BrandMarkProps) {
+  const brandLead = brand.siteName.slice(0, -4);
+  const brandTail = brand.siteName.slice(-4);
+
   const content = (
-    <div className={cn("flex items-center gap-3", className)}>
+    <div className={cn("flex items-center gap-2.5 sm:gap-3", className)}>
       <div
         className={cn(
           "flex shrink-0 items-center justify-center",
@@ -29,8 +32,14 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
       </div>
 
       <div>
-        <div className="font-display text-xl leading-none tracking-[-0.06em] text-[var(--color-text)]">
-          {brand.siteName}
+        <div
+          className={cn(
+            "font-display leading-none tracking-[-0.06em] text-[var(--color-text)]",
+            compact ? "text-lg sm:text-xl" : "text-xl"
+          )}
+        >
+          <span className="text-[var(--color-text)]">{brandLead}</span>
+          <span className="text-[var(--color-text)]">{brandTail}</span>
         </div>
         {!compact ? (
           <div className="mt-1 text-[10px] uppercase tracking-[0.34em] text-[var(--color-muted)]">

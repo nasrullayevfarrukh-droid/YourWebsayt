@@ -17,7 +17,7 @@ export function Footer() {
   return (
     <footer className="border-t border-[color:rgba(167,243,208,0.08)] bg-[rgba(4,17,13,0.72)] py-16 sm:py-20">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
+        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
           <div>
             <BrandMark />
             <p className="mt-4 max-w-sm text-sm leading-7 text-[var(--color-muted)]">
