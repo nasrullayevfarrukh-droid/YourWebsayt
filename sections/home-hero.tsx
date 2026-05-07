@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { BadgeCheck, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,14 @@ import { Reveal } from "@/components/ui/reveal";
 import { brand } from "@/data/brand";
 import { heroTrustIndicators } from "@/data/site";
 
-const heroLines = ["Biznesinizi daha ciddi göstərən", "premium veb saytlar qururuq"];
+const liveMessageLines = [
+  "Biznesinizi daha ciddi göstərən",
+  "premium veb saytlar qururuq.",
+  "YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri, rent a car biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü saytlar hazırlayır.",
+  "Sadəcə gözəl görünən sayt yox, müştərini inandıran və müraciətə aparan veb təcrübə yaradırıq.",
+  "Mobil uyğun, sürətli, SEO hazır və premium görünüşlü saytlarla biznesinizin onlayn imicini gücləndiririk.",
+  "Hər layihə hazır şablon kimi yox, sizin biznesinizə uyğun fərdi strukturla hazırlanır."
+] as const;
 
 const techOrbitBadges = [
   {
@@ -144,6 +151,117 @@ const brandMarkNodes = [
 ] as const;
 
 const initialRotation = { x: -16, y: 24 };
+
+function LiveProjectMessagePanel() {
+  const reducedMotion = useReducedMotion();
+  const [lineIndex, setLineIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      return;
+    }
+
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const currentLine = liveMessageLines[lineIndex] ?? "";
+    const typeDelay = lineIndex < 2 ? 24 : 12;
+
+    if (charIndex < currentLine.length) {
+      timeoutId = setTimeout(() => {
+        setCharIndex((value) => value + 1);
+      }, typeDelay);
+    } else if (lineIndex < liveMessageLines.length - 1) {
+      timeoutId = setTimeout(() => {
+        setLineIndex((value) => value + 1);
+        setCharIndex(0);
+      }, 420);
+    } else {
+      timeoutId = setTimeout(() => {
+        setLineIndex(0);
+        setCharIndex(0);
+      }, 3600);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [charIndex, lineIndex, reducedMotion]);
+
+  const visibleLines = liveMessageLines.map((line, index) => {
+    if (reducedMotion || index < lineIndex) {
+      return line;
+    }
+
+    if (index === lineIndex) {
+      return line.slice(0, charIndex);
+    }
+
+    return "";
+  });
+
+  return (
+    <div className="relative max-w-3xl overflow-hidden rounded-[28px] border border-[rgba(167,243,208,0.12)] bg-[linear-gradient(180deg,rgba(9,26,21,0.96),rgba(6,18,15,0.9))] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.28)] sm:rounded-[32px] sm:p-5">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.14]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.06) 1px, transparent 1px)",
+          backgroundSize: "32px 32px"
+        }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(0,230,118,0.14),transparent_24%),radial-gradient(circle_at_88%_12%,rgba(20,184,166,0.12),transparent_28%)]" />
+
+      <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(167,243,208,0.08)] pb-4">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-[rgba(248,250,252,0.22)]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[rgba(20,184,166,0.42)]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[rgba(0,230,118,0.68)]" />
+          </div>
+          <div className="rounded-full border border-[rgba(167,243,208,0.12)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--color-highlight)]">
+            YourWebsayt Studio
+          </div>
+        </div>
+
+        <div className="rounded-full border border-[rgba(167,243,208,0.1)] bg-[rgba(6,17,16,0.58)] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--color-muted)]">
+          Premium Website Flow
+        </div>
+      </div>
+
+      <div className="relative mt-4 rounded-[24px] border border-[rgba(167,243,208,0.08)] bg-[rgba(5,16,13,0.66)] px-3 py-4 sm:px-4 sm:py-5">
+        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-[var(--color-accent)]">
+          <Sparkles className="size-3.5" />
+          Live Project Message
+        </div>
+
+        <div className="mt-4 space-y-3">
+          {liveMessageLines.map((line, index) => {
+            const isActive = !reducedMotion && index === lineIndex;
+            const text = visibleLines[index];
+
+            return (
+              <div key={line} className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 sm:grid-cols-[2.5rem_minmax(0,1fr)]">
+                <div className="pt-0.5 font-mono text-[10px] tracking-[0.22em] text-[rgba(167,243,208,0.42)]">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="min-h-[1.65rem] text-[13px] leading-6 text-[rgba(248,250,252,0.92)] sm:text-[14px] sm:leading-6">
+                  {text || <span className="opacity-0">.</span>}
+                  {isActive ? (
+                    <motion.span
+                      aria-hidden="true"
+                      className="ml-1 inline-block h-[1.05em] w-[0.5ch] rounded-[1px] bg-[var(--color-highlight)] align-[-0.18em]"
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 1.05, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function BrandConstellation() {
   return (
@@ -331,156 +449,156 @@ function HeroNetworkVisual() {
               }
             }}
           >
-          <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: sceneTransform }}>
-            {techOrbitBadges.map((badge) => (
-              <div
-                key={badge.label}
-                className="absolute left-1/2 top-1/2 z-20"
-                style={{
-                  transform: `translate3d(${badge.x}px, ${badge.y}px, ${badge.z}px)`,
-                  transformStyle: "preserve-3d"
-                }}
-              >
+            <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: sceneTransform }}>
+              {techOrbitBadges.map((badge) => (
                 <div
-                  className="pointer-events-none min-w-[4.6rem] rounded-[18px] border border-[rgba(167,243,208,0.14)] bg-[rgba(6,17,16,0.82)] px-3 py-2 shadow-[0_18px_48px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                  key={badge.label}
+                  className="absolute left-1/2 top-1/2 z-20"
                   style={{
-                    transform: badgeCounterTransform,
-                    boxShadow: `0 0 24px ${badge.accent}`
+                    transform: `translate3d(${badge.x}px, ${badge.y}px, ${badge.z}px)`,
+                    transformStyle: "preserve-3d"
                   }}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className="font-mono text-[10px] uppercase tracking-[0.24em]"
-                      style={{ color: badge.text }}
-                    >
-                      {badge.label}
-                    </span>
-                    <span className="font-mono text-[11px]" style={{ color: badge.text }}>
-                      {badge.glyph}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-[9px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-                    {badge.detail}
+                  <div
+                    className="pointer-events-none min-w-[4.6rem] rounded-[18px] border border-[rgba(167,243,208,0.14)] bg-[rgba(6,17,16,0.82)] px-3 py-2 shadow-[0_18px_48px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                    style={{
+                      transform: badgeCounterTransform,
+                      boxShadow: `0 0 24px ${badge.accent}`
+                    }}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span
+                        className="font-mono text-[10px] uppercase tracking-[0.24em]"
+                        style={{ color: badge.text }}
+                      >
+                        {badge.label}
+                      </span>
+                      <span className="font-mono text-[11px]" style={{ color: badge.text }}>
+                        {badge.glyph}
+                      </span>
+                    </div>
+                    <div className="mt-1 text-[9px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
+                      {badge.detail}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 100 100"
-              className="absolute inset-[10%] z-10 h-[80%] w-[80%] opacity-[0.72]"
-              style={{ transform: "translateZ(4px)" }}
-            >
-              <defs>
-                <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="rgba(167,243,208,0.55)" />
-                  <stop offset="55%" stopColor="rgba(20,184,166,0.38)" />
-                  <stop offset="100%" stopColor="rgba(96,165,250,0.25)" />
-                </linearGradient>
-              </defs>
-
-              {networkLinks.map((link) => (
-                <line
-                  key={`${link.x1}-${link.y1}-${link.x2}-${link.y2}`}
-                  x1={link.x1}
-                  y1={link.y1}
-                  x2={link.x2}
-                  y2={link.y2}
-                  stroke="url(#network-line)"
-                  strokeWidth="0.45"
-                  strokeLinecap="round"
-                  opacity="0.74"
-                />
               ))}
 
-              <circle
-                cx="50"
-                cy="50"
-                r="18.5"
-                fill="none"
-                stroke="rgba(167,243,208,0.14)"
-                strokeWidth="0.45"
-              />
-              <ellipse
-                cx="50"
-                cy="50"
-                rx="26"
-                ry="11"
-                fill="none"
-                stroke="rgba(96,165,250,0.14)"
-                strokeWidth="0.32"
-                transform="rotate(-18 50 50)"
-              />
-              <ellipse
-                cx="50"
-                cy="50"
-                rx="12"
-                ry="28"
-                fill="none"
-                stroke="rgba(20,184,166,0.14)"
-                strokeWidth="0.32"
-                transform="rotate(22 50 50)"
-              />
-            </svg>
-
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 top-1/2 h-[58%] w-[34%] -translate-x-1/2 -translate-y-1/2"
-              style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
-            >
-              <motion.div
-                className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.14)] opacity-60"
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 top-1/2 h-[40%] w-[70%] -translate-x-1/2 -translate-y-1/2"
-              style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
-            >
-              <motion.div
-                className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.14)] opacity-50"
-                animate={{ rotate: [0, -360] }}
-                transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
-
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 top-[58%] h-[20%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.58),transparent_72%)] blur-2xl"
-              style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
-            />
-
-            <div
-              className="absolute left-1/2 top-1/2 h-[52%] w-[52%] -translate-x-1/2 -translate-y-1/2"
-              style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
-            >
-              <motion.div
-                animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
-                transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
-                className="relative h-full w-full"
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 100 100"
+                className="absolute inset-[10%] z-10 h-[80%] w-[80%] opacity-[0.72]"
+                style={{ transform: "translateZ(4px)" }}
               >
-                <div className="absolute inset-[-14%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-80" />
-                <div className="absolute inset-[-24%] rounded-full border border-[color:rgba(96,165,250,0.06)] opacity-70" />
-                <div className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.14),transparent_64%)] blur-2xl" />
-                <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.26),rgba(167,243,208,0.14)_12%,rgba(18,56,49,0.44)_32%,rgba(4,14,14,0.94)_74%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.1),transparent_44%)] shadow-[inset_-18px_-30px_56px_rgba(0,0,0,0.58),inset_10px_14px_26px_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.3),0_0_110px_rgba(20,184,166,0.1)]" />
-                <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-70" />
-                <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_34%_24%,rgba(248,250,252,0.1),transparent_18%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
+                <defs>
+                  <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(167,243,208,0.55)" />
+                    <stop offset="55%" stopColor="rgba(20,184,166,0.38)" />
+                    <stop offset="100%" stopColor="rgba(96,165,250,0.25)" />
+                  </linearGradient>
+                </defs>
 
-                <div className="absolute inset-[13%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_34%,rgba(167,243,208,0.06),rgba(4,17,13,0.82)_72%)] backdrop-blur-sm shadow-[inset_0_0_32px_rgba(0,0,0,0.24)]">
-                  <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.1),rgba(0,230,118,0.03),rgba(96,165,250,0.07),rgba(20,184,166,0.1))] opacity-75 blur-[18px]" />
-                  <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.07)]" />
-                  <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.16),transparent_72%)] blur-xl" />
-                  <div className="absolute inset-x-[16%] top-[8%] h-[12%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.1),transparent_78%)] blur-2xl" />
-                  <BrandConstellation />
-                </div>
-              </motion.div>
+                {networkLinks.map((link) => (
+                  <line
+                    key={`${link.x1}-${link.y1}-${link.x2}-${link.y2}`}
+                    x1={link.x1}
+                    y1={link.y1}
+                    x2={link.x2}
+                    y2={link.y2}
+                    stroke="url(#network-line)"
+                    strokeWidth="0.45"
+                    strokeLinecap="round"
+                    opacity="0.74"
+                  />
+                ))}
+
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="18.5"
+                  fill="none"
+                  stroke="rgba(167,243,208,0.14)"
+                  strokeWidth="0.45"
+                />
+                <ellipse
+                  cx="50"
+                  cy="50"
+                  rx="26"
+                  ry="11"
+                  fill="none"
+                  stroke="rgba(96,165,250,0.14)"
+                  strokeWidth="0.32"
+                  transform="rotate(-18 50 50)"
+                />
+                <ellipse
+                  cx="50"
+                  cy="50"
+                  rx="12"
+                  ry="28"
+                  fill="none"
+                  stroke="rgba(20,184,166,0.14)"
+                  strokeWidth="0.32"
+                  transform="rotate(22 50 50)"
+                />
+              </svg>
+
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[58%] w-[34%] -translate-x-1/2 -translate-y-1/2"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
+              >
+                <motion.div
+                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.14)] opacity-60"
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[40%] w-[70%] -translate-x-1/2 -translate-y-1/2"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
+              >
+                <motion.div
+                  className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.14)] opacity-50"
+                  animate={{ rotate: [0, -360] }}
+                  transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                />
+              </div>
+
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-[58%] h-[20%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.58),transparent_72%)] blur-2xl"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
+              />
+
+              <div
+                className="absolute left-1/2 top-1/2 h-[52%] w-[52%] -translate-x-1/2 -translate-y-1/2"
+                style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
+                  transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="relative h-full w-full"
+                >
+                  <div className="absolute inset-[-14%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-80" />
+                  <div className="absolute inset-[-24%] rounded-full border border-[color:rgba(96,165,250,0.06)] opacity-70" />
+                  <div className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.14),transparent_64%)] blur-2xl" />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.26),rgba(167,243,208,0.14)_12%,rgba(18,56,49,0.44)_32%,rgba(4,14,14,0.94)_74%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.1),transparent_44%)] shadow-[inset_-18px_-30px_56px_rgba(0,0,0,0.58),inset_10px_14px_26px_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.3),0_0_110px_rgba(20,184,166,0.1)]" />
+                  <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-70" />
+                  <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_34%_24%,rgba(248,250,252,0.1),transparent_18%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
+
+                  <div className="absolute inset-[13%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_34%,rgba(167,243,208,0.06),rgba(4,17,13,0.82)_72%)] backdrop-blur-sm shadow-[inset_0_0_32px_rgba(0,0,0,0.24)]">
+                    <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.1),rgba(0,230,118,0.03),rgba(96,165,250,0.07),rgba(20,184,166,0.1))] opacity-75 blur-[18px]" />
+                    <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.07)]" />
+                    <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.16),transparent_72%)] blur-xl" />
+                    <div className="absolute inset-x-[16%] top-[8%] h-[12%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.1),transparent_78%)] blur-2xl" />
+                    <BrandConstellation />
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </motion.div>
   );
@@ -512,26 +630,7 @@ export function HomeHero() {
       <Container className="relative">
         <div className="grid gap-10 lg:gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
           <Reveal className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)] px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-[var(--color-highlight)] shadow-[0_0_0_1px_rgba(167,243,208,0.04)]">
-              <Sparkles className="size-4 text-[var(--color-accent)]" />
-              Premium web studio
-            </div>
-
-            <div className="mt-6 space-y-2">
-              {heroLines.map((line) => (
-                <h1
-                  key={line}
-                  className="text-balance font-display text-[2.9rem] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.35rem]"
-                >
-                  {line}
-                </h1>
-              ))}
-            </div>
-
-            <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--color-muted)] sm:text-lg">
-              YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri, rent a car
-              biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü saytlar hazırlayır.
-            </p>
+            <LiveProjectMessagePanel />
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/contact" size="lg">
