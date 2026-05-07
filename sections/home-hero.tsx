@@ -1,84 +1,63 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { BadgeCheck, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { brand } from "@/data/brand";
 import { heroTrustIndicators } from "@/data/site";
 
-const liveMessageLines = [
-  "Biznesinizi daha ciddi göstərən",
-  "premium veb saytlar qururuq.",
-  "YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri, rent a car biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü saytlar hazırlayır.",
-  "Sadəcə gözəl görünən sayt yox, müştərini inandıran və müraciətə aparan veb təcrübə yaradırıq.",
-  "Mobil uyğun, sürətli, SEO hazır və premium görünüşlü saytlarla biznesinizin onlayn imicini gücləndiririk.",
-  "Hər layihə hazır şablon kimi yox, sizin biznesinizə uyğun fərdi strukturla hazırlanır."
-] as const;
+const heroHeadline = "Biznesinizi daha ciddi göstərən premium veb saytlar qururuq";
+const heroDescription =
+  "YourWebsayt şirkətlər, restoranlar, klinikalar, daşınmaz əmlak ofisləri, rent a car biznesləri və şəxsi brendlər üçün sürətli, modern və satış yönümlü saytlar hazırlayır.";
 
 const techOrbitBadges = [
   {
     label: "AI",
-    detail: "agent",
-    glyph: "◌",
+    glyph: "◎",
     x: 0,
-    y: -156,
-    z: 148,
-    accent: "rgba(167,243,208,0.24)",
-    text: "rgba(248,250,252,0.96)"
-  },
-  {
-    label: "PY",
-    detail: "python",
-    glyph: "Py",
-    x: -154,
-    y: -52,
-    z: 122,
-    accent: "rgba(20,184,166,0.24)",
-    text: "rgba(167,243,208,0.94)"
-  },
-  {
-    label: "JS",
-    detail: "script",
-    glyph: "{ }",
-    x: 156,
-    y: -46,
-    z: 98,
-    accent: "rgba(96,165,250,0.24)",
+    y: -146,
+    z: 128,
+    accent: "rgba(167,243,208,0.18)",
     text: "rgba(248,250,252,0.94)"
   },
   {
-    label: "HTML",
-    detail: "css",
-    glyph: "</>",
-    x: 146,
-    y: 100,
-    z: 110,
-    accent: "rgba(129,140,248,0.22)",
+    label: "PY",
+    glyph: "py",
+    x: -134,
+    y: -40,
+    z: 100,
+    accent: "rgba(20,184,166,0.16)",
     text: "rgba(167,243,208,0.92)"
   },
   {
-    label: "NODE",
-    detail: "runtime",
-    glyph: "[]",
-    x: -148,
-    y: 112,
-    z: 102,
-    accent: "rgba(0,230,118,0.22)",
+    label: "JS",
+    glyph: "{}",
+    x: 140,
+    y: -36,
+    z: 92,
+    accent: "rgba(96,165,250,0.16)",
     text: "rgba(248,250,252,0.92)"
   },
   {
-    label: "JAVA",
-    detail: "backend",
-    glyph: "//",
-    x: 0,
-    y: 160,
-    z: 138,
-    accent: "rgba(96,165,250,0.22)",
-    text: "rgba(167,243,208,0.92)"
+    label: "WEB",
+    glyph: "</>",
+    x: 126,
+    y: 90,
+    z: 96,
+    accent: "rgba(129,140,248,0.15)",
+    text: "rgba(167,243,208,0.9)"
+  },
+  {
+    label: "NODE",
+    glyph: "<>",
+    x: -128,
+    y: 98,
+    z: 92,
+    accent: "rgba(0,230,118,0.16)",
+    text: "rgba(248,250,252,0.9)"
   }
 ] as const;
 
@@ -151,117 +130,6 @@ const brandMarkNodes = [
 ] as const;
 
 const initialRotation = { x: -16, y: 24 };
-
-function LiveProjectMessagePanel() {
-  const reducedMotion = useReducedMotion();
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-
-  useEffect(() => {
-    if (reducedMotion) {
-      return;
-    }
-
-    let timeoutId: ReturnType<typeof setTimeout>;
-    const currentLine = liveMessageLines[lineIndex] ?? "";
-    const typeDelay = lineIndex < 2 ? 24 : 12;
-
-    if (charIndex < currentLine.length) {
-      timeoutId = setTimeout(() => {
-        setCharIndex((value) => value + 1);
-      }, typeDelay);
-    } else if (lineIndex < liveMessageLines.length - 1) {
-      timeoutId = setTimeout(() => {
-        setLineIndex((value) => value + 1);
-        setCharIndex(0);
-      }, 420);
-    } else {
-      timeoutId = setTimeout(() => {
-        setLineIndex(0);
-        setCharIndex(0);
-      }, 3600);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [charIndex, lineIndex, reducedMotion]);
-
-  const visibleLines = liveMessageLines.map((line, index) => {
-    if (reducedMotion || index < lineIndex) {
-      return line;
-    }
-
-    if (index === lineIndex) {
-      return line.slice(0, charIndex);
-    }
-
-    return "";
-  });
-
-  return (
-    <div className="relative max-w-3xl overflow-hidden rounded-[28px] border border-[rgba(167,243,208,0.12)] bg-[linear-gradient(180deg,rgba(9,26,21,0.96),rgba(6,18,15,0.9))] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.28)] sm:rounded-[32px] sm:p-5">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-[0.14]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.06) 1px, transparent 1px)",
-          backgroundSize: "32px 32px"
-        }}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(0,230,118,0.14),transparent_24%),radial-gradient(circle_at_88%_12%,rgba(20,184,166,0.12),transparent_28%)]" />
-
-      <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(167,243,208,0.08)] pb-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[rgba(248,250,252,0.22)]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[rgba(20,184,166,0.42)]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[rgba(0,230,118,0.68)]" />
-          </div>
-          <div className="rounded-full border border-[rgba(167,243,208,0.12)] bg-[rgba(167,243,208,0.04)] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--color-highlight)]">
-            YourWebsayt Studio
-          </div>
-        </div>
-
-        <div className="rounded-full border border-[rgba(167,243,208,0.1)] bg-[rgba(6,17,16,0.58)] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--color-muted)]">
-          Premium Website Flow
-        </div>
-      </div>
-
-      <div className="relative mt-4 rounded-[24px] border border-[rgba(167,243,208,0.08)] bg-[rgba(5,16,13,0.66)] px-3 py-4 sm:px-4 sm:py-5">
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-[var(--color-accent)]">
-          <Sparkles className="size-3.5" />
-          Live Project Message
-        </div>
-
-        <div className="mt-4 space-y-3">
-          {liveMessageLines.map((line, index) => {
-            const isActive = !reducedMotion && index === lineIndex;
-            const text = visibleLines[index];
-
-            return (
-              <div key={line} className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 sm:grid-cols-[2.5rem_minmax(0,1fr)]">
-                <div className="pt-0.5 font-mono text-[10px] tracking-[0.22em] text-[rgba(167,243,208,0.42)]">
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-                <div className="min-h-[1.65rem] text-[13px] leading-6 text-[rgba(248,250,252,0.92)] sm:text-[14px] sm:leading-6">
-                  {text || <span className="opacity-0">.</span>}
-                  {isActive ? (
-                    <motion.span
-                      aria-hidden="true"
-                      className="ml-1 inline-block h-[1.05em] w-[0.5ch] rounded-[1px] bg-[var(--color-highlight)] align-[-0.18em]"
-                      animate={{ opacity: [0, 1, 0] }}
-                      transition={{ duration: 1.05, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                  ) : null}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function BrandConstellation() {
   return (
@@ -400,41 +268,37 @@ function HeroNetworkVisual() {
 
   return (
     <motion.div
-      animate={{ y: [0, -10, 0] }}
+      animate={{ y: [0, -8, 0] }}
       transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
-      className="relative mx-auto w-full max-w-[40rem]"
+      className="relative mx-auto w-full max-w-[39rem]"
     >
-      <div className="absolute -left-10 top-14 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.18),transparent_72%)] blur-3xl lg:block" />
-      <div className="absolute -right-4 bottom-10 hidden h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.14),transparent_72%)] blur-3xl lg:block" />
+      <div className="absolute -left-10 top-14 hidden h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.14),transparent_72%)] blur-3xl lg:block" />
+      <div className="absolute -right-4 bottom-10 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.12),transparent_72%)] blur-3xl lg:block" />
 
       <div className="relative overflow-visible px-2 py-4 sm:px-4 sm:py-5">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-x-[10%] inset-y-[10%] rounded-[46px] bg-[radial-gradient(circle_at_50%_50%,rgba(11,31,24,0.62),rgba(6,17,16,0.22)_60%,transparent_100%)] blur-2xl" />
-          <div className="absolute left-[10%] top-[12%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.16),transparent_72%)] blur-3xl" />
-          <div className="absolute right-[8%] bottom-[14%] h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.14),transparent_72%)] blur-3xl" />
+          <div className="absolute inset-x-[12%] inset-y-[10%] rounded-[46px] bg-[radial-gradient(circle_at_50%_50%,rgba(11,31,24,0.46),rgba(6,17,16,0.18)_60%,transparent_100%)] blur-2xl" />
         </div>
 
         <div
           className="relative overflow-hidden rounded-[44px]"
           style={{
             WebkitMaskImage:
-              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.96) 58%, rgba(0,0,0,0.7) 76%, rgba(0,0,0,0.26) 90%, transparent 100%)",
+              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.94) 58%, rgba(0,0,0,0.66) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)",
             maskImage:
-              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.96) 58%, rgba(0,0,0,0.7) 76%, rgba(0,0,0,0.26) 90%, transparent 100%)"
+              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.94) 58%, rgba(0,0,0,0.66) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)"
           }}
         >
           <div
             aria-hidden="true"
-            className="absolute inset-0 opacity-[0.14]"
+            className="absolute inset-0 opacity-[0.12]"
             style={{
               backgroundImage:
-                "linear-gradient(to right, rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.06) 1px, transparent 1px)",
+                "linear-gradient(to right, rgba(167,243,208,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.05) 1px, transparent 1px)",
               backgroundSize: "48px 48px"
             }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.12),transparent_32%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.08),transparent_20%),radial-gradient(circle_at_50%_88%,rgba(4,17,13,0.34),transparent_28%)]" />
-          <div className="absolute inset-x-[16%] top-[10%] h-px bg-[linear-gradient(90deg,transparent,rgba(167,243,208,0.16),transparent)]" />
-          <div className="absolute inset-x-[18%] bottom-[14%] h-px bg-[linear-gradient(90deg,transparent,rgba(96,165,250,0.12),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.1),transparent_32%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.06),transparent_20%),radial-gradient(circle_at_50%_88%,rgba(4,17,13,0.3),transparent_28%)]" />
 
           <div
             className={`relative aspect-[0.98/1] select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
@@ -460,25 +324,22 @@ function HeroNetworkVisual() {
                   }}
                 >
                   <div
-                    className="pointer-events-none min-w-[4.6rem] rounded-[18px] border border-[rgba(167,243,208,0.14)] bg-[rgba(6,17,16,0.82)] px-3 py-2 shadow-[0_18px_48px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                    className="pointer-events-none rounded-full border border-[rgba(167,243,208,0.12)] bg-[rgba(7,19,16,0.44)] px-2.5 py-2 shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-xl"
                     style={{
                       transform: badgeCounterTransform,
-                      boxShadow: `0 0 24px ${badge.accent}`
+                      boxShadow: `0 0 18px ${badge.accent}`
                     }}
                   >
-                    <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
                       <span
-                        className="font-mono text-[10px] uppercase tracking-[0.24em]"
+                        className="font-mono text-[9px] uppercase tracking-[0.18em]"
                         style={{ color: badge.text }}
                       >
                         {badge.label}
                       </span>
-                      <span className="font-mono text-[11px]" style={{ color: badge.text }}>
+                      <span className="font-mono text-[9px] opacity-80" style={{ color: badge.text }}>
                         {badge.glyph}
                       </span>
-                    </div>
-                    <div className="mt-1 text-[9px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-                      {badge.detail}
                     </div>
                   </div>
                 </div>
@@ -487,14 +348,14 @@ function HeroNetworkVisual() {
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 100"
-                className="absolute inset-[10%] z-10 h-[80%] w-[80%] opacity-[0.72]"
+                className="absolute inset-[10%] z-10 h-[80%] w-[80%] opacity-[0.62]"
                 style={{ transform: "translateZ(4px)" }}
               >
                 <defs>
                   <linearGradient id="network-line" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(167,243,208,0.55)" />
-                    <stop offset="55%" stopColor="rgba(20,184,166,0.38)" />
-                    <stop offset="100%" stopColor="rgba(96,165,250,0.25)" />
+                    <stop offset="0%" stopColor="rgba(167,243,208,0.48)" />
+                    <stop offset="55%" stopColor="rgba(20,184,166,0.32)" />
+                    <stop offset="100%" stopColor="rgba(96,165,250,0.22)" />
                   </linearGradient>
                 </defs>
 
@@ -508,7 +369,7 @@ function HeroNetworkVisual() {
                     stroke="url(#network-line)"
                     strokeWidth="0.45"
                     strokeLinecap="round"
-                    opacity="0.74"
+                    opacity="0.6"
                   />
                 ))}
 
@@ -517,7 +378,7 @@ function HeroNetworkVisual() {
                   cy="50"
                   r="18.5"
                   fill="none"
-                  stroke="rgba(167,243,208,0.14)"
+                  stroke="rgba(167,243,208,0.12)"
                   strokeWidth="0.45"
                 />
                 <ellipse
@@ -526,8 +387,8 @@ function HeroNetworkVisual() {
                   rx="26"
                   ry="11"
                   fill="none"
-                  stroke="rgba(96,165,250,0.14)"
-                  strokeWidth="0.32"
+                  stroke="rgba(96,165,250,0.12)"
+                  strokeWidth="0.3"
                   transform="rotate(-18 50 50)"
                 />
                 <ellipse
@@ -536,30 +397,30 @@ function HeroNetworkVisual() {
                   rx="12"
                   ry="28"
                   fill="none"
-                  stroke="rgba(20,184,166,0.14)"
-                  strokeWidth="0.32"
+                  stroke="rgba(20,184,166,0.12)"
+                  strokeWidth="0.3"
                   transform="rotate(22 50 50)"
                 />
               </svg>
 
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[58%] w-[34%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[56%] w-[34%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(16px)" }}
               >
                 <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.14)] opacity-60"
+                  className="h-full w-full rounded-full border border-[color:rgba(167,243,208,0.12)] opacity-56"
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
               </div>
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[40%] w-[70%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[40%] w-[68%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(12px)" }}
               >
                 <motion.div
-                  className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.14)] opacity-50"
+                  className="h-full w-full rounded-full border border-[color:rgba(96,165,250,0.12)] opacity-44"
                   animate={{ rotate: [0, -360] }}
                   transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
                 />
@@ -567,12 +428,12 @@ function HeroNetworkVisual() {
 
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-[58%] h-[20%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.58),transparent_72%)] blur-2xl"
+                className="absolute left-1/2 top-[58%] h-[20%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.48),transparent_72%)] blur-2xl"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
               />
 
               <div
-                className="absolute left-1/2 top-1/2 h-[52%] w-[52%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[56%] w-[56%] -translate-x-1/2 -translate-y-1/2"
                 style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
               >
                 <motion.div
@@ -580,18 +441,17 @@ function HeroNetworkVisual() {
                   transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
                   className="relative h-full w-full"
                 >
-                  <div className="absolute inset-[-14%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-80" />
-                  <div className="absolute inset-[-24%] rounded-full border border-[color:rgba(96,165,250,0.06)] opacity-70" />
-                  <div className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.14),transparent_64%)] blur-2xl" />
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.26),rgba(167,243,208,0.14)_12%,rgba(18,56,49,0.44)_32%,rgba(4,14,14,0.94)_74%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.1),transparent_44%)] shadow-[inset_-18px_-30px_56px_rgba(0,0,0,0.58),inset_10px_14px_26px_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.3),0_0_110px_rgba(20,184,166,0.1)]" />
-                  <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-70" />
+                  <div className="absolute inset-[-10%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-72" />
+                  <div className="absolute inset-[-18%] rounded-full border border-[color:rgba(96,165,250,0.05)] opacity-62" />
+                  <div className="absolute inset-[-14%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.12),transparent_64%)] blur-2xl" />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.28),rgba(167,243,208,0.14)_12%,rgba(18,56,49,0.46)_30%,rgba(4,14,14,0.96)_74%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.16),transparent_28%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.1),transparent_44%)] shadow-[inset_-18px_-30px_56px_rgba(0,0,0,0.6),inset_10px_14px_26px_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.28),0_0_100px_rgba(20,184,166,0.08)]" />
+                  <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-72" />
                   <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_34%_24%,rgba(248,250,252,0.1),transparent_18%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
 
-                  <div className="absolute inset-[13%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_34%,rgba(167,243,208,0.06),rgba(4,17,13,0.82)_72%)] backdrop-blur-sm shadow-[inset_0_0_32px_rgba(0,0,0,0.24)]">
-                    <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.1),rgba(0,230,118,0.03),rgba(96,165,250,0.07),rgba(20,184,166,0.1))] opacity-75 blur-[18px]" />
-                    <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.07)]" />
+                  <div className="absolute inset-[12.5%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_34%,rgba(167,243,208,0.05),rgba(4,17,13,0.84)_72%)] backdrop-blur-sm shadow-[inset_0_0_32px_rgba(0,0,0,0.24)]">
+                    <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.08),rgba(0,230,118,0.03),rgba(96,165,250,0.06),rgba(20,184,166,0.08))] opacity-70 blur-[18px]" />
+                    <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.06)]" />
                     <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.16),transparent_72%)] blur-xl" />
-                    <div className="absolute inset-x-[16%] top-[8%] h-[12%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.1),transparent_78%)] blur-2xl" />
                     <BrandConstellation />
                   </div>
                 </motion.div>
@@ -617,20 +477,22 @@ export function HomeHero() {
           backgroundSize: "72px 72px"
         }}
       />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-no-repeat opacity-[0.05] sm:opacity-[0.08]"
-        style={{
-          backgroundImage: `url(${brand.heroBackgroundPath})`,
-          backgroundPosition: "right -10rem top -3rem",
-          backgroundSize: "min(46rem, 56vw)"
-        }}
-      />
 
       <Container className="relative">
         <div className="grid gap-10 lg:gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] xl:items-center">
           <Reveal className="max-w-3xl">
-            <LiveProjectMessagePanel />
+            <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[rgba(167,243,208,0.05)] px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-[var(--color-highlight)] shadow-[0_0_0_1px_rgba(167,243,208,0.04)]">
+              <Sparkles className="size-4 text-[var(--color-accent)]" />
+              Premium web studio
+            </div>
+
+            <h1 className="mt-6 max-w-3xl text-balance font-display text-[2.9rem] leading-[0.92] tracking-[-0.06em] text-[var(--color-text)] sm:text-6xl xl:text-[5.2rem]">
+              {heroHeadline}
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--color-muted)] sm:text-lg">
+              {heroDescription}
+            </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/contact" size="lg">

@@ -83,10 +83,10 @@ body::after {
   left: 50%;
   top: 50%;
   z-index: 0;
-  width: min(54vw, 42rem);
-  height: min(54vw, 42rem);
+  width: min(48vw, 36rem);
+  height: min(48vw, 36rem);
   transform: translate(-50%, -50%);
-  opacity: 0.055;
+  opacity: 0.03;
   background-image: var(--brand-watermark-url);
   background-repeat: no-repeat;
   background-position: center;
@@ -147,9 +147,9 @@ img {
 
 @media (max-width: 768px) {
   body::after {
-    width: min(68vw, 22rem);
-    height: min(68vw, 22rem);
-    opacity: 0.035;
+    width: min(58vw, 18rem);
+    height: min(58vw, 18rem);
+    opacity: 0.02;
     filter: drop-shadow(0 0 26px rgba(20, 184, 166, 0.06));
   }
 }
