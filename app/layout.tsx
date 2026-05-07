@@ -66,7 +66,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="az">
-      <body className={`${sans.variable} ${display.variable} overflow-x-hidden antialiased`}>
+      <body
+        className={`${sans.variable} ${display.variable} overflow-x-hidden antialiased`}
+        style={
+          {
+            "--brand-watermark-url": `url(${brand.logoPath})`
+          } as React.CSSProperties
+        }
+      >
         <Providers>
           <SiteShell>{children}</SiteShell>
         </Providers>
