@@ -34,12 +34,14 @@ export function BrandMark({ className, compact = false }: BrandMarkProps) {
       <div>
         <div
           className={cn(
-            "font-display leading-none tracking-[-0.06em] text-[var(--color-text)]",
+            "font-display leading-none tracking-[-0.06em]",
             compact ? "text-lg sm:text-xl" : "text-xl"
           )}
         >
           <span className="text-[var(--color-text)]">{brandLead}</span>
-          <span className="text-[var(--color-text)]">{brandTail}</span>
+          <span className="text-[rgba(109,214,154,0.9)] [text-shadow:0_0_18px_rgba(0,230,118,0.12)]">
+            {brandTail}
+          </span>
         </div>
         {!compact ? (
           <div className="mt-1 text-[10px] uppercase tracking-[0.34em] text-[var(--color-muted)]">
