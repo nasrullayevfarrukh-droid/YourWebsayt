@@ -289,33 +289,48 @@ function HeroNetworkVisual() {
       <div className="absolute -left-10 top-14 hidden h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.18),transparent_72%)] blur-3xl lg:block" />
       <div className="absolute -right-4 bottom-10 hidden h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.14),transparent_72%)] blur-3xl lg:block" />
 
-      <div className="relative overflow-hidden rounded-[34px] border border-[color:rgba(167,243,208,0.1)] bg-[linear-gradient(180deg,rgba(11,31,24,0.95),rgba(5,14,13,0.98))] p-4 shadow-[0_38px_120px_rgba(0,0,0,0.4)] sm:rounded-[40px] sm:p-5">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.18]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(167,243,208,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.08) 1px, transparent 1px)",
-            backgroundSize: "48px 48px"
-          }}
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.12),transparent_34%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.08),transparent_20%)]" />
-        <div className="absolute inset-x-6 top-6 h-px bg-[linear-gradient(90deg,transparent,rgba(167,243,208,0.22),transparent)]" />
-        <div className="absolute inset-x-8 bottom-8 h-px bg-[linear-gradient(90deg,transparent,rgba(96,165,250,0.16),transparent)]" />
+      <div className="relative overflow-visible px-2 py-4 sm:px-4 sm:py-5">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-x-[10%] inset-y-[10%] rounded-[46px] bg-[radial-gradient(circle_at_50%_50%,rgba(11,31,24,0.62),rgba(6,17,16,0.22)_60%,transparent_100%)] blur-2xl" />
+          <div className="absolute left-[10%] top-[12%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(0,230,118,0.16),transparent_72%)] blur-3xl" />
+          <div className="absolute right-[8%] bottom-[14%] h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.14),transparent_72%)] blur-3xl" />
+        </div>
 
         <div
-          className={`relative aspect-[0.98/1] select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-          style={{ perspective: "1400px" }}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerEnd}
-          onPointerCancel={handlePointerEnd}
-          onPointerLeave={(event) => {
-            if (pointerRef.current) {
-              handlePointerEnd(event);
-            }
+          className="relative overflow-hidden rounded-[44px]"
+          style={{
+            WebkitMaskImage:
+              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.96) 58%, rgba(0,0,0,0.7) 76%, rgba(0,0,0,0.26) 90%, transparent 100%)",
+            maskImage:
+              "radial-gradient(ellipse 76% 72% at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.96) 58%, rgba(0,0,0,0.7) 76%, rgba(0,0,0,0.26) 90%, transparent 100%)"
           }}
         >
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.14]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,184,166,0.06) 1px, transparent 1px)",
+              backgroundSize: "48px 48px"
+            }}
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.12),transparent_32%),radial-gradient(circle_at_50%_18%,rgba(248,250,252,0.08),transparent_20%),radial-gradient(circle_at_50%_88%,rgba(4,17,13,0.34),transparent_28%)]" />
+          <div className="absolute inset-x-[16%] top-[10%] h-px bg-[linear-gradient(90deg,transparent,rgba(167,243,208,0.16),transparent)]" />
+          <div className="absolute inset-x-[18%] bottom-[14%] h-px bg-[linear-gradient(90deg,transparent,rgba(96,165,250,0.12),transparent)]" />
+
+          <div
+            className={`relative aspect-[0.98/1] select-none touch-pan-y ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+            style={{ perspective: "1400px" }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerEnd}
+            onPointerCancel={handlePointerEnd}
+            onPointerLeave={(event) => {
+              if (pointerRef.current) {
+                handlePointerEnd(event);
+              }
+            }}
+          >
           <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: sceneTransform }}>
             {techOrbitBadges.map((badge) => (
               <div
@@ -354,7 +369,7 @@ function HeroNetworkVisual() {
             <svg
               aria-hidden="true"
               viewBox="0 0 100 100"
-              className="absolute inset-[8%] z-10 h-[84%] w-[84%] opacity-85"
+              className="absolute inset-[10%] z-10 h-[80%] w-[80%] opacity-[0.72]"
               style={{ transform: "translateZ(4px)" }}
             >
               <defs>
@@ -375,7 +390,7 @@ function HeroNetworkVisual() {
                   stroke="url(#network-line)"
                   strokeWidth="0.45"
                   strokeLinecap="round"
-                  opacity="0.9"
+                  opacity="0.74"
                 />
               ))}
 
@@ -384,7 +399,7 @@ function HeroNetworkVisual() {
                 cy="50"
                 r="18.5"
                 fill="none"
-                stroke="rgba(167,243,208,0.16)"
+                stroke="rgba(167,243,208,0.14)"
                 strokeWidth="0.45"
               />
               <ellipse
@@ -393,8 +408,8 @@ function HeroNetworkVisual() {
                 rx="26"
                 ry="11"
                 fill="none"
-                stroke="rgba(96,165,250,0.18)"
-                strokeWidth="0.35"
+                stroke="rgba(96,165,250,0.14)"
+                strokeWidth="0.32"
                 transform="rotate(-18 50 50)"
               />
               <ellipse
@@ -403,8 +418,8 @@ function HeroNetworkVisual() {
                 rx="12"
                 ry="28"
                 fill="none"
-                stroke="rgba(20,184,166,0.18)"
-                strokeWidth="0.35"
+                stroke="rgba(20,184,166,0.14)"
+                strokeWidth="0.32"
                 transform="rotate(22 50 50)"
               />
             </svg>
@@ -433,28 +448,39 @@ function HeroNetworkVisual() {
             </div>
 
             <div
-              className="absolute left-1/2 top-1/2 h-[48%] w-[48%] -translate-x-1/2 -translate-y-1/2"
-              style={{ transformStyle: "preserve-3d", transform: "translateZ(44px)" }}
+              aria-hidden="true"
+              className="absolute left-1/2 top-[58%] h-[20%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.58),transparent_72%)] blur-2xl"
+              style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
+            />
+
+            <div
+              className="absolute left-1/2 top-1/2 h-[52%] w-[52%] -translate-x-1/2 -translate-y-1/2"
+              style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
             >
               <motion.div
                 animate={{ scale: [1, 1.02, 1], rotate: [0, 1.2, 0] }}
                 transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
                 className="relative h-full w-full"
               >
-                <div className="absolute inset-[-18%] rounded-full border border-[color:rgba(167,243,208,0.1)]" />
-                <div className="absolute inset-[-32%] rounded-full border border-[color:rgba(96,165,250,0.08)]" />
-                <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_34%_28%,rgba(248,250,252,0.18),rgba(20,184,166,0.2)_20%,rgba(6,17,16,0.94)_72%)] shadow-[0_0_40px_rgba(0,230,118,0.14),0_0_100px_rgba(96,165,250,0.12)]" />
+                <div className="absolute inset-[-14%] rounded-full border border-[color:rgba(167,243,208,0.08)] opacity-80" />
+                <div className="absolute inset-[-24%] rounded-full border border-[color:rgba(96,165,250,0.06)] opacity-70" />
+                <div className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.14),transparent_64%)] blur-2xl" />
+                <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_22%,rgba(248,250,252,0.26),rgba(167,243,208,0.14)_12%,rgba(18,56,49,0.44)_32%,rgba(4,14,14,0.94)_74%),radial-gradient(circle_at_70%_76%,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_48%_52%,rgba(20,184,166,0.1),transparent_44%)] shadow-[inset_-18px_-30px_56px_rgba(0,0,0,0.58),inset_10px_14px_26px_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.3),0_0_110px_rgba(20,184,166,0.1)]" />
+                <div className="absolute inset-[1.5%] rounded-full border border-[color:rgba(248,250,252,0.08)] opacity-70" />
+                <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_34%_24%,rgba(248,250,252,0.1),transparent_18%),linear-gradient(150deg,transparent_36%,rgba(255,255,255,0.03)_48%,transparent_58%)] opacity-90" />
 
-                <div className="absolute inset-[14%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.16)] bg-[radial-gradient(circle_at_50%_36%,rgba(167,243,208,0.08),rgba(4,17,13,0.84)_72%)] backdrop-blur-sm">
-                  <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.12),rgba(0,230,118,0.04),rgba(96,165,250,0.08),rgba(20,184,166,0.12))] opacity-75 blur-[18px]" />
-                  <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.08)]" />
-                  <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.14),transparent_72%)] blur-xl" />
+                <div className="absolute inset-[13%] overflow-hidden rounded-full border border-[color:rgba(167,243,208,0.14)] bg-[radial-gradient(circle_at_50%_34%,rgba(167,243,208,0.06),rgba(4,17,13,0.82)_72%)] backdrop-blur-sm shadow-[inset_0_0_32px_rgba(0,0,0,0.24)]">
+                  <div className="absolute inset-0 bg-[conic-gradient(from_180deg,rgba(20,184,166,0.1),rgba(0,230,118,0.03),rgba(96,165,250,0.07),rgba(20,184,166,0.1))] opacity-75 blur-[18px]" />
+                  <div className="absolute inset-[10%] rounded-full border border-[color:rgba(167,243,208,0.07)]" />
+                  <div className="absolute left-[22%] right-[22%] top-[12%] h-[18%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.16),transparent_72%)] blur-xl" />
+                  <div className="absolute inset-x-[16%] top-[8%] h-[12%] rounded-full bg-[radial-gradient(circle,rgba(248,250,252,0.1),transparent_78%)] blur-2xl" />
                   <BrandConstellation />
                 </div>
               </motion.div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </motion.div>
   );
