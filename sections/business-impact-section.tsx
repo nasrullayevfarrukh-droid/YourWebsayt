@@ -2,6 +2,7 @@ import { ArrowUpRight, CheckCircle2, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { DecorativeCubeField } from "@/components/ui/decorative-cube-field";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { trustPoints, whyChooseUs } from "@/data/site";
@@ -14,8 +15,9 @@ const transformationHighlights = [
 
 export function BusinessImpactSection() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative isolate overflow-hidden py-24 sm:py-28">
       <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_18%_0%,rgba(0,230,118,0.12),transparent_58%)]" />
+      <DecorativeCubeField variant="split" className="opacity-78" />
 
       <SectionHeading
         eyebrow="Niyə YourWebsayt"
@@ -23,7 +25,7 @@ export function BusinessImpactSection() {
         description="CodeGent-dəki kimi bir-birinə bağlı flow hissi yaratmaq üçün vizual dil, section ritmi, CTA yerləşimi və mobil-first struktur eyni sistemdə işləməlidir."
       />
 
-      <Container>
+      <Container className="relative">
         <div className="grid gap-6 xl:grid-cols-[0.88fr_1.12fr]">
           <Reveal>
             <div className="relative overflow-hidden rounded-[36px] border border-[var(--color-accent-secondary)]/24 bg-[linear-gradient(180deg,rgba(0,230,118,0.08),rgba(20,184,166,0.09),rgba(11,31,24,0.92))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.22)] sm:p-7">

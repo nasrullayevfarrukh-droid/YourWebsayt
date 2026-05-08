@@ -1,7 +1,7 @@
 import { Building2, CheckCircle2, Globe2, Sparkles } from "lucide-react";
 
-import { AmbientTechBackdrop } from "@/components/ui/ambient-tech-backdrop";
 import { Container } from "@/components/ui/container";
+import { DecorativeCubeField } from "@/components/ui/decorative-cube-field";
 import { Reveal } from "@/components/ui/reveal";
 import { trustStripItems } from "@/data/home";
 
@@ -18,8 +18,8 @@ const stripIcons = [Sparkles, Building2, Globe2, CheckCircle2];
 
 export function TrustStrip() {
   return (
-    <section className="relative isolate pb-20 sm:pb-24">
-      <AmbientTechBackdrop className="-top-10 bottom-2 opacity-90" />
+    <section className="relative isolate overflow-hidden pb-20 sm:pb-24">
+      <DecorativeCubeField variant="split" className="opacity-70" />
 
       <Container className="relative">
         <Reveal>

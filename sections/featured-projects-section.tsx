@@ -1,6 +1,6 @@
-import { AmbientTechBackdrop } from "@/components/ui/ambient-tech-backdrop";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { DecorativeCubeField } from "@/components/ui/decorative-cube-field";
 import { ProjectCard } from "@/components/ui/project-card";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -12,7 +12,7 @@ export function FeaturedProjectsSection() {
   return (
     <section className="relative isolate py-24 sm:py-28">
       <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_78%_0%,rgba(20,184,166,0.12),transparent_58%)]" />
-      <AmbientTechBackdrop variant="showcase" className="-top-6 -bottom-10 opacity-95" />
+      <DecorativeCubeField variant="showcase" className="-top-6 -bottom-10 opacity-90" />
 
       <SectionHeading
         className="relative"

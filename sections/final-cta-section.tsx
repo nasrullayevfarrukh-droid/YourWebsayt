@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { DecorativeCubeField } from "@/components/ui/decorative-cube-field";
 import { Reveal } from "@/components/ui/reveal";
 
 const ctaPoints = [
@@ -10,8 +11,9 @@ const ctaPoints = [
 
 export function FinalCtaSection() {
   return (
-    <section className="pb-20 pt-6 sm:pb-24 sm:pt-8">
-      <Container>
+    <section className="relative isolate overflow-hidden pb-20 pt-6 sm:pb-24 sm:pt-8">
+      <DecorativeCubeField variant="left" className="opacity-72" />
+      <Container className="relative">
         <Reveal>
           <div className="relative overflow-hidden rounded-[40px] border border-[var(--color-accent-secondary)]/28 bg-[linear-gradient(140deg,rgba(0,230,118,0.08),rgba(20,184,166,0.12)_44%,rgba(11,31,24,0.94))] px-6 py-8 sm:px-9 sm:py-12">
             <div className="absolute right-0 top-0 h-56 w-56 bg-[radial-gradient(circle,rgba(0,230,118,0.18),transparent_72%)] blur-3xl" />

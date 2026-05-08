@@ -156,6 +156,75 @@ body::after {
   will-change: opacity;
 }
 
+@keyframes cubeFloatSlow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(1.4deg);
+  }
+}
+
+@keyframes cubeFloatAlt {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, 12px, 0) rotate(-1.8deg);
+  }
+}
+
+@keyframes cubeMistPulse {
+  0%,
+  100% {
+    opacity: 0.34;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.62;
+    transform: translate3d(12px, -8px, 0) scale(1.06);
+  }
+}
+
+@keyframes cubeParticleDrift {
+  0%,
+  100% {
+    opacity: 0.32;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.86;
+    transform: translate3d(4px, -10px, 0);
+  }
+}
+
+.cube-float-slow {
+  animation: cubeFloatSlow 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.cube-float-alt {
+  animation: cubeFloatAlt 21s ease-in-out infinite;
+  will-change: transform;
+}
+
+.cube-mist {
+  animation: cubeMistPulse 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.cube-mist-alt {
+  animation: cubeMistPulse 19s ease-in-out infinite reverse;
+  will-change: transform, opacity;
+}
+
+.cube-particle {
+  animation: cubeParticleDrift 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 main,
 footer,
 header {

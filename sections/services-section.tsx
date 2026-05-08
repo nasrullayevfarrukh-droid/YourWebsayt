@@ -13,6 +13,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { DecorativeCubeField } from "@/components/ui/decorative-cube-field";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { studioServices } from "@/data/home";
@@ -32,8 +33,9 @@ const serviceIcons = [
 
 export function ServicesSection() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative isolate overflow-hidden py-24 sm:py-28">
       <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.12),transparent_68%)]" />
+      <DecorativeCubeField variant="left" className="opacity-85" />
 
       <SectionHeading
         eyebrow="Xidmətlər / həllər"
@@ -46,7 +48,7 @@ export function ServicesSection() {
         }
       />
 
-      <Container>
+      <Container className="relative">
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {studioServices.map((service, index) => {
             const Icon = serviceIcons[index % serviceIcons.length]!;

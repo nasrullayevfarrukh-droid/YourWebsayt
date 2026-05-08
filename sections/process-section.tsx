@@ -1,8 +1,8 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { AmbientTechBackdrop } from "@/components/ui/ambient-tech-backdrop";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { DecorativeCubeField } from "@/components/ui/decorative-cube-field";
 import { Reveal } from "@/components/ui/reveal";
 import { processSteps } from "@/data/site";
 
@@ -15,9 +15,9 @@ const processProof = [
 
 export function ProcessSection() {
   return (
-    <section className="relative isolate py-24 sm:py-28">
+    <section className="relative isolate overflow-hidden py-24 sm:py-28">
       <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_20%_0%,rgba(0,230,118,0.12),transparent_55%)]" />
-      <AmbientTechBackdrop className="-top-8 bottom-4 opacity-80" />
+      <DecorativeCubeField variant="right" className="-top-8 bottom-4 opacity-80" />
 
       <Container className="relative">
         <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr] xl:items-start">
