@@ -60,7 +60,7 @@ export function ContactForm() {
 
     try {
       const message = buildWhatsAppMessage(form);
-      const whatsappUrl = `${siteConfig.whatsappUrl}?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = `${siteConfig.whatsappHref}?text=${encodeURIComponent(message)}`;
       const openedWindow = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
       if (!openedWindow) {

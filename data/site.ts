@@ -7,8 +7,8 @@ export const siteConfig = {
     "YourWebsayt biznesini daha peşəkar göstərmək və daha çox sorğu toplamaq istəyənlər üçün premium, sürətli və mobil-first veb saytlar qurur.",
   url: "https://yourwebsayt.az",
   email: "nasrullayevfarrukh@gmail.com",
-  phone: "+994 55 780 99 17",
-  whatsappUrl: "https://wa.me/994557809917",
+  phone: "+994557809917",
+  whatsappHref: "https://wa.me/994557809917",
   address: "Bakı, Azərbaycan",
   consultation: "Layihəni müzakirə edək",
   socialLinks: [{ label: "Instagram", href: "https://instagram.com" }]

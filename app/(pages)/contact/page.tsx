@@ -114,7 +114,7 @@ export default function ContactPage() {
                     Email yaz
                   </a>
                   <a
-                    href={siteConfig.whatsappUrl}
+                    href={siteConfig.whatsappHref}
                     className="inline-flex h-12 items-center rounded-full bg-[var(--color-accent)] px-5 text-sm font-medium text-[var(--color-accent-ink)] transition-transform duration-300 hover:-translate-y-0.5"
                   >
                     WhatsApp ilə yaz
