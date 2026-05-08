@@ -1,3 +1,4 @@
+import { AmbientTechBackdrop } from "@/components/ui/ambient-tech-backdrop";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ProjectCard } from "@/components/ui/project-card";
@@ -9,10 +10,12 @@ const selectedProjects = portfolioProjects.slice(0, 6);
 
 export function FeaturedProjectsSection() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative isolate py-24 sm:py-28">
       <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_78%_0%,rgba(20,184,166,0.12),transparent_58%)]" />
+      <AmbientTechBackdrop variant="showcase" className="-top-6 -bottom-10 opacity-95" />
 
       <SectionHeading
+        className="relative"
         eyebrow="Seçilmiş işlər"
         title="Real layihələr və demo işlər eyni premium standartda təqdim olunur."
         description="Tubel İnşaat, Rentacarss.az və digər real işlərdən tutmuş sahə yönümlü demo saytlarına qədər bütün portfoliomuz daha ciddi, daha texnoloji və daha inandırıcı təqdimat üzərində qurulub."
@@ -23,7 +26,7 @@ export function FeaturedProjectsSection() {
         }
       />
 
-      <Container>
+      <Container className="relative">
         <Reveal>
           <div className="mb-8 rounded-[32px] border border-[var(--color-accent-secondary)]/24 bg-[linear-gradient(180deg,rgba(0,230,118,0.06),rgba(20,184,166,0.08),rgba(11,31,24,0.9))] px-6 py-6 sm:px-7">
             <div className="grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">

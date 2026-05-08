@@ -1,5 +1,6 @@
 import { Building2, CheckCircle2, Globe2, Sparkles } from "lucide-react";
 
+import { AmbientTechBackdrop } from "@/components/ui/ambient-tech-backdrop";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { trustStripItems } from "@/data/home";
@@ -17,8 +18,10 @@ const stripIcons = [Sparkles, Building2, Globe2, CheckCircle2];
 
 export function TrustStrip() {
   return (
-    <section className="relative pb-20 sm:pb-24">
-      <Container>
+    <section className="relative isolate pb-20 sm:pb-24">
+      <AmbientTechBackdrop className="-top-10 bottom-2 opacity-90" />
+
+      <Container className="relative">
         <Reveal>
           <div className="relative overflow-hidden rounded-[34px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.92),rgba(11,31,24,0.82))] px-5 py-5 shadow-[0_24px_80px_rgba(0,0,0,0.22)] sm:px-6 sm:py-6">
             <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,rgba(0,230,118,0.16),transparent_70%)]" />

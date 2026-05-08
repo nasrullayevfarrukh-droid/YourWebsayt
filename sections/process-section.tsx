@@ -1,5 +1,6 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 
+import { AmbientTechBackdrop } from "@/components/ui/ambient-tech-backdrop";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
@@ -14,10 +15,11 @@ const processProof = [
 
 export function ProcessSection() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative isolate py-24 sm:py-28">
       <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_20%_0%,rgba(0,230,118,0.12),transparent_55%)]" />
+      <AmbientTechBackdrop className="-top-8 bottom-4 opacity-80" />
 
-      <Container>
+      <Container className="relative">
         <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr] xl:items-start">
           <Reveal>
             <div className="rounded-[36px] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,rgba(11,31,24,0.94),rgba(11,31,24,0.82))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.22)] sm:p-7 xl:sticky xl:top-28">
